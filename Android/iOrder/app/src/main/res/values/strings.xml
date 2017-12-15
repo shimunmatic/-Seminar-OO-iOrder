@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">iOrder</string>
+    <string name="version_1_0">version 1.0</string>
+    <string name="email">E-mail address</string>
+    <string name="password">Password</string>
+    <string name="login">Log in</string>
+    <string name="register">Not registered yet?</string>
+    <string name="signup">Register</string>
+    <string name="nick">Name</string>
+    <string name="confirmPass">Confirm password</string>
+    <string name="surname">Surname</string>
+    <string name="emailError">E-mail address should look like: user@domain.com</string>
+    <string name="passwordError">Password should not be longer than 8 characters</string>
+    <string name="loading">Loading...</string>
+    <item name="visible" type="id" />
+    <item name="masked" type="id" />
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_location">Locations</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_history">History</string>
+    <string name="object_name">Establishment</string>
+    <string name="point_the_camera_to_qr_code_for_scanning">Point the camera to QR code for scanning</string>
+</resources>

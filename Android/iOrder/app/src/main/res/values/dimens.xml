@@ -1,0 +1,38 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_marginSmaller">16dp</dimen>
+    <dimen name="activity_vertical_marginBigger">32dp</dimen>
+    <dimen name="activity_horizontal_extraBigger">64dp</dimen>
+    <dimen name="appbar_padding_top">8dp</dimen>
+    <dimen name="tab_indicator_height">4dp</dimen>
+    <dimen name="nav_header_vertical_spacing">56dp</dimen>
+    <dimen name="nav_header_height">160dp</dimen>
+    <dimen name="nav_header_tv_margin">12dp</dimen>
+    <dimen name="default_padding">16dp</dimen>
+    <dimen name="progress_margin">24dp</dimen>
+
+    <dimen name="details_image_height">239dp</dimen>
+    <dimen name="details_line_spacing">2dp</dimen>
+
+    <dimen name="article_layout">112dp</dimen>
+    <dimen name="close_image">25dp</dimen>
+    <dimen name="square_image">72dp</dimen>
+
+    <dimen name="xxx_large_text">28sp</dimen>
+    <dimen name="extra_large_text">22sp</dimen>
+    <dimen name="large_text">20sp</dimen>
+    <dimen name="big_textSize">18sp</dimen>
+    <dimen name="medium_textSize">16sp</dimen>
+    <dimen name="small_medium_textSize">14sp</dimen>
+    <dimen name="small_textSize">12sp</dimen>
+
+    <dimen name="little_view_height">2dp</dimen>
+    <dimen name="article_separator_marginTop">15dp</dimen>
+    <dimen name="arrow_height">25dp</dimen>
+    <dimen name="load_more_layout_height">64dp</dimen>
+    <dimen name="rounded_edittext_padding">12dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+</resources>
