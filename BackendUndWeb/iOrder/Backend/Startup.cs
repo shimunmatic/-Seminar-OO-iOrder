@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Backend.Converters.EntityBusiness.Implementation;
+using Backend.Converters.EntityBusiness.Interface;
+using Backend.Repositories.Implementation;
+using Backend.Repositories.Interface;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -23,6 +27,8 @@ namespace Backend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IRoleConverter, RoleConverter>();
+            services.AddScoped< IRoleRepository, RoleRepository>();
             services.AddMvc();
         }
 
