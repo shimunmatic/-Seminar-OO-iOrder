@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Frontend.Models;
+using Backend.Models.Entity;
 
 namespace Frontend.Controllers
 {
@@ -12,6 +13,7 @@ namespace Frontend.Controllers
     {
         public IActionResult Index()
         {
+            var user = new UserEntity();
             return View();
         }
 
