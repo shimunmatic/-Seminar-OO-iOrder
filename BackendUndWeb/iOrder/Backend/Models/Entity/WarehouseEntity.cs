@@ -7,10 +7,10 @@ namespace Backend.Models.Entity
 {
     public class WarehouseEntity
     {
-        public long Id { get; set; }
-        public string OwnerId { get; set; }
-        public string Address { get; set; }
-        public string Zip { get; set; }
-        public string City { get; set; }
+        public virtual long Id { get; set; }
+        public virtual string OwnerId { get; set; }
+        public virtual string Address { get; set; }
+        public virtual string Zip { get; set; }
+        public virtual string City { get; set; }
     }
 }
