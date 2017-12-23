@@ -7,12 +7,12 @@ namespace Backend.Models.Entity
 {
     public class OrderEntity
     {
-        public long Id { get; set; }
-        public string CustomerId { get; set; }
-        public DateTime Date { get; set; }
-        public string EmployeeId { get; set; }
-        public short Paid { get; set; }
-        public long LocationId { get; set; }
-        public long EstablishmentId { get; set; }
+        public virtual long Id { get; set; }
+        public virtual string CustomerId { get; set; }
+        public virtual DateTime Date { get; set; }
+        public virtual string EmployeeId { get; set; }
+        public virtual short Paid { get; set; }
+        public virtual long LocationId { get; set; }
+        public virtual long EstablishmentId { get; set; }
     }
 }

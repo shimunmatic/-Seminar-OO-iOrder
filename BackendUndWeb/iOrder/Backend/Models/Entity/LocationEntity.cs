@@ -7,9 +7,9 @@ namespace Backend.Models.Entity
 {
     public class LocationEntity
     {
-        public long Id { get; set; }
-        public long EstablishmentId { get; set; }
-        public string Name { get; set; }
+        public virtual long Id { get; set; }
+        public virtual long EstablishmentId { get; set; }
+        public virtual string Name { get; set; }
 
     }
 }
