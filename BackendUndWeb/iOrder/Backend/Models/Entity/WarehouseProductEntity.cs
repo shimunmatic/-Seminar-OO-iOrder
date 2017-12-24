@@ -7,9 +7,10 @@ namespace Backend.Models.Entity
 {
     public class WarehouseProductEntity
     {
-        public long ProductId { get; set; }
-        public long WearhouseId { get; set; }
-        public int Quantity { get; set; }
-        public decimal SellingPrice { get; set; }
+        public virtual long Id { get; set; }
+        public virtual long ProductId { get; set; }
+        public virtual long WearhouseId { get; set; }
+        public virtual int Quantity { get; set; }
+        public virtual decimal SellingPrice { get; set; }
     }
 }

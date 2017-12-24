@@ -7,11 +7,11 @@ namespace Backend.Models.Entity
 {
     public class ProductEntity
     {
-        public long Id { get; set; }
-        public long CategoryId { get; set; }
-        public string Name { get; set; }
-        public decimal BuyingPrice { get; set; }
-        public string OwnerId { get; set; }
-        public string SupplierId { get; set; }
+        public virtual long Id { get; set; }
+        public virtual long CategoryId { get; set; }
+        public virtual string Name { get; set; }
+        public virtual decimal BuyingPrice { get; set; }
+        public virtual string OwnerId { get; set; }
+        public virtual string SupplierId { get; set; }
     }
 }

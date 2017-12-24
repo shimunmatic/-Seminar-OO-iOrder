@@ -7,9 +7,9 @@ namespace Backend.Models.Entity
 {
     public class OrderPairEntity
     {
-        public long Id { get; set; }
-        public long OrderId { get; set; }
-        public int Quantity { get; set; }
-        public long ProductId { get; set; }
+        public virtual long Id { get; set; }
+        public virtual long OrderId { get; set; }
+        public virtual int Quantity { get; set; }
+        public virtual long ProductId { get; set; }
     }
 }
