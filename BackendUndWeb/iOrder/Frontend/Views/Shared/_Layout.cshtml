@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Frontend</title>
+    <title>@ViewData["Title"] - iOrder</title>
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -17,6 +17,7 @@
     </environment>
 </head>
 <body>
+    @*Navigation*@
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -35,7 +36,6 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-left">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Orders</a></li>
-
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
@@ -51,13 +51,17 @@
             </div>
         </div>
     </nav>
+
+    @*Content*@
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - iOrder&trade;</p>
-        </footer>
     </div>
+
+    @*Footer*@
+    <footer class="navbar-fixed-bottom">
+        <hr />
+        <p>&copy; @DateTime.Now.Year - iOrder&trade;</p>
+    </footer>
 
     <div class="modal fade" id="confirmLogoutModal">
         <div class="modal-dialog">
@@ -72,7 +76,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" asp-area="" asp-controller="Login" asp-action="Logout">
-                    Logout
+                        Logout
                     </button>
                 </div>
             </div><
