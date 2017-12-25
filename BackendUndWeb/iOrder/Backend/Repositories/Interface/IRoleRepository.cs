@@ -10,5 +10,14 @@ namespace Backend.Repositories.Interface
     public interface IRoleRepository
     {
         IEnumerable<Role> GetAll();
+        Role Save(Role role);
+        Role Update(long Id, Role role);
+        bool Delete(Role role);
+
+        Role GetById(long Id);
+
+        Role GetByName(string name);
+
+
     }
 }

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Backend.Converters.EntityBusiness
+namespace Backend.Repositories.Interface
 {
-    public class EntityToBusinessConverter
+    interface ICategoryRepository
     {
     }
 }
