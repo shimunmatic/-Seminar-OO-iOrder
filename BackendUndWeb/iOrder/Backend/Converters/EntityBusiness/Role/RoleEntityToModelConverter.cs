@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Backend.Models.Business;
 using Backend.Models.Entity;
 
-namespace Backend.Converters.EntityBusiness.Implementation
+namespace Backend.Converters.EntityBusiness
 {
     public class RoleEntityToModelConverter : IConverter<RoleEntity, Role>
     {

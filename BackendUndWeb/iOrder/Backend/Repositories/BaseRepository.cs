@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Backend.Repositories
 {
-    public class BaseRepository<T>
+    public class BaseRepository<T> : IBaseRepository<T>
 
     {
         public virtual IEnumerable<T> GetAll()
@@ -37,7 +37,7 @@ namespace Backend.Repositories
             }
         }
 
-        public virtual T Update(long Id, T t)
+        public virtual T Update(object Id, T t)
         {
             using (var db = NHibernateHelper.OpenSession())
             {

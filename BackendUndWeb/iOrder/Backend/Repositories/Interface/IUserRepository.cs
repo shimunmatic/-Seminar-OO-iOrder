@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Backend.Repositories.Interface
 {
-    interface ICategoryRepository:IBaseRepository<Category>
+    public interface IUserRepository : IBaseRepository<User>
     {
-        Category GetParent(long Id);
-        IEnumerable<Category> GetCategoriesOfOwner(string username);
+        IEnumerable<User> GetEmployeesOfEsatblishemnt(long Id);
+        IEnumerable<User> GetEmployeesOfOwner(string username);
 
     }
 }

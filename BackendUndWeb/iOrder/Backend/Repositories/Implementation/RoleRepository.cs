@@ -30,9 +30,9 @@ namespace Backend.Repositories.Implementation
 
         public IEnumerable<Role> GetAll()
         {
+            var roles = EntityModelConverter.Convert(BaseRepository.GetAll());
             using (var db = NHibernateHelper.OpenSession())
             {
-                var roles = EntityModelConverter.Convert(db.Query<RoleEntity>().ToList());
                 var users = db.Query<UserEntity>().ToList();
                 foreach (var role in roles)
                 {
@@ -44,13 +44,16 @@ namespace Backend.Repositories.Implementation
             }
         }
 
-        public Role GetById(long Id)
+        public Role GetById(object Id)
         {
+            if (null == Id)
+                return null;
+            var roleId = (long)Id;
             var role = EntityModelConverter.Convert(BaseRepository.GetById(Id));
 
             using (var db = NHibernateHelper.OpenSession())
             {
-                var users = db.Query<UserEntity>().Where(user => user.RoleId == Id);
+                var users = db.Query<UserEntity>().Where(user => user.RoleId == roleId);
                 role.Users = users;
                 return role;
             }
@@ -70,7 +73,7 @@ namespace Backend.Repositories.Implementation
             return EntityModelConverter.Convert(BaseRepository.Save(ModelEntityConverter.Convert(role)));
         }
 
-        public Role Update(long Id, Role role)
+        public Role Update(object Id, Role role)
         {
             return EntityModelConverter.Convert(BaseRepository.Update(Id, ModelEntityConverter.Convert(role)));
         }

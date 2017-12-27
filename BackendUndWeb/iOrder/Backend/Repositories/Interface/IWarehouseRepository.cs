@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace Backend.Repositories.Interface
 {
-    interface ICategoryRepository:IBaseRepository<Category>
+    public interface IWarehouseRepository:IBaseRepository<Warehouse>
     {
-        Category GetParent(long Id);
-        IEnumerable<Category> GetCategoriesOfOwner(string username);
-
+        IEnumerable<Warehouse> GetWearhousesForOwner(string Username);
     }
 }

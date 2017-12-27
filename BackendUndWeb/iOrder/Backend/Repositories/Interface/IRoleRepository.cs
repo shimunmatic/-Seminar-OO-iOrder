@@ -7,17 +7,8 @@ using Backend.Models.Entity;
 
 namespace Backend.Repositories.Interface
 {
-    public interface IRoleRepository
+    public interface IRoleRepository : IBaseRepository<Role>
     {
-        IEnumerable<Role> GetAll();
-        Role Save(Role role);
-        Role Update(long Id, Role role);
-        bool Delete(Role role);
-
-        Role GetById(long Id);
-
         Role GetByName(string name);
-
-
     }
 }
