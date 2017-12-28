@@ -5,7 +5,7 @@
     <string name="password">Password</string>
     <string name="login">Log in</string>
     <string name="register">Not registered yet?</string>
-    <string name="signup">Register</string>
+    <string name="signup">Sign Up</string>
     <string name="nick">Name</string>
     <string name="confirmPass">Confirm password</string>
     <string name="surname">Surname</string>
@@ -14,6 +14,8 @@
     <string name="loading">Loading...</string>
     <item name="visible" type="id" />
     <item name="masked" type="id" />
+    <string name="nameError">Name must not be empty</string>
+    <string name="surnameError">Surname must not be empty</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_location">Locations</string>
     <string name="title_dashboard">Dashboard</string>
