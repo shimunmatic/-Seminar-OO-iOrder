@@ -2,7 +2,7 @@ package hr.fer.oobl.iorder.data.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.annotation.Nullable;
+
 
 public final class UserManager {
 
@@ -13,7 +13,6 @@ public final class UserManager {
         sharedPreferences = context.getSharedPreferences(USER_INFO, Context.MODE_PRIVATE);
     }
 
-    @Nullable
     public String get(final String key, final String defaultValue) {
         return sharedPreferences.getString(key, defaultValue);
     }
@@ -22,7 +21,7 @@ public final class UserManager {
         return sharedPreferences.contains(key);
     }
 
-    public void set(final String key, @Nullable final String value) {
+    public void set(final String key, final String value) {
         sharedPreferences.edit().putString(key, value).apply();
     }
 
