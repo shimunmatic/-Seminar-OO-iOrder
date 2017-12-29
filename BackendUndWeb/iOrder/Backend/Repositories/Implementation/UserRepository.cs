@@ -54,12 +54,36 @@ namespace Backend.Repositories.Implementation
 
         public IEnumerable<User> GetEmployeesOfEsatblishemnt(long Id)
         {
-            throw new NotImplementedException();
+            using (var db = NHibernateHelper.OpenSession())
+            {
+
+                var entities = db.Query<UserEntity>().Where(u => u.EstablishmentId == Id).ToList();
+                var users = new List<User>();
+                foreach (var u in entities)
+                {
+                    var user = EntityModelConverter.Convert(u);
+                    user.Role = GetRole(u.RoleId);
+                    users.Add(user);
+                }
+                return users;
+            }
         }
 
         public IEnumerable<User> GetEmployeesOfOwner(string username)
         {
-            throw new NotImplementedException();
+            using (var db = NHibernateHelper.OpenSession())
+            {
+
+                var entities = db.Query<UserEntity>().Where(u => u.OwnerId.Equals(username)).ToList();
+                var users = new List<User>();
+                foreach (var u in entities)
+                {
+                    var user = EntityModelConverter.Convert(u);
+                    user.Role = GetRole(u.RoleId);
+                    users.Add(user);
+                }
+                return users;
+            }
         }
 
         public User Save(User user)

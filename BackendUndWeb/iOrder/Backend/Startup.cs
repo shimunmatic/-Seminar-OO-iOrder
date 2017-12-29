@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Backend.Converters;
 using Backend.Converters.EntityBusiness;
-using Backend.Converters.EntityBusiness.Implementation;
 using Backend.Models.Business;
 using Backend.Models.Entity;
 using Backend.Repositories.Implementation;

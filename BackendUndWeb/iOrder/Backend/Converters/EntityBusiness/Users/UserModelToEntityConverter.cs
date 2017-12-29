@@ -37,7 +37,7 @@ namespace Backend.Converters.EntityBusiness
                     FirstName = user.FirstName,
                     LastName = user.LastName,
                     Password = user.Password,
-                    RoleId = Source.Role.Id
+                    RoleId = user.Role.Id
                 });
             }
             return users;
