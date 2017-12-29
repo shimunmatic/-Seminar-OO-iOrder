@@ -17,8 +17,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.scottyab.showhidepasswordedittext.ShowHidePasswordEditText;
-
 import javax.inject.Inject;
 
 import butterknife.BindView;

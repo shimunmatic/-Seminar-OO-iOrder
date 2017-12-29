@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import javax.inject.Inject;
 
 import hr.fer.oobl.iorder.iorder.ui.main.MainActivity;
+import hr.fer.oobl.iorder.iorder.ui.scanner.ScannerActivity;
 import hr.fer.oobl.iorder.iorder.ui.signup.SignUpActivity;
 
 public final class RouterImpl implements Router {
@@ -32,5 +33,16 @@ public final class RouterImpl implements Router {
     public void showMainScreen() {
         Intent intent = new Intent(activity, MainActivity.class);
         activity.startActivity(intent);
+    }
+
+    @Override
+    public void showScanner() {
+        Intent intent = new Intent(activity, ScannerActivity.class);
+        activity.startActivity(intent);
+    }
+
+    @Override
+    public void popUpCart() {
+
     }
 }

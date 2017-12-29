@@ -6,6 +6,8 @@ import hr.fer.oobl.iorder.iorder.injection.activity.ActivityScope;
 import hr.fer.oobl.iorder.iorder.injection.activity.DaggerActivity;
 import hr.fer.oobl.iorder.iorder.ui.login.LoginContract;
 import hr.fer.oobl.iorder.iorder.ui.login.LoginPresenter;
+import hr.fer.oobl.iorder.iorder.ui.main.MainContract;
+import hr.fer.oobl.iorder.iorder.ui.main.MainPresenter;
 import hr.fer.oobl.iorder.iorder.ui.signup.SignupContract;
 import hr.fer.oobl.iorder.iorder.ui.signup.SignupPresenter;
 
@@ -30,6 +32,14 @@ public final class ActivityPresenterModule {
     @ActivityScope
     SignupContract.Presenter provideSignUpPresenter() {
         final SignupPresenter presenter = new SignupPresenter((SignupContract.View) daggerActivity);
+        daggerActivity.getActivityComponent().inject(presenter);
+        return presenter;
+    }
+
+    @Provides
+    @ActivityScope
+    MainContract.Presenter provideMainPresenter() {
+        final MainPresenter presenter = new MainPresenter((MainContract.View) daggerActivity);
         daggerActivity.getActivityComponent().inject(presenter);
         return presenter;
     }
