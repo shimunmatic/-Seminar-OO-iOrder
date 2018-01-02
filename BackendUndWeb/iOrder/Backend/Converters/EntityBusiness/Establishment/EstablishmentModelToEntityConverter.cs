@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Backend.Converters.EntityBusiness
 {
-    public class EstablishmentModelToEntityConveter : IConverter<Establishment, EstablishmentEntity>
+    public class EstablishmentModelToEntityConverter : IConverter<Establishment, EstablishmentEntity>
     {
         public EstablishmentEntity Convert(Establishment Source)
         {
