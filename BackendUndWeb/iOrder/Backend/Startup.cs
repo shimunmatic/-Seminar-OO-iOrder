@@ -66,7 +66,15 @@ namespace Backend
             services.AddScoped<IConverter<WarehouseEntity, Warehouse>, WarehouseEntityToModelConverter>();
             services.AddScoped<IConverter<Warehouse, WarehouseEntity>, WarehouseModelToEntityConverter>();
             services.AddScoped<IWarehouseRepository, WarehouseRepository>();
-//add supplier
+
+            services.AddScoped<IConverter<SupplierEntity, Supplier>, SupplierEntityToModelConverter>();
+            services.AddScoped<IConverter<Supplier, SupplierEntity>, SupplierModelToEntityConverter>();
+            services.AddScoped<ISupplierRepository, SupplierRepository>();
+
+
+            services.AddScoped<IConverter<OrderPairEntity, OrderPair>, OrderPairEntityToModelConverter>();
+            services.AddScoped<IConverter<OrderPair, OrderPairEntity>, OrderPairModelToEntityConverter>();
+
             services.AddScoped<IRoleService, RoleService>();
             services.AddMvc();
         }
