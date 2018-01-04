@@ -62,6 +62,8 @@ namespace Backend
             services.AddScoped<IConverter<UserEntity, User>, UserEntityToModelConverter>();
             services.AddScoped<IConverter<User, UserEntity>, UserModelToEntityConverter>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUserService, UserService>();
+
 
             services.AddScoped<IConverter<WarehouseEntity, Warehouse>, WarehouseEntityToModelConverter>();
             services.AddScoped<IConverter<Warehouse, WarehouseEntity>, WarehouseModelToEntityConverter>();

@@ -48,14 +48,6 @@ namespace Backend.Repositories.Implementation
             }
         }
 
-        public Category GetParent(long Id)
-        {
-            using (var db = NHibernateHelper.OpenSession())
-            {
-                var entity = db.Query<CategoryEntity>().Where(c => c.ParentId == Id).First();
-                return EntityModelConverter.Convert(entity);
-            }
-        }
 
         public Category Save(Category t)
         {

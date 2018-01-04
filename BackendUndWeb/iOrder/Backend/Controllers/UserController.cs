@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Backend.Models.Business;
+using Backend.Models.ModelView;
 using Backend.Repositories.Interface;
+using Backend.Services.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,31 +15,27 @@ namespace Backend.Controllers
     [Route("api/User")]
     public class UserController : Controller
     {
-        private IUserRepository UserRepository;
+        private IUserService UserService;
 
-        public UserController(IUserRepository userRepository)
+        public UserController(IUserService userService)
         {
-            UserRepository = userRepository;
+            UserService = userService;
         }
 
-        // GET: api/User
-        [HttpGet]
-        public IEnumerable<User> Get()
+        //POST: api/User/Get
+        [HttpPost("Get")]
+        public User GetUser([FromBody]UserCredentials credentials)
         {
-            return UserRepository.GetAll();
+            return UserService.Get(credentials.Username, credentials.Password);
         }
 
-        // GET: api/User/5
-        [HttpGet("{id}", Name = "GetUser")]
-        public string Get(int id)
+        // POST: api/User/Register
+        [HttpPost("Register")]
+        public IActionResult Post([FromBody]User user)
         {
-            return "value";
-        }
-
-        // POST: api/User
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
+            var u = UserService.Register(user);
+            if (u != null) return Ok();
+            return BadRequest();
         }
 
         // PUT: api/User/5
