@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Backend.Repositories.Interface
 {
-    interface IProductRepository:IBaseRepository<Product>
+    public interface IProductRepository : IBaseRepository<Product>
     {
         IEnumerable<Product> GetProductsForWarehouse(long Id);
         IEnumerable<Product> GetProductsForCategory(long Id);

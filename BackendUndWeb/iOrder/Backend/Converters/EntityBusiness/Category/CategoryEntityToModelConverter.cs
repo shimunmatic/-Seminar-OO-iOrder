@@ -15,7 +15,6 @@ namespace Backend.Converters.EntityBusiness
             return new Category
             {
                 Id = Source.Id,
-                ParentId = Source.ParentId,
                 OwnerId = Source.OwnerId,
                 Name = Source.Name
             };
@@ -31,7 +30,6 @@ namespace Backend.Converters.EntityBusiness
                 categories.Add(new Category
                 {
                     Id = c.Id,
-                    ParentId = c.ParentId,
                     OwnerId = c.OwnerId,
                     Name = c.Name
                 });

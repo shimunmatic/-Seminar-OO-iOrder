@@ -8,7 +8,6 @@ namespace Backend.Models.Business
     public class Category
     {
         public virtual long Id { get; set; }
-        public virtual long ParentId { get; set; }
         public virtual string Name { get; set; }
         public virtual string OwnerId { get; set; }
     }

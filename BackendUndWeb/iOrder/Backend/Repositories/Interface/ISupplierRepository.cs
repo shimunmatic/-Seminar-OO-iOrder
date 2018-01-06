@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Backend.Repositories.Interface
 {
-    interface ISupplierRepository:IBaseRepository<Supplier>
+    public interface ISupplierRepository : IBaseRepository<Supplier>
     {
-        IEnumerable<Supplier> GetSuppliersForOwner(string username);
+        IEnumerable<Supplier> GetSuppliersForOwner(string Username);
     }
 }
