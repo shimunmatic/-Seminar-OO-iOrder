@@ -32,6 +32,9 @@ public final class SignUpActivity extends BaseActivity implements SignupContract
     @BindView(R.id.etEmail)
     TextInputEditText etEmail;
 
+    @BindView(R.id.etUsername)
+    TextInputEditText etUsername;
+
     @BindView(R.id.etName)
     TextInputEditText etName;
 
@@ -43,6 +46,9 @@ public final class SignUpActivity extends BaseActivity implements SignupContract
 
     @BindView(R.id.etConfirmPass)
     TextInputEditText etConfirmPass;
+
+    @BindView(R.id.etUsernameLayout)
+    TextInputLayout etUsernameLayout;
 
     @BindView(R.id.etEmailLayout)
     TextInputLayout etEmailLayout;
@@ -98,6 +104,19 @@ public final class SignUpActivity extends BaseActivity implements SignupContract
             }
         } else {
             setEmailError(null);
+        }
+    }
+
+    @OnFocusChange(R.id.etUsername)
+    public void checkUsernameError() {
+        if (!etUsername.isFocused()) {
+            if (CredentialsValidator.validateEmail(etUsername.getText().toString())) {
+                setUsernameError(null);
+            } else {
+                setUsernameError(getString(R.string.usernameError));
+            }
+        } else {
+            setUsernameError(null);
         }
     }
 
@@ -162,6 +181,11 @@ public final class SignUpActivity extends BaseActivity implements SignupContract
     }
 
     @Override
+    public void setUsernameError(final String error) {
+        etUsernameLayout.setError(error);
+    }
+
+    @Override
     public void setEmailError(final String error) {
         etEmailLayout.setError(error);
     }
@@ -200,6 +224,7 @@ public final class SignUpActivity extends BaseActivity implements SignupContract
     @Override
     public void hideErrors() {
         setEmailError(null);
+        setUsernameError(null);
         setPasswordError(null);
         setNameError(null);
         setSurnameError(null);
@@ -209,6 +234,11 @@ public final class SignUpActivity extends BaseActivity implements SignupContract
     @Override
     public String getEmail() {
         return etEmail.getText().toString();
+    }
+
+    @Override
+    public String getUsername() {
+        return etUsername.getText().toString();
     }
 
     @Override

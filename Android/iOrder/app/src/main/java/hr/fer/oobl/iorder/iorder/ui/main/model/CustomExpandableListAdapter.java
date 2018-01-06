@@ -1,27 +1,33 @@
 package hr.fer.oobl.iorder.iorder.ui.main.model;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.HashMap;
 import java.util.List;
 
+import hr.fer.oobl.iorder.data.model.Product;
 import hr.fer.oobl.iorder.iorder.R;
+import hr.fer.oobl.iorder.iorder.ui.main.MainActivity;
 
 public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
-    private Context context;
+    private Activity activity;
     private List<String> expandableListTitle;
-    private HashMap<String, List<String>> expandableListDetail;
+    private HashMap<String, List<Product>> expandableListDetail;
 
-    public CustomExpandableListAdapter(Context context, List<String> expandableListTitle,
-                                       HashMap<String, List<String>> expandableListDetail) {
-        this.context = context;
+    public CustomExpandableListAdapter(Activity activity, List<String> expandableListTitle,
+                                       HashMap<String, List<Product>> expandableListDetail) {
+        this.activity = activity;
         this.expandableListTitle = expandableListTitle;
         this.expandableListDetail = expandableListDetail;
     }
@@ -40,21 +46,93 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(int listPosition, final int expandedListPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
-        final String expandedListText = (String) getChild(listPosition, expandedListPosition);
+        final Product product = (Product) getChild(listPosition, expandedListPosition);
+        LayoutInflater layoutInflater = null;
         if (convertView == null) {
-            LayoutInflater layoutInflater = (LayoutInflater) this.context
+            layoutInflater = (LayoutInflater) this.activity
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             if (layoutInflater != null) {
                 convertView = layoutInflater.inflate(R.layout.list_article, null);
             }
         }
-        TextView expandedListTextView;
+        TextView productName;
+        TextView productPrice;
+        ImageView addButton;
+        ImageView removeButton;
+        TextView quantity;
+
         if (convertView != null) {
-            expandedListTextView = convertView
-                    .findViewById(R.id.expandedListItem);
-            expandedListTextView.setText(expandedListText);
+            productName = convertView.findViewById(R.id.product);
+            productPrice = convertView.findViewById(R.id.price);
+            quantity = convertView.findViewById(R.id.quantity);
+            addButton = convertView.findViewById(R.id.add_button);
+            removeButton = convertView.findViewById(R.id.remove_button);
+
+            if (product.getQuantity().equals("0")) {
+                removeButton.setVisibility(View.GONE);
+            } else {
+                removeButton.setVisibility(View.VISIBLE);
+            }
+
+            addButton.setOnClickListener(view -> {
+                removeButton.setVisibility(View.VISIBLE);
+
+                int incrementQuantity = Integer.parseInt(product.getQuantity()) + 1;
+                product.setQuantity(String.valueOf(incrementQuantity));
+                quantity.setText(String.valueOf(incrementQuantity));
+                ((MainActivity) activity).updateCartUp(product);
+            });
+
+            addButton.setOnLongClickListener(view -> {
+                popupDialog(product, quantity);
+                removeButton.setVisibility(View.VISIBLE);
+                return true;
+            });
+
+            removeButton.setOnClickListener(view -> {
+                int decrementQuantity = Integer.parseInt(product.getQuantity()) - 1;
+                if (decrementQuantity == 0) {
+                    removeButton.setVisibility(View.GONE);
+                }
+                if (decrementQuantity >= 0) {
+                    product.setQuantity(String.valueOf(decrementQuantity));
+                    quantity.setText(String.valueOf(decrementQuantity));
+                    ((MainActivity) activity).updateCartDown(product);
+                }
+            });
+            productPrice.setText(String.valueOf(product.getPrice()));
+            productName.setText(product.getName());
+            quantity.setText(product.getQuantity());
         }
         return convertView;
+    }
+
+    private void popupDialog(final Product product, final TextView quantity) {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity, AlertDialog.THEME_HOLO_LIGHT);
+        final LayoutInflater layoutInflater = (LayoutInflater) this.activity
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View dialogView = null;
+        if (layoutInflater != null) {
+            dialogView = layoutInflater.inflate(R.layout.alert_add_more_products, null);
+
+            dialogBuilder.setView(dialogView);
+
+            EditText editText = dialogView.findViewById(R.id.more_products);
+            ImageView sendImage = dialogView.findViewById(R.id.send);
+
+            AlertDialog alertDialog = dialogBuilder.create();
+            sendImage.setOnClickListener(view -> {
+                int inputtedQuantity = Integer.parseInt(editText.getText().toString());
+
+                if (inputtedQuantity >= 0) {
+                    product.setQuantity(String.valueOf(inputtedQuantity));
+                    quantity.setText(String.valueOf(inputtedQuantity));
+                    ((MainActivity) activity).updateCartUp(product);
+                }
+                alertDialog.cancel();
+            });
+            alertDialog.show();
+        }
     }
 
     @Override
@@ -83,8 +161,8 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
                              View convertView, ViewGroup parent) {
         String listTitle = (String) getGroup(listPosition);
         if (convertView == null) {
-            LayoutInflater layoutInflater = (LayoutInflater) this.context.
-                                                                                 getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater layoutInflater = (LayoutInflater) this.activity.
+                                                                                  getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             if (layoutInflater != null) {
                 convertView = layoutInflater.inflate(R.layout.list_category, null);
             }
@@ -95,7 +173,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
                     .findViewById(R.id.listTitle);
         }
         if (listTitleTextView != null) {
-            listTitleTextView.setTypeface(null, Typeface.BOLD);
+            listTitleTextView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
             listTitleTextView.setText(listTitle);
         }
         return convertView;

@@ -14,6 +14,8 @@ public interface SignupContract {
 
     interface View extends BaseView {
 
+        void setUsernameError(String error);
+
         void setEmailError(String error);
 
         void setNameError(String error);
@@ -31,6 +33,8 @@ public interface SignupContract {
         void hideErrors();
 
         String getEmail();
+
+        String getUsername();
 
         String getPassword();
 

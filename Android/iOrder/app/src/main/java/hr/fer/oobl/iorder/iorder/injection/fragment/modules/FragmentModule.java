@@ -6,7 +6,6 @@ import dagger.Module;
 import dagger.Provides;
 import hr.fer.oobl.iorder.iorder.injection.fragment.DaggerFragment;
 import hr.fer.oobl.iorder.iorder.injection.fragment.FragmentScope;
-import hr.fer.oobl.iorder.iorder.ui.dashboard.DashboardFragment;
 
 @Module
 public final class FragmentModule {

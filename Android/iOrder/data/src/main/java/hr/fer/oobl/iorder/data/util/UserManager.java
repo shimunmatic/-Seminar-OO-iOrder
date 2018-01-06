@@ -3,6 +3,7 @@ package hr.fer.oobl.iorder.data.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import java.io.Serializable;
 
 public final class UserManager {
 

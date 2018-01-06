@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/add_more_products"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        android:textSize="18sp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="@dimen/activity_horizontal_margin">
+
+        <EditText
+            android:id="@+id/more_products"
+            android:layout_width="0dp"
+            android:layout_height="47dp"
+            android:layout_marginStart="@dimen/activity_horizontal_extraBigger"
+            android:layout_weight="0.8"
+            android:background="@drawable/login_input_bg"
+            android:inputType="number"
+            android:textColor="@color/colorPrimary"/>
+
+        <ImageView
+            android:id="@+id/send"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="@dimen/activity_vertical_marginBigger"
+            android:layout_marginStart="@dimen/smallest_margin"
+            android:layout_weight="0.2"
+            android:src="@drawable/ic_send_blue_800_24dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>

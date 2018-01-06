@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:textColor="@color/gray_navigation_items"
+        android:textSize="24sp"
+        android:textStyle="italic"
+        android:text="@string/empty_cart"/>
+
+    <Button
+        android:id="@+id/dismiss"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/smallest_margin"
+        android:background="@drawable/rounded_edittext"
+        android:text="@string/dismiss"
+        android:textAllCaps="false"/>
+
+</LinearLayout>
