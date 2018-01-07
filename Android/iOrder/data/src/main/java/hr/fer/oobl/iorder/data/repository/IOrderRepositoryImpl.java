@@ -5,8 +5,12 @@ import java.util.List;
 import hr.fer.oobl.iorder.data.network.client.IOrderClient;
 import hr.fer.oobl.iorder.data.network.mapper.ApiIOrderToDomainMapper;
 import hr.fer.oobl.iorder.data.util.AccessTokenStorage;
+import hr.fer.oobl.iorder.domain.model.Category;
+import hr.fer.oobl.iorder.domain.model.Establishment;
+import hr.fer.oobl.iorder.domain.model.EstablishmentRequest;
 import hr.fer.oobl.iorder.domain.model.Order;
 import hr.fer.oobl.iorder.domain.model.OrderHistoryRequest;
+import hr.fer.oobl.iorder.domain.model.OrderRequest;
 import hr.fer.oobl.iorder.domain.model.UserCredentials;
 import hr.fer.oobl.iorder.domain.model.UserRegistration;
 import hr.fer.oobl.iorder.domain.repository.IOrderRepository;
@@ -41,5 +45,24 @@ public final class IOrderRepositoryImpl implements IOrderRepository {
                                                      orderHistoryRequest.getUsername(),
                                                      orderHistoryRequest.getEstablishmentId())
                            .map(apiIOrderToDomainMapper::mapApiOrderHistory);
+    }
+
+    @Override
+    public Single<List<Category>> fetchCategories(final Long establishmentId) {
+        return iOrderClient.fetchCategories(accessTokenStorage.getAuthToken(), establishmentId)
+                           .map(apiIOrderToDomainMapper::mapCategories);
+    }
+
+    @Override
+    public Single<Establishment> findEstablishment(final EstablishmentRequest parameter) {
+        return iOrderClient.findEstablishment(accessTokenStorage.getAuthToken(),
+                                              parameter.getEstablishmentId(),
+                                              parameter.getLocationInsideEstablishmentId())
+                           .map(apiIOrderToDomainMapper::mapToEstablishment);
+    }
+
+    @Override
+    public Single<Void> processOrder(final OrderRequest orderRequest) {
+        return iOrderClient.processOrderRequest(accessTokenStorage.getAuthToken(), apiIOrderToDomainMapper.mapOrderRequest(orderRequest));
     }
 }

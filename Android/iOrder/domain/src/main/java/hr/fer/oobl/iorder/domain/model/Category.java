@@ -4,10 +4,12 @@ import java.util.List;
 
 public final class Category {
 
+    private final long id;
     private final String name;
     private final List<Product> products;
 
-    public Category(final String name, final List<Product> products) {
+    public Category(final long id, final String name, final List<Product> products) {
+        this.id = id;
         this.name = name;
         this.products = products;
     }
@@ -18,5 +20,9 @@ public final class Category {
 
     public List<Product> getProducts() {
         return products;
+    }
+
+    public long getId() {
+        return id;
     }
 }

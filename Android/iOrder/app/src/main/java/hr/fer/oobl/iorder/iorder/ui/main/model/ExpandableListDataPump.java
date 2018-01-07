@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import hr.fer.oobl.iorder.data.model.Category;
-import hr.fer.oobl.iorder.data.model.Product;
+import hr.fer.oobl.iorder.domain.model.Category;
+import hr.fer.oobl.iorder.domain.model.Product;
 
 public class ExpandableListDataPump {
 
@@ -13,7 +13,7 @@ public class ExpandableListDataPump {
         HashMap<String, List<Product>> expandableListDetail = new HashMap<>();
 
         List<Product> beers = new ArrayList<>();
-        beers.add(new Product("Heineken", "16,00"));
+        beers.add(new Product(1,"Heineken", "16,00"));
         beers.add(new Product("Pan", "12,00"));
         beers.add(new Product("Karlovačko", "12,00"));
         beers.add(new Product("Ožujsko", "10,00"));

@@ -4,13 +4,18 @@ import com.annimon.stream.Stream;
 
 import java.util.List;
 
+import hr.fer.oobl.iorder.data.network.model.ApiCategory;
 import hr.fer.oobl.iorder.data.network.model.ApiEstablishment;
 import hr.fer.oobl.iorder.data.network.model.ApiOrderHistory;
+import hr.fer.oobl.iorder.data.network.model.ApiOrderPost;
+import hr.fer.oobl.iorder.data.network.model.ApiProduct;
 import hr.fer.oobl.iorder.data.network.model.ApiProductPost;
 import hr.fer.oobl.iorder.data.network.model.ApiUser;
 import hr.fer.oobl.iorder.data.network.model.ApiUserCredentials;
+import hr.fer.oobl.iorder.domain.model.Category;
 import hr.fer.oobl.iorder.domain.model.Establishment;
 import hr.fer.oobl.iorder.domain.model.Order;
+import hr.fer.oobl.iorder.domain.model.OrderRequest;
 import hr.fer.oobl.iorder.domain.model.Product;
 import hr.fer.oobl.iorder.domain.model.UserCredentials;
 import hr.fer.oobl.iorder.domain.model.UserRegistration;
@@ -35,22 +40,59 @@ public final class ApiIOrderToDomainMapperImpl implements ApiIOrderToDomainMappe
                      .toList();
     }
 
-    private Order mapToOrder(final ApiOrderHistory apiOrderHistory) {
-        return new Order(mapToProducts(apiOrderHistory.products), apiOrderHistory.date, mapToEstablishment(apiOrderHistory.apiEstablishment),
-                         String.valueOf(apiOrderHistory.price));
+    @Override
+    public List<Category> mapCategories(final List<ApiCategory> apiCategories) {
+        return Stream.of(apiCategories)
+                     .map(this::mapToCategory)
+                     .toList();
     }
 
-    private List<Product> mapToProducts(final List<ApiProductPost> products) {
+    private Category mapToCategory(final ApiCategory apiCategory) {
+        return new Category(apiCategory.id, apiCategory.name, mapToProducts(apiCategory.products));
+    }
+
+    private List<Product> mapToProducts(final List<ApiProduct> products) {
         return Stream.of(products)
                      .map(this::mapToProduct)
                      .toList();
     }
 
-    private Product mapToProduct(final ApiProductPost apiProductPost) {
+    private Product mapToProduct(final ApiProduct apiProduct) {
+        return new Product(apiProduct.id, apiProduct.name, String.valueOf(apiProduct.price), String.valueOf(0));
+    }
+
+    private Order mapToOrder(final ApiOrderHistory apiOrderHistory) {
+        return new Order(mapToProductsPost(apiOrderHistory.products), apiOrderHistory.date, mapToEstablishment(apiOrderHistory.apiEstablishment),
+                         String.valueOf(apiOrderHistory.price));
+    }
+
+    private List<Product> mapToProductsPost(final List<ApiProductPost> products) {
+        return Stream.of(products)
+                     .map(this::mapToProductPost)
+                     .toList();
+    }
+
+    private Product mapToProductPost(final ApiProductPost apiProductPost) {
         return new Product(apiProductPost.id, apiProductPost.name, String.valueOf(apiProductPost.price), String.valueOf(apiProductPost.quantity));
     }
 
-    private Establishment mapToEstablishment(final ApiEstablishment apiEstablishment) {
+    @Override
+    public Establishment mapToEstablishment(final ApiEstablishment apiEstablishment) {
         return new Establishment(apiEstablishment.id, apiEstablishment.name);
+    }
+
+    @Override
+    public ApiOrderPost mapOrderRequest(final OrderRequest orderRequest) {
+        return new ApiOrderPost(mapToApiProducts(orderRequest.getProducts()), orderRequest.getCustomerId(), orderRequest.getLocationId(), orderRequest.getEstablishmentId());
+    }
+
+    private List<ApiProductPost> mapToApiProducts(final List<Product> products) {
+        return Stream.of(products)
+                     .map(this::mapToApiProduct)
+                     .toList();
+    }
+
+    private ApiProductPost mapToApiProduct(final Product product) {
+        return new ApiProductPost(product.getId(), product.getName(), Float.parseFloat(product.getPrice()), Integer.parseInt(product.getQuantity()));
     }
 }
