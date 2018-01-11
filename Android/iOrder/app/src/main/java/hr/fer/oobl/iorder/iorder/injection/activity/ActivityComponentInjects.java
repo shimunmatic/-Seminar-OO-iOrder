@@ -1,5 +1,7 @@
 package hr.fer.oobl.iorder.iorder.injection.activity;
 
+import hr.fer.oobl.iorder.iorder.ui.history.HistoryActivity;
+import hr.fer.oobl.iorder.iorder.ui.history.HistoryPresenter;
 import hr.fer.oobl.iorder.iorder.ui.login.LoginActivity;
 import hr.fer.oobl.iorder.iorder.ui.login.LoginPresenter;
 import hr.fer.oobl.iorder.iorder.ui.main.MainActivity;
@@ -23,4 +25,8 @@ public interface ActivityComponentInjects {
     void inject(MainPresenter mainPresenter);
 
     void inject(ScannerActivity scannerActivity);
+    
+    void inject(HistoryActivity historyActivity);
+
+    void inject(HistoryPresenter presenter);
 }

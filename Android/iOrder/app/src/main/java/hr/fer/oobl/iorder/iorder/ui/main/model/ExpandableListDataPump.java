@@ -4,35 +4,44 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import hr.fer.oobl.iorder.domain.model.Category;
+import hr.fer.oobl.iorder.domain.model.Product;
+
 public class ExpandableListDataPump {
 
-    public static HashMap<String, List<String>> getData() {
-        HashMap<String, List<String>> expandableListDetail = new HashMap<String, List<String>>();
+    public static HashMap<String, List<Product>> getData() {
+        HashMap<String, List<Product>> expandableListDetail = new HashMap<>();
 
-        List<String> beers = new ArrayList<String>();
-        beers.add("Heineken");
-        beers.add("Pan");
-        beers.add("Karlovačko");
-        beers.add("Ožujsko");
-        beers.add("Velebitsko");
+        List<Product> beers = new ArrayList<>();
+        beers.add(new Product(1,"Heineken", "16,00"));
+        beers.add(new Product("Pan", "12,00"));
+        beers.add(new Product("Karlovačko", "12,00"));
+        beers.add(new Product("Ožujsko", "10,00"));
+        beers.add(new Product("Velebitsko", "13,00"));
+        beers.add(new Product("Velebitsko", "13,00"));
+        beers.add(new Product("Velebitsko", "13,00"));
+        beers.add(new Product("Velebitsko", "13,00"));
+        beers.add(new Product("Velebitsko", "13,00"));
+        beers.add(new Product("Velebitsko", "13,00"));
+        beers.add(new Product("Velebitsko", "13,00"));
+        beers.add(new Product("Velebitsko", "13,00"));
+        beers.add(new Product("Velebitsko", "13,00"));
+        beers.add(new Product("Velebitsko", "13,00"));
+        beers.add(new Product("Velebitsko", "13,00"));
+        beers.add(new Product("Velebitsko", "13,00"));
 
-        List<String> warmDrink = new ArrayList<String>();
-        warmDrink.add("Kava s mlijekom");
-        warmDrink.add("Ice coffee");
-        warmDrink.add("Kakao");
-        warmDrink.add("Topla čokolada");
-        warmDrink.add("Nescafe vanilija");
+        List<Product> warmDrinks = new ArrayList<>();
+        warmDrinks.add(new Product("Kava s mlijekom", "8,00"));
+        warmDrinks.add(new Product("Kakao", "12,00"));
+        warmDrinks.add(new Product("Vruća čokolada", "9,00"));
+        warmDrinks.add(new Product("Čaj", "10,00"));
 
-        List<String> juices = new ArrayList<String>();
-        juices.add("Coca Cola");
-        juices.add("Fanta");
-        juices.add("Sprite");
-        juices.add("Schweppes");
-        juices.add("Cockta");
+        final Category beer = new Category("Beer", beers);
+        final Category warmDrink = new Category("Warm drink", warmDrinks);
 
-        expandableListDetail.put("Pive", beers);
-        expandableListDetail.put("Topli napitci", warmDrink);
-        expandableListDetail.put("Gazirani sokovi", juices);
+        expandableListDetail.put(beer.getName(), beer.getProducts());
+        expandableListDetail.put(warmDrink.getName(), warmDrink.getProducts());
+
         return expandableListDetail;
     }
 }

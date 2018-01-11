@@ -10,4 +10,6 @@ public interface Router {
     void showScanner();
 
     void popUpCart();
+
+    void showHistory();
 }

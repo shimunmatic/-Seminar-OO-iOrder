@@ -4,6 +4,9 @@ import dagger.Module;
 import dagger.Provides;
 import hr.fer.oobl.iorder.iorder.injection.activity.ActivityScope;
 import hr.fer.oobl.iorder.iorder.injection.activity.DaggerActivity;
+import hr.fer.oobl.iorder.iorder.injection.fragment.FragmentScope;
+import hr.fer.oobl.iorder.iorder.ui.history.HistoryContract;
+import hr.fer.oobl.iorder.iorder.ui.history.HistoryPresenter;
 import hr.fer.oobl.iorder.iorder.ui.login.LoginContract;
 import hr.fer.oobl.iorder.iorder.ui.login.LoginPresenter;
 import hr.fer.oobl.iorder.iorder.ui.main.MainContract;
@@ -40,6 +43,15 @@ public final class ActivityPresenterModule {
     @ActivityScope
     MainContract.Presenter provideMainPresenter() {
         final MainPresenter presenter = new MainPresenter((MainContract.View) daggerActivity);
+        daggerActivity.getActivityComponent().inject(presenter);
+        return presenter;
+    }
+
+
+    @Provides
+    @ActivityScope
+    HistoryContract.Presenter provideHistoryPresenter() {
+        final HistoryPresenter presenter = new HistoryPresenter((HistoryContract.View) daggerActivity);
         daggerActivity.getActivityComponent().inject(presenter);
         return presenter;
     }

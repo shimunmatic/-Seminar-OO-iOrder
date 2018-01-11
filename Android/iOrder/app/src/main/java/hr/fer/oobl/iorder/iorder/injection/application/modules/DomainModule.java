@@ -1,19 +1,25 @@
 package hr.fer.oobl.iorder.iorder.injection.application.modules;
 
+import javax.inject.Singleton;
+
 import dagger.Module;
+import dagger.Provides;
+import hr.fer.oobl.iorder.data.network.client.IOrderClient;
+import hr.fer.oobl.iorder.data.network.mapper.ApiIOrderToDomainMapper;
+import hr.fer.oobl.iorder.data.repository.IOrderRepositoryImpl;
+import hr.fer.oobl.iorder.domain.repository.IOrderRepository;
 
 @Module
 public final class DomainModule {
 
-//    @Provides
-//    @Singleton
-//    PostRepository provideNewsRepository(final NewsClient newsClient, final ApiArticlesToDomainMapper apiMapper,
-//                                         final PostCrudder articleCrudder) {
-//        return new NewsRepositoryImpl(newsClient, apiMapper, articleCrudder);
-//    }
-//
-//    public interface Exposes {
-//
-//        PostRepository newsRepository();
-//    }
+    @Provides
+    @Singleton
+    IOrderRepository provideIOrderRepository(final IOrderClient iOrderClient, final ApiIOrderToDomainMapper apiMapper) {
+        return new IOrderRepositoryImpl(iOrderClient, apiMapper);
+    }
+
+    public interface Exposes {
+
+        IOrderRepository iOrderRepository();
+    }
 }

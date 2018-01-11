@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 
 import javax.inject.Inject;
 
+import hr.fer.oobl.iorder.iorder.ui.history.HistoryActivity;
 import hr.fer.oobl.iorder.iorder.ui.main.MainActivity;
 import hr.fer.oobl.iorder.iorder.ui.scanner.ScannerActivity;
 import hr.fer.oobl.iorder.iorder.ui.signup.SignUpActivity;
@@ -44,5 +45,11 @@ public final class RouterImpl implements Router {
     @Override
     public void popUpCart() {
 
+    }
+
+    @Override
+    public void showHistory() {
+        Intent intent = new Intent(activity, HistoryActivity.class);
+        activity.startActivity(intent);
     }
 }

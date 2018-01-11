@@ -4,14 +4,17 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import hr.fer.oobl.iorder.data.network.IOrderService;
+import hr.fer.oobl.iorder.data.network.client.IOrderClient;
+import hr.fer.oobl.iorder.data.network.client.IOrderClientImpl;
+import hr.fer.oobl.iorder.data.network.service.IOrderService;
+import hr.fer.oobl.iorder.data.util.AccessTokenStorage;
 import hr.fer.oobl.iorder.iorder.base.IOrderApplication;
+import hr.fer.oobl.iorder.iorder.utils.OrderManager;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-
 
 @Module
 public final class DataModule {
@@ -56,35 +59,30 @@ public final class DataModule {
         return retrofit.create(IOrderService.class);
     }
 
-//    @Provides
-//    @Singleton
-//    NewsClient provideNewsClient(final NewsService newsService) {
-//        return new NewsClientImpl(newsService);
-//    }
-//
-//    @Provides
-//    @Singleton
-//    PostsDao provideArticlesDao(final PostsDatabase articlesDatabase) {
-//        return articlesDatabase.articlesDao();
-//    }
-//
-//    @Provides
-//    @Singleton
-//    PostsDatabase provideNewsDatabase(@ForApplication final Context context) {
-//        return Room.databaseBuilder(context, PostsDatabase.class, PostsDatabase.NAME)
-//                   .build();
-//    }
-//
-//    @Provides
-//    @Singleton
-//    PostCrudder provideArticleCrudder(final PostsDao articlesDao, final DbToDomainMapper mapper) {
-//        return new PostCrudderImpl(articlesDao, mapper);
-//    }
-//
-//    public interface Exposes {
-//
-//        NewsClient newsClient();
-//
-//        PostCrudder articleCrudder();
-//    }
+    @Provides
+    @Singleton
+    OrderManager provideOrderManager() {
+        return new OrderManager();
+    }
+
+    @Provides
+    @Singleton
+    IOrderClient provideIOrederClient(final IOrderService iOrderService) {
+        return new IOrderClientImpl(iOrderService);
+    }
+
+    @Provides
+    @Singleton
+    AccessTokenStorage provideAccessTokenStorage() {
+        return new AccessTokenStorage();
+    }
+
+    public interface Exposes {
+
+        OrderManager orderManager();
+
+        IOrderClient iOrderClient();
+
+        AccessTokenStorage accessTokenStorage();
+    }
 }

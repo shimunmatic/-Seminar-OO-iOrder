@@ -19,13 +19,10 @@ buildscript {
 repositories {
     mavenCentral()
 }
-compileKotlin {
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
-}
-compileTestKotlin {
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
+
+def RX_VERSION = "1.3.0"
+
+dependencies {
+
+    compile "io.reactivex:rxjava:${RX_VERSION}"
 }
