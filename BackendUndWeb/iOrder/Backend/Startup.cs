@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Backend.Converters;
+﻿using Backend.Converters;
 using Backend.Converters.EntityBusiness;
 using Backend.Models.Business;
 using Backend.Models.Entity;
@@ -10,12 +6,14 @@ using Backend.Repositories.Implementation;
 using Backend.Repositories.Interface;
 using Backend.Services.Implementation;
 using Backend.Services.Interface;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace Backend
 {
@@ -23,7 +21,7 @@ namespace Backend
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration =(IConfigurationRoot) configuration;
+            Configuration = (IConfigurationRoot)configuration;
         }
 
         public IConfiguration Configuration { get; }
@@ -31,6 +29,9 @@ namespace Backend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            // add dependecy injection 
+
             services.AddScoped<IConverter<RoleEntity, Role>, RoleEntityToModelConverter>();
             services.AddScoped<IConverter<Role, RoleEntity>, RoleModelToEntityConverter>();
             services.AddScoped<IRoleRepository, RoleRepository>();
@@ -78,6 +79,31 @@ namespace Backend
             services.AddScoped<IConverter<OrderPair, OrderPairEntity>, OrderPairModelToEntityConverter>();
 
             services.AddScoped<IRoleService, RoleService>();
+
+
+            // add Authentication
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }
+                 )
+                 .AddJwtBearer(jwtBearerOptions =>
+                 {
+                     jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters()
+                     {
+                         ValidateActor = true,
+                         ValidateAudience = true,
+                         ValidateLifetime = true,
+                         ValidateIssuerSigningKey = true,
+                         ValidIssuer = "iOrder.fer.hr",
+                         ValidAudience = "iOrder.fer.hr",
+                         IssuerSigningKey =
+                             new SymmetricSecurityKey(Encoding.UTF8.GetBytes("System.ArgumentOutOfRangeException"))
+                     };
+                 });
+
             services.AddMvc();
         }
 
@@ -90,7 +116,7 @@ namespace Backend
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseAuthentication();
             app.UseMvc();
         }
     }

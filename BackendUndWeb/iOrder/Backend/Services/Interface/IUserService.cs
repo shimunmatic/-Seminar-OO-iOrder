@@ -9,8 +9,10 @@ namespace Backend.Services.Interface
 {
     public interface IUserService
     {
-        User Get(string Username, string password);
+        User Get(string Username);
         User Register(User user);
         bool ValidateUserCredentials(UserCredentials uc);
+        IEnumerable<User> GetAllEmployeesForOwner(string Username);
+        IEnumerable<User> GetAllEmployeesForEstablishment(long Id);
     }
 }
