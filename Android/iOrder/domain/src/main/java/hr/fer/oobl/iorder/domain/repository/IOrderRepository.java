@@ -20,9 +20,7 @@ public interface IOrderRepository {
 
     Single<List<Order>> fetchOrderHistory(OrderHistoryRequest orderHistoryRequest);
 
-    Single<List<Category>> fetchCategories(Long establishmentId);
-
-    Single<Establishment> findEstablishment(EstablishmentRequest parameter);
+    Single<Establishment> findEstablishment(Long establishmentId);
 
     Single<Void> processOrder(OrderRequest orderRequest);
 }

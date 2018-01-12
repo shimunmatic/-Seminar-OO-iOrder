@@ -1,6 +1,5 @@
 package hr.fer.oobl.iorder.iorder.ui.scanner;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.SparseArray;
 import android.widget.Toast;
@@ -9,20 +8,28 @@ import com.google.android.gms.vision.barcode.Barcode;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import hr.fer.oobl.iorder.iorder.R;
 import hr.fer.oobl.iorder.iorder.base.BaseActivity;
 import hr.fer.oobl.iorder.iorder.base.ScopedPresenter;
 import hr.fer.oobl.iorder.iorder.injection.activity.ActivityComponent;
-import hr.fer.oobl.iorder.iorder.ui.main.MainActivity;
+import hr.fer.oobl.iorder.iorder.ui.router.Router;
 import info.androidhive.barcode.BarcodeReader;
 
-public class ScannerActivity extends BaseActivity implements BarcodeReader.BarcodeReaderListener {
+public class ScannerActivity extends BaseActivity implements BarcodeReader.BarcodeReaderListener, ScannerContract.View {
+
+    @Inject
+    Router router;
+
+    @Inject
+    ScannerContract.Presenter presenter;
 
     BarcodeReader barcodeReader;
 
     @Override
     public ScopedPresenter getPresenter() {
-        return null;
+        return presenter;
     }
 
     @Override
@@ -40,14 +47,8 @@ public class ScannerActivity extends BaseActivity implements BarcodeReader.Barco
 
     @Override
     public void onScanned(Barcode barcode) {
-
-        // playing barcode reader beep sound
         barcodeReader.playBeep();
-
-        // ticket details activity by passing barcode
-        Intent intent = new Intent(ScannerActivity.this, MainActivity.class);
-        intent.putExtra("code", barcode.displayValue);
-        startActivity(intent);
+        router.showMainScreen(barcode.displayValue);
     }
 
     @Override

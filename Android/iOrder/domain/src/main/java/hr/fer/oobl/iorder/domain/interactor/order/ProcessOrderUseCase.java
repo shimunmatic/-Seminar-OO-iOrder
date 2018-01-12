@@ -7,7 +7,6 @@ import rx.Single;
 
 public final class ProcessOrderUseCase implements SingleUseCaseWithParameter<OrderRequest, Void> {
 
-
     private IOrderRepository iOrderRepository;
 
     public ProcessOrderUseCase(final IOrderRepository iOrderRepository) {

@@ -6,6 +6,7 @@ import hr.fer.oobl.iorder.data.network.model.ApiCategory;
 import hr.fer.oobl.iorder.data.network.model.ApiEstablishment;
 import hr.fer.oobl.iorder.data.network.model.ApiOrderHistory;
 import hr.fer.oobl.iorder.data.network.model.ApiOrderPost;
+import hr.fer.oobl.iorder.data.network.model.ApiToken;
 import hr.fer.oobl.iorder.data.network.model.ApiUser;
 import hr.fer.oobl.iorder.data.network.model.ApiUserCredentials;
 import hr.fer.oobl.iorder.domain.model.Category;
@@ -24,9 +25,9 @@ public interface ApiIOrderToDomainMapper {
 
     List<Order> mapApiOrderHistory(List<ApiOrderHistory> apiOrderHistories);
 
-    List<Category> mapCategories(List<ApiCategory> apiCategories);
-
     Establishment mapToEstablishment(ApiEstablishment apiEstablishment);
 
     ApiOrderPost mapOrderRequest(OrderRequest orderRequest);
+
+    String mapApiToken(ApiToken apiToken);
 }
