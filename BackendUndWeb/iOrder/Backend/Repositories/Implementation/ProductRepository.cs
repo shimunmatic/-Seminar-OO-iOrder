@@ -73,8 +73,8 @@ namespace Backend.Repositories.Implementation
             }
         }
 
-        public Product Save(Product t) => EntityModel.Convert(BaseRepository.Save(ModelEntity.Convert(t)));
+        public object Save(Product t) => (long)BaseRepository.Save(ModelEntity.Convert(t));
 
-        public Product Update(object Id, Product t) => EntityModel.Convert(BaseRepository.Update(Id, ModelEntity.Convert(t)));
+        public object Update(object Id, Product t) => (long)BaseRepository.Update(Id, ModelEntity.Convert(t));
     }
 }

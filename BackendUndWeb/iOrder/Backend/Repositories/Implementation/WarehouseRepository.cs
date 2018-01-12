@@ -33,8 +33,8 @@ namespace Backend.Repositories.Implementation
             }
         }
 
-        public Warehouse Save(Warehouse t) => EntityModel.Convert(BaseRepository.Save(ModelEntity.Convert(t)));
+        public object Save(Warehouse t) => (long)BaseRepository.Save(ModelEntity.Convert(t));
 
-        public Warehouse Update(object Id, Warehouse t) => EntityModel.Convert(BaseRepository.Update(Id, ModelEntity.Convert(t)));
+        public object Update(object Id, Warehouse t) => (long)BaseRepository.Update(Id, ModelEntity.Convert(t));
     }
 }

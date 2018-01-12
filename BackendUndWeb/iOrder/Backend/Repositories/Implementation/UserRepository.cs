@@ -86,20 +86,17 @@ namespace Backend.Repositories.Implementation
             }
         }
 
-        public User Save(User user)
+        public object Save(User user)
         {
-            var role = user.Role;
-            var model = EntityModelConverter.Convert(BaseRepository.Save(ModelEntityConverter.Convert(user)));
-            model.Role = role;
-            return model;
+
+            return (string)BaseRepository.Save(ModelEntityConverter.Convert(user));
+
         }
 
-        public User Update(object Id, User t)
+        public object Update(object Id, User t)
         {
-            var role = t.Role;
-            var model = EntityModelConverter.Convert(BaseRepository.Update(Id, ModelEntityConverter.Convert(t)));
-            model.Role = role;
-            return model;
+            return (string)BaseRepository.Update(Id, ModelEntityConverter.Convert(t));
+
         }
 
         private Role GetRole(long Id)
