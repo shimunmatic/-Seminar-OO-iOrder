@@ -31,8 +31,9 @@ public final class RouterImpl implements Router {
     }
 
     @Override
-    public void showMainScreen() {
+    public void showMainScreen(String displayValue) {
         Intent intent = new Intent(activity, MainActivity.class);
+        intent.putExtra("code", displayValue);
         activity.startActivity(intent);
     }
 
@@ -40,11 +41,6 @@ public final class RouterImpl implements Router {
     public void showScanner() {
         Intent intent = new Intent(activity, ScannerActivity.class);
         activity.startActivity(intent);
-    }
-
-    @Override
-    public void popUpCart() {
-
     }
 
     @Override

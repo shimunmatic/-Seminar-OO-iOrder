@@ -10,6 +10,7 @@ import hr.fer.oobl.iorder.data.network.model.ApiOrderHistory;
 import hr.fer.oobl.iorder.data.network.model.ApiOrderPost;
 import hr.fer.oobl.iorder.data.network.model.ApiProduct;
 import hr.fer.oobl.iorder.data.network.model.ApiProductPost;
+import hr.fer.oobl.iorder.data.network.model.ApiToken;
 import hr.fer.oobl.iorder.data.network.model.ApiUser;
 import hr.fer.oobl.iorder.data.network.model.ApiUserCredentials;
 import hr.fer.oobl.iorder.domain.model.Category;
@@ -30,21 +31,14 @@ public final class ApiIOrderToDomainMapperImpl implements ApiIOrderToDomainMappe
     @Override
     public ApiUser mapApiUser(final UserRegistration userRegistration) {
         return new ApiUser(userRegistration.getUsername(), userRegistration.getFirstName(), userRegistration.getSurname(), userRegistration.getEmail(),
-                           userRegistration.getPassword());
+                userRegistration.getPassword());
     }
 
     @Override
     public List<Order> mapApiOrderHistory(final List<ApiOrderHistory> apiOrderHistories) {
         return Stream.of(apiOrderHistories)
-                     .map(this::mapToOrder)
-                     .toList();
-    }
-
-    @Override
-    public List<Category> mapCategories(final List<ApiCategory> apiCategories) {
-        return Stream.of(apiCategories)
-                     .map(this::mapToCategory)
-                     .toList();
+                .map(this::mapToOrder)
+                .toList();
     }
 
     private Category mapToCategory(final ApiCategory apiCategory) {
@@ -53,8 +47,8 @@ public final class ApiIOrderToDomainMapperImpl implements ApiIOrderToDomainMappe
 
     private List<Product> mapToProducts(final List<ApiProduct> products) {
         return Stream.of(products)
-                     .map(this::mapToProduct)
-                     .toList();
+                .map(this::mapToProduct)
+                .toList();
     }
 
     private Product mapToProduct(final ApiProduct apiProduct) {
@@ -63,13 +57,13 @@ public final class ApiIOrderToDomainMapperImpl implements ApiIOrderToDomainMappe
 
     private Order mapToOrder(final ApiOrderHistory apiOrderHistory) {
         return new Order(mapToProductsPost(apiOrderHistory.products), apiOrderHistory.date, mapToEstablishment(apiOrderHistory.apiEstablishment),
-                         String.valueOf(apiOrderHistory.price));
+                String.valueOf(apiOrderHistory.price));
     }
 
     private List<Product> mapToProductsPost(final List<ApiProductPost> products) {
         return Stream.of(products)
-                     .map(this::mapToProductPost)
-                     .toList();
+                .map(this::mapToProductPost)
+                .toList();
     }
 
     private Product mapToProductPost(final ApiProductPost apiProductPost) {
@@ -78,7 +72,13 @@ public final class ApiIOrderToDomainMapperImpl implements ApiIOrderToDomainMappe
 
     @Override
     public Establishment mapToEstablishment(final ApiEstablishment apiEstablishment) {
-        return new Establishment(apiEstablishment.id, apiEstablishment.name);
+        return new Establishment(apiEstablishment.id, apiEstablishment.name, mapToCategories(apiEstablishment.categories));
+    }
+
+    private List<Category> mapToCategories(final List<ApiCategory> categories) {
+        return Stream.of(categories)
+                .map(this::mapToCategory)
+                .toList();
     }
 
     @Override
@@ -86,10 +86,15 @@ public final class ApiIOrderToDomainMapperImpl implements ApiIOrderToDomainMappe
         return new ApiOrderPost(mapToApiProducts(orderRequest.getProducts()), orderRequest.getCustomerId(), orderRequest.getLocationId(), orderRequest.getEstablishmentId());
     }
 
+    @Override
+    public String mapApiToken(ApiToken apiToken) {
+        return apiToken.token;
+    }
+
     private List<ApiProductPost> mapToApiProducts(final List<Product> products) {
         return Stream.of(products)
-                     .map(this::mapToApiProduct)
-                     .toList();
+                .map(this::mapToApiProduct)
+                .toList();
     }
 
     private ApiProductPost mapToApiProduct(final Product product) {

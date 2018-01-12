@@ -14,8 +14,9 @@ import android.widget.TextView;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import hr.fer.oobl.iorder.data.model.Product;
+import hr.fer.oobl.iorder.domain.model.Product;
 import hr.fer.oobl.iorder.iorder.R;
 import hr.fer.oobl.iorder.iorder.ui.main.MainActivity;
 
@@ -23,10 +24,10 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
     private Activity activity;
     private List<String> expandableListTitle;
-    private HashMap<String, List<Product>> expandableListDetail;
+    private Map<String, List<Product>> expandableListDetail;
 
     public CustomExpandableListAdapter(Activity activity, List<String> expandableListTitle,
-                                       HashMap<String, List<Product>> expandableListDetail) {
+                                       Map<String, List<Product>> expandableListDetail) {
         this.activity = activity;
         this.expandableListTitle = expandableListTitle;
         this.expandableListDetail = expandableListDetail;
@@ -35,7 +36,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public Object getChild(int listPosition, int expandedListPosition) {
         return this.expandableListDetail.get(this.expandableListTitle.get(listPosition))
-                                        .get(expandedListPosition);
+                .get(expandedListPosition);
     }
 
     @Override
@@ -101,7 +102,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
                 }
             });
             productPrice.setText(String.valueOf(product.getPrice()));
-            productName.setText(product.getName());
+            productName.setText(product.getName().trim());
             quantity.setText(product.getQuantity());
         }
         return convertView;
@@ -138,7 +139,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public int getChildrenCount(int listPosition) {
         return this.expandableListDetail.get(this.expandableListTitle.get(listPosition))
-                                        .size();
+                .size();
     }
 
     @Override
@@ -161,8 +162,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
                              View convertView, ViewGroup parent) {
         String listTitle = (String) getGroup(listPosition);
         if (convertView == null) {
-            LayoutInflater layoutInflater = (LayoutInflater) this.activity.
-                                                                                  getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            LayoutInflater layoutInflater = (LayoutInflater) this.activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             if (layoutInflater != null) {
                 convertView = layoutInflater.inflate(R.layout.list_category, null);
             }

@@ -6,14 +6,13 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -21,7 +20,6 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import hr.fer.oobl.iorder.data.network.model.ApiOrderHistory;
 import hr.fer.oobl.iorder.domain.model.Product;
 import hr.fer.oobl.iorder.iorder.R;
 import hr.fer.oobl.iorder.iorder.base.BaseActivity;
@@ -29,23 +27,30 @@ import hr.fer.oobl.iorder.iorder.base.ScopedPresenter;
 import hr.fer.oobl.iorder.iorder.injection.activity.ActivityComponent;
 import hr.fer.oobl.iorder.iorder.ui.main.model.CartAdapter;
 import hr.fer.oobl.iorder.iorder.ui.main.model.CustomExpandableListAdapter;
-import hr.fer.oobl.iorder.iorder.ui.main.model.ExpandableListDataPump;
 
 public class MainActivity extends BaseActivity implements MainContract.View {
+
+    private static final String QR_CODE_ERROR = "QR code has invalid types of data.";
 
     @BindView(R.id.cartQuantity)
     TextView cartQuantity;
 
-    @Inject
-    MainContract.Presenter presenter;
-
     @BindView(R.id.currentBill)
     TextView currentBill;
 
-    private ExpandableListView expandableListView;
-    private ExpandableListAdapter expandableListAdapter;
-    private List<String> expandableListTitle;
-    private HashMap<String, List<Product>> expandableListDetail;
+    @BindView(R.id.establishment_name)
+    TextView establishmentNameTV;
+
+    @BindView(R.id.expandableListView)
+    ExpandableListView expandableListView;
+
+    @Inject
+    MainContract.Presenter presenter;
+
+    private long locationId;
+    private long establishmentId;
+
+    private BaseExpandableListAdapter expandableListAdapter;
 
     @Override
     protected void onCreate(@Nullable final Bundle savedInstanceState) {
@@ -53,10 +58,32 @@ public class MainActivity extends BaseActivity implements MainContract.View {
         setContentView(R.layout.main_layout);
         ButterKnife.bind(this);
 
-        expandableListView = findViewById(R.id.expandableListView);
-        expandableListDetail = ExpandableListDataPump.getData();
-        expandableListTitle = new ArrayList<>(expandableListDetail.keySet());
-        expandableListAdapter = new CustomExpandableListAdapter(this, expandableListTitle, expandableListDetail);
+        final String code = getIntent().getExtras().getString("code");
+
+        if (code != null && !code.isEmpty()) {
+            final String[] parameters = code.split("&");
+
+            try {
+                establishmentId = Long.parseLong(parameters[0].split("=")[1]);
+                locationId = Long.parseLong(parameters[1].split("=")[1]);
+                presenter.fetchCategories(establishmentId);
+            } catch (NumberFormatException ne) {
+                showError(QR_CODE_ERROR);
+            }
+        } else {
+            showError(QR_CODE_ERROR);
+        }
+    }
+
+    @Override
+    public void showError(final String error) {
+        Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void fillViewState() {
+        establishmentNameTV.setText(presenter.getEstablishmentName());
+        expandableListAdapter = new CustomExpandableListAdapter(this, presenter.getExpandableTitles(), presenter.getExpandableItems());
         expandableListView.setAdapter(expandableListAdapter);
     }
 
@@ -118,13 +145,11 @@ public class MainActivity extends BaseActivity implements MainContract.View {
 
             AlertDialog alertDialog = dialogBuilder.create();
             orderButton.setOnClickListener(view -> {
-                ApiOrderHistory order = new ApiOrderHistory();
-                //TODO: Send ApiOrderHistory
+                presenter.sendOrder(establishmentId, locationId);
                 alertDialog.cancel();
             });
             cancelOrderButton.setOnClickListener(v -> {
-                presenter.getCartProducts().clear();
-                cartAdapter.notifyDataSetChanged();
+                alertDialog.cancel();
             });
             alertDialog.show();
         }
