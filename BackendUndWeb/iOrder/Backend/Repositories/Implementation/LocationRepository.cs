@@ -46,14 +46,14 @@ namespace Backend.Repositories.Implementation
             }
         }
 
-        public Location Save(Location t)
+        public object Save(Location t)
         {
-            return EntityModelConverter.Convert(BaseRepository.Save(ModelEntityConverter.Convert(t)));
+            return (long)BaseRepository.Save(ModelEntityConverter.Convert(t));
         }
 
-        public Location Update(object Id, Location t)
+        public object Update(object Id, Location t)
         {
-            return EntityModelConverter.Convert(BaseRepository.Update(Id, ModelEntityConverter.Convert(t)));
+            return (long)BaseRepository.Update(Id, ModelEntityConverter.Convert(t));
         }
     }
 }

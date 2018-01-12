@@ -36,8 +36,8 @@ namespace Backend.Repositories.Implementation
             }
         }
 
-        public Supplier Save(Supplier t) => EntityModel.Convert(BaseRepository.Save(ModelEntity.Convert(t)));
+        public object Save(Supplier t) => (long)BaseRepository.Save(ModelEntity.Convert(t));
 
-        public Supplier Update(object Id, Supplier t) => EntityModel.Convert(BaseRepository.Update(Id, ModelEntity.Convert(t)));
+        public object Update(object Id, Supplier t) => (long)(BaseRepository.Update(Id, ModelEntity.Convert(t)));
     }
 }

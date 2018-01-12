@@ -9,8 +9,8 @@ namespace Backend.Repositories
     {
         IEnumerable<T> GetAll();
         T GetById(object Id);
-        T Save(T t);
-        T Update(object Id, T t);
+        object Save(T t);
+        object Update(object Id, T t);
         bool Delete(T t);
     }
 }

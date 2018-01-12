@@ -119,18 +119,16 @@ namespace Backend.Repositories.Implementation
             }
         }
 
-        public Order Save(Order t)
+        public object Save(Order t)
         {
-            var o = EntityModel.Convert(BaseRepository.Save(ModelEntity.Convert(t)));
-            o.OrderedProducts = t.OrderedProducts;
-            return o;
+            return (long)BaseRepository.Save(ModelEntity.Convert(t));
+          
         }
 
-        public Order Update(object Id, Order t)
+        public object Update(object Id, Order t)
         {
-            var o = EntityModel.Convert(BaseRepository.Update(Id, ModelEntity.Convert(t)));
-            o.OrderedProducts = t.OrderedProducts;
-            return o;
+            return (long)BaseRepository.Update(Id, ModelEntity.Convert(t));
+
         }
     }
 }

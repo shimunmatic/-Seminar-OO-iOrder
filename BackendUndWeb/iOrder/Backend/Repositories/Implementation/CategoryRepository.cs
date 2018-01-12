@@ -12,7 +12,7 @@ namespace Backend.Repositories.Implementation
 {
     public class CategoryRepository : ICategoryRepository
     {
-        private IConverter<Category,CategoryEntity> ModelEntityConverter;
+        private IConverter<Category, CategoryEntity> ModelEntityConverter;
         private IConverter<CategoryEntity, Category> EntityModelConverter;
         private BaseRepository<CategoryEntity> BaseRepository;
 
@@ -48,15 +48,15 @@ namespace Backend.Repositories.Implementation
             }
         }
 
-
-        public Category Save(Category t)
+        public object Save(Category t)
         {
-            return EntityModelConverter.Convert(BaseRepository.Save(ModelEntityConverter.Convert(t)));
+            return BaseRepository.Save(ModelEntityConverter.Convert(t));
         }
 
-        public Category Update(object Id, Category t)
+        public object Update(object Id, Category t)
         {
-            return EntityModelConverter.Convert(BaseRepository.Update(Id, ModelEntityConverter.Convert(t)));
+            return BaseRepository.Update(Id, ModelEntityConverter.Convert(t));
         }
+
     }
 }

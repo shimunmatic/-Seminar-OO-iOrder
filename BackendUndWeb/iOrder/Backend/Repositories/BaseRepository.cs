@@ -24,20 +24,20 @@ namespace Backend.Repositories
             }
         }
 
-        public virtual T Save(T t)
+        public virtual object Save(T t)
         {
             using (var db = NHibernateHelper.OpenSession())
             {
                 using (var transaction = db.BeginTransaction())
                 {
-                    T saved = (T)db.Save(t);
+                    var savedId = db.Save(t);
                     transaction.Commit();
-                    return saved;
+                    return savedId;
                 }
             }
         }
 
-        public virtual T Update(object Id, T t)
+        public virtual object Update(object Id, T t)
         {
             using (var db = NHibernateHelper.OpenSession())
             {
@@ -45,9 +45,9 @@ namespace Backend.Repositories
                 old = t;
                 using (var transaction = db.BeginTransaction())
                 {
-                    T saved = (T)db.Save(old);
+                    var updatedId = db.Save(old);
                     transaction.Commit();
-                    return saved;
+                    return updatedId;
                 }
             }
         }

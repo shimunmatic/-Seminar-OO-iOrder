@@ -12,10 +12,13 @@ namespace Backend.Services.Implementation
     public class UserService : IUserService
     {
         private IUserRepository UserRepository;
+        private IRoleRepository RoleRepository;
 
-        public UserService(IUserRepository userRepository)
+
+        public UserService(IUserRepository userRepository, IRoleRepository roleRepository)
         {
             UserRepository = userRepository;
+            RoleRepository = roleRepository;
         }
 
         public User Get(string Username)
@@ -35,7 +38,9 @@ namespace Backend.Services.Implementation
 
         public User Register(User user)
         {
-            return UserRepository.Save(user);
+            user.Role = RoleRepository.GetByName("CUSTOMER");
+            user.EstablishmentId = 2;
+            return UserRepository.GetById(UserRepository.Sadve(user));
         }
 
         public bool ValidateUserCredentials(UserCredentials uc)

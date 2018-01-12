@@ -68,14 +68,14 @@ namespace Backend.Repositories.Implementation
             }
         }
 
-        public Role Save(Role role)
+        public object Save(Role role)
         {
-            return EntityModelConverter.Convert(BaseRepository.Save(ModelEntityConverter.Convert(role)));
+            return (long)BaseRepository.Save(ModelEntityConverter.Convert(role));
         }
 
-        public Role Update(object Id, Role role)
+        public object Update(object Id, Role role)
         {
-            return EntityModelConverter.Convert(BaseRepository.Update(Id, ModelEntityConverter.Convert(role)));
+            return (long)BaseRepository.Update(Id, ModelEntityConverter.Convert(role));
         }
     }
 }
