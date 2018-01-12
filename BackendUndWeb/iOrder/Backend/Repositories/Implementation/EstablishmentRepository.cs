@@ -55,14 +55,14 @@ namespace Backend.Repositories.Implementation
             }
         }
 
-        public Establishment Save(Establishment t)
+        public object Save(Establishment t)
         {
-            return EntityModelConverter.Convert(BaseRepository.Save(ModelEntityConverter.Convert(t)));
+            return (long)BaseRepository.Save(ModelEntityConverter.Convert(t));
         }
 
-        public Establishment Update(object Id, Establishment t)
+        public object Update(object Id, Establishment t)
         {
-            return EntityModelConverter.Convert(BaseRepository.Update(Id, ModelEntityConverter.Convert(t)));
+            return (long) BaseRepository.Update(Id, ModelEntityConverter.Convert(t));
         }
     }
 }

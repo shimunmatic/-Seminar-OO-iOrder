@@ -10,8 +10,5 @@ namespace Backend.Repositories.Interface
     {
         IEnumerable<Establishment> GetEstablishmentsForOwner(string Username);
         IEnumerable<Establishment> GetEstablishmentsForWarehouse(long Id);
-
-
-
     }
 }

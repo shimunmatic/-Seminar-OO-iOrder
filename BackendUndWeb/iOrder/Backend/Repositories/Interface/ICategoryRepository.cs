@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Backend.Repositories.Interface
 {
-    interface ICategoryRepository:IBaseRepository<Category>
+    public interface ICategoryRepository:IBaseRepository<Category>
     {
         IEnumerable<Category> GetCategoriesOfOwner(string username);
 

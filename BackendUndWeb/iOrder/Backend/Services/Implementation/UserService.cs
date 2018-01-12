@@ -12,24 +12,35 @@ namespace Backend.Services.Implementation
     public class UserService : IUserService
     {
         private IUserRepository UserRepository;
+        private IRoleRepository RoleRepository;
 
-        public UserService(IUserRepository userRepository)
+
+        public UserService(IUserRepository userRepository, IRoleRepository roleRepository)
         {
             UserRepository = userRepository;
+            RoleRepository = roleRepository;
         }
 
-        public User Get(string Username, string password)
+        public User Get(string Username)
         {
-            var user = UserRepository.GetById(Username);
-            if (user != null && user.Password.Equals(password.Trim()))
-                return user;
-            return null;
+            return UserRepository.GetById(Username);
+        }
 
+        public IEnumerable<User> GetAllEmployeesForEstablishment(long Id)
+        {
+            return UserRepository.GetEmployeesOfEsatblishemnt(Id);
+        }
+
+        public IEnumerable<User> GetAllEmployeesForOwner(string Username)
+        {
+            return UserRepository.GetEmployeesOfOwner(Username);
         }
 
         public User Register(User user)
         {
-            return UserRepository.Save(user);
+            user.Role = RoleRepository.GetByName("CUSTOMER");
+            user.EstablishmentId = 2;
+            return UserRepository.GetById(UserRepository.Save(user));
         }
 
         public bool ValidateUserCredentials(UserCredentials uc)

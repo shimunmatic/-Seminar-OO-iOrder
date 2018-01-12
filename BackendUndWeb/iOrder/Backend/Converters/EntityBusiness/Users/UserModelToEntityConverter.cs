@@ -12,14 +12,15 @@ namespace Backend.Converters.EntityBusiness
         public UserEntity Convert(User Source)
         {
             if (null == Source) return null;
-            return new UserEntity
+            return new UserEntity()
             {
                 Username = Source.Username,
                 Email = Source.Email,
                 FirstName = Source.FirstName,
                 LastName = Source.LastName,
                 Password = Source.Password,
-                RoleId = Source.Role.Id
+                RoleId = Source.Role.Id,
+                EstablishmentId = Source.EstablishmentId
             };
 
         }
@@ -30,7 +31,7 @@ namespace Backend.Converters.EntityBusiness
             var users = new List<UserEntity>();
             foreach (var user in Source)
             {
-                users.Add(new UserEntity
+                users.Add(new UserEntity()
                 {
                     Username = user.Username,
                     Email = user.Email,

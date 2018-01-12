@@ -6,6 +6,7 @@ using Backend.Models.Business;
 using Backend.Models.ModelView;
 using Backend.Repositories.Interface;
 using Backend.Services.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,14 +24,18 @@ namespace Backend.Controllers
         }
 
         //POST: api/User/Get
-        [HttpPost("Get")]
-        public User GetUser([FromBody]UserCredentials credentials)
-        {
-            return UserService.Get(credentials.Username, credentials.Password);
+        [HttpGet("Get")]
+        [Authorize(Roles = "GOD")]
+        public User GetUser()
+        { 
+            var name = User.Identity.Name;
+            Console.WriteLine();
+            return UserService.Get(name);
         }
 
         // POST: api/User/Register
         [HttpPost("Register")]
+        [AllowAnonymous]
         public IActionResult Post([FromBody]User user)
         {
             var u = UserService.Register(user);

@@ -6,6 +6,7 @@ using Backend.Models.Business;
 using Backend.Models.Entity;
 using Backend.Repositories.Interface;
 using Backend.Services.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -14,6 +15,7 @@ namespace Backend.Controllers
 {
     [Produces("application/json")]
     [Route("api/Role")]
+    [Authorize(Roles = "GOD")]
     public class RoleController : Controller
     {
         private IRoleService Service;
@@ -28,7 +30,8 @@ namespace Backend.Controllers
 
         // GET: api/Role
         [HttpGet]
-        public IEnumerable<Role> Get() {
+        public IEnumerable<Role> Get()
+        {
             var roles = Service.GetAll();
             _logger.LogDebug("Returning: " + roles);
             return roles;

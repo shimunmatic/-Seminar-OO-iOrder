@@ -10,5 +10,11 @@ namespace Backend.Models.Business
         public virtual long Id { get; set; }
         public virtual string Name { get; set; }
         public virtual string OwnerId { get; set; }
+        public virtual IEnumerable<Product> Products { get; set; }
+        public Category()
+        {
+            Products = new List<Product>();
+        }
+
     }
 }
