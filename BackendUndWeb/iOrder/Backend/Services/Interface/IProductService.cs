@@ -10,6 +10,8 @@ namespace Backend.Services.Interface
     {
         IEnumerable<Product> GetProductsForWarehouseId(long id);
         IEnumerable<Product> GetProductsForCategoryId(long id);
+        IEnumerable<Product> GetProductsForOwnerId(string username);
+        void Save(Product product);
 
     }
 }

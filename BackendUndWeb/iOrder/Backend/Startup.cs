@@ -35,6 +35,7 @@ namespace Backend
             services.AddScoped<IConverter<RoleEntity, Role>, RoleEntityToModelConverter>();
             services.AddScoped<IConverter<Role, RoleEntity>, RoleModelToEntityConverter>();
             services.AddScoped<IRoleRepository, RoleRepository>();
+            services.AddScoped<IRoleService, RoleService>();
 
             services.AddScoped<IConverter<CategoryEntity, Category>, CategoryEntityToModelConverter>();
             services.AddScoped<IConverter<Category, CategoryEntity>, CategoryModelToEntityConverter>();
@@ -57,6 +58,8 @@ namespace Backend
             services.AddScoped<IConverter<OrderEntity, Order>, OrderEntityToModelConverter>();
             services.AddScoped<IConverter<Order, OrderEntity>, OrderModelToEntityConverter>();
             services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IOrderService, OrderService>();
+
 
             services.AddScoped<IConverter<OwnerEntity, Owner>, OwnerEntityToModelConverter>();
             services.AddScoped<IConverter<Owner, OwnerEntity>, OwnerModelToEntityConverter>();
@@ -88,7 +91,6 @@ namespace Backend
             services.AddScoped<IConverter<OrderPairEntity, OrderPair>, OrderPairEntityToModelConverter>();
             services.AddScoped<IConverter<OrderPair, OrderPairEntity>, OrderPairModelToEntityConverter>();
 
-            services.AddScoped<IRoleService, RoleService>();
 
 
             // add Authentication

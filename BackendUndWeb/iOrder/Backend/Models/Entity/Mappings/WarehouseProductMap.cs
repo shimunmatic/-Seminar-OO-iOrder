@@ -13,7 +13,7 @@ namespace Backend.Models.Entity.Mappings
         {
             Table("warehouse_product");
             Schema("dbo");
-            Id(wp => wp.Id).Column("id").GeneratedBy.Increment();
+            Id(wp => wp.Id).Column("id").GeneratedBy.Native();
             Map(wp => wp.ProductId).Column("product_id");
             Map(wp => wp.WearhouseId).Column("warehouse_id");
             Map(wp => wp.SellingPrice).Column("selling_price");

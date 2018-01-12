@@ -22,9 +22,19 @@ namespace Backend.Services.Implementation
             return ProductRepository.GetProductsForCategory(id);
         }
 
+        public IEnumerable<Product> GetProductsForOwnerId(string username)
+        {
+            return ProductRepository.GetProductsForOwner(username);
+        }
+
         public IEnumerable<Product> GetProductsForWarehouseId(long id)
         {
             return ProductRepository.GetProductsForWarehouse(id);
+        }
+
+        public void Save(Product product)
+        {
+            ProductRepository.Save(product);
         }
     }
 }

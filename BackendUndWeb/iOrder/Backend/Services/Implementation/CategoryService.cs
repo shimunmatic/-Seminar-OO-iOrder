@@ -40,7 +40,10 @@ namespace Backend.Services.Implementation
             foreach (var catId in categoryIds)
             {
                 var cat = CategoryRepository.GetById(catId);
-                cat.Products = ProductService.GetProductsForCategoryId(catId);
+                cat.Products = (from p in products
+                                where p.CategoryId == catId
+                                select p).ToList();
+
                 categories.Add(cat); 
             }
             return categories;
