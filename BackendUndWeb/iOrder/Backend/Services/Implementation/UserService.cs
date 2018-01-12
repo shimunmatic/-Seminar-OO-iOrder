@@ -40,7 +40,7 @@ namespace Backend.Services.Implementation
         {
             user.Role = RoleRepository.GetByName("CUSTOMER");
             user.EstablishmentId = 2;
-            return UserRepository.GetById(UserRepository.Sadve(user));
+            return UserRepository.GetById(UserRepository.Save(user));
         }
 
         public bool ValidateUserCredentials(UserCredentials uc)

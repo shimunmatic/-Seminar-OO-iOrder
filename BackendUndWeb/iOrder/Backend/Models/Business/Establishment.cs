@@ -14,5 +14,14 @@ namespace Backend.Models.Business
         public virtual string OwnerId { get; set; }
         public virtual string Zip { get; set; }
         public virtual string City { get; set; }
+        public virtual IEnumerable<Category> Categories { get; set; }
+        public virtual IEnumerable<Location> Locations { get; set; }
+
+
+        public Establishment()
+        {
+            Categories = new List<Category>();
+            Locations = new List<Location>();
+        }
     }
 }

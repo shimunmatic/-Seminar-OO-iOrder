@@ -36,6 +36,16 @@ namespace Backend
                         {
                             m.FluentMappings.Add<RoleMap>();
                             m.FluentMappings.Add<UserMap>();
+                            m.FluentMappings.Add<CategoryMap>();
+                            m.FluentMappings.Add<EstablishmentMap>();
+                            m.FluentMappings.Add<ProductMap>();
+                            m.FluentMappings.Add<LocationMap>();
+                            m.FluentMappings.Add<OrderMap>();
+                            m.FluentMappings.Add<OrderPairMap>();
+                            m.FluentMappings.Add<OwnerMap>();
+                            m.FluentMappings.Add<WarehouseMap>();
+                            m.FluentMappings.Add<WarehouseProductMap>();
+                            m.FluentMappings.Add<SupplierMap>();
                         })
                         .ExposeConfiguration(config =>
                         {

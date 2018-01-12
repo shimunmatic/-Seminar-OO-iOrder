@@ -10,7 +10,7 @@ namespace Backend.Models.Entity.Mappings
     {
         public LocationMap()
         {
-            Table("locaiton");
+            Table("location");
             Schema("dbo");
             Id(l => l.Id).Column("id").GeneratedBy.Increment();
             Map(l => l.EstablishmentId).Column("establishment_id");

@@ -39,14 +39,20 @@ namespace Backend
             services.AddScoped<IConverter<CategoryEntity, Category>, CategoryEntityToModelConverter>();
             services.AddScoped<IConverter<Category, CategoryEntity>, CategoryModelToEntityConverter>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<ICategoryService, CategoryService>();
+
 
             services.AddScoped<IConverter<EstablishmentEntity, Establishment>, EstablishmentEntityToModelConverter>();
             services.AddScoped<IConverter<Establishment, EstablishmentEntity>, EstablishmentModelToEntityConverter>();
             services.AddScoped<IEstablishmentRepository, EstablishmentRepository>();
+            services.AddScoped<IEstablishmentService, EstablishmentService>();
+
 
             services.AddScoped<IConverter<LocationEntity, Location>, LocationEntityToModelConverter>();
             services.AddScoped<IConverter<Location, LocationEntity>, LocationModelToEntityConverter>();
             services.AddScoped<ILocationRepository, LocationRepository>();
+            services.AddScoped<ILocationService, LocationService>();
+
 
             services.AddScoped<IConverter<OrderEntity, Order>, OrderEntityToModelConverter>();
             services.AddScoped<IConverter<Order, OrderEntity>, OrderModelToEntityConverter>();
@@ -59,6 +65,8 @@ namespace Backend
             services.AddScoped<IConverter<ProductEntity, Product>, ProductEntityToModelConverter>();
             services.AddScoped<IConverter<Product, ProductEntity>, ProductModelToEntityConverter>();
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IProductService, ProductService>();
+
 
             services.AddScoped<IConverter<UserEntity, User>, UserEntityToModelConverter>();
             services.AddScoped<IConverter<User, UserEntity>, UserModelToEntityConverter>();
@@ -69,6 +77,8 @@ namespace Backend
             services.AddScoped<IConverter<WarehouseEntity, Warehouse>, WarehouseEntityToModelConverter>();
             services.AddScoped<IConverter<Warehouse, WarehouseEntity>, WarehouseModelToEntityConverter>();
             services.AddScoped<IWarehouseRepository, WarehouseRepository>();
+            services.AddScoped<IWarehouseService, WarehouseService>();
+
 
             services.AddScoped<IConverter<SupplierEntity, Supplier>, SupplierEntityToModelConverter>();
             services.AddScoped<IConverter<Supplier, SupplierEntity>, SupplierModelToEntityConverter>();
