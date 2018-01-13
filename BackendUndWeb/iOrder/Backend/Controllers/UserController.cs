@@ -23,35 +23,50 @@ namespace Backend.Controllers
             UserService = userService;
         }
 
-        //POST: api/User/Get
-        [HttpGet("Get")]
-        [Authorize(Roles = "GOD")]
-        public User GetUser()
+        //GET: api/User/Employee
+        [HttpGet("Employee")]
+        [Authorize(Roles = "ADMIN")]
+        public IEnumerable<User> GetEmployees()
         {
             var name = User.Identity.Name;
             Console.WriteLine();
-            return UserService.GetById(name);
+            return UserService.GetAllEmployeesForOwner(name);
         }
 
-        // POST: api/User/Register
-        [HttpPost("Register")]
+        // POST: api/User/Customer
+        [HttpPost("Customer")]
         [AllowAnonymous]
-        public void Post([FromBody]User user)
+        public void PoCreateCustomer([FromBody]User user)
         {
             UserService.RegisterCustomer(user);
 
         }
 
-        // PUT: api/User/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        // POST: api/User/Employee
+        [HttpPost("Employee")]
+        [Authorize(Roles = "ADMIN")]
+        public void CreateEmployee([FromBody]User user)
         {
+            UserService.RegisterEmployee(user);
+
         }
 
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+
+        // DELETE: api/User/Customer
+        [HttpDelete("Customer")]
+        [Authorize(Roles = "CUSTOMER")]
+        public void DeleteCustomer()
         {
+            UserService.Delete(User.Identity.Name);
+        }
+
+
+        // DELETE: api/User/Employee/shemso
+        [HttpDelete("Employee/{username}")]
+        [Authorize(Roles = "ADMIN")]
+        public void DeleteEmployee(string username)
+        {
+            UserService.Delete(username);
         }
     }
 }

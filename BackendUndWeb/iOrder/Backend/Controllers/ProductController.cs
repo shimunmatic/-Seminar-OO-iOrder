@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Backend.Models.Business;
+using Backend.Models.ModelView;
 using Backend.Services.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -24,6 +25,7 @@ namespace Backend.Controllers
 
         // GET: api/Product
         [HttpGet]
+        [Authorize(Roles = ("ADMIN"))]
         public IEnumerable<Product> Get()
         {
             var name = User.Identity.Name;
@@ -42,16 +44,26 @@ namespace Backend.Controllers
 
         // PUT: api/Product/5
         [HttpPut("{id}")]
+        [Authorize(Roles = "ADMIN")]
         public void Put(int id, [FromBody]Product product)
         {
             ProductService.Update(id, product);
         }
 
-        // DELETE: api/ApiWithActions/5
+        // DELETE: api/Product/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "ADMIN")]
         public void Delete(int id)
         {
             ProductService.Delete(id);
+        }
+
+        // POST: api/Product/Storage
+        [HttpPost("Storage")]
+        [Authorize(Roles = "ADMIN")]
+        void AddProductToWarehouse([FromBody]WarehouseProduct warehouseProduct)
+        {
+            ProductService.AddProductToWarehouse(warehouseProduct.ProductId, warehouseProduct.WarehouseId, warehouseProduct.Quantity, warehouseProduct.SellingPrice);
         }
     }
 }

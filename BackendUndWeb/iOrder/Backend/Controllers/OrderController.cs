@@ -12,6 +12,7 @@ namespace Backend.Controllers
 {
     [Produces("application/json")]
     [Route("api/Order")]
+    [Authorize]
     public class OrderController : Controller
     {
         private IOrderService OrderService;
@@ -21,11 +22,20 @@ namespace Backend.Controllers
             OrderService = orderService;
         }
 
-        // GET: api/Order/5
-        [HttpGet("Establishment/{id}", Name = "GetOrders")]
+        // GET: api/Order/CustomerHistory/5
+        [HttpGet("CustomerHistory/{id}", Name = "GetOrders")]
+        [Authorize(Roles = "CUSTOMER")]
         public IEnumerable<Order> Get(int id)
         {
             return OrderService.GetCustomerHistoryForEstablishmentId(User.Identity.Name, id);
+        }
+
+        // GET: api/Order/EstablishmentHistory/5
+        [HttpGet("EstablishmentHistory/{id}", Name = "GetOrdersForEst")]
+        [Authorize(Roles = "EMPLOYEE,ADMIN")]
+        public IEnumerable<Order> GetEstablishmentHistory(int id)
+        {
+            return OrderService.GetHistoryEstablishmentId(id);
         }
 
         // POST: api/Order
@@ -38,16 +48,13 @@ namespace Backend.Controllers
             OrderService.Save(order);
         }
 
-        // PUT: api/Order/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE: api/ApiWithActions/5
+        // DELETE: api/Order/5
         [HttpDelete("{id}")]
+        [Authorize("CUSTOMER,ADMIN,EMPLOYEE")]
         public void Delete(int id)
         {
+            OrderService.Delete(id);
+
         }
     }
 }
