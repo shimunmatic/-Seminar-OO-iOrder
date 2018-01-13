@@ -20,6 +20,11 @@ namespace Backend.Services.Implementation
             WarehouseRepository = warehouseRepository;
         }
 
+        public void AddProductQuantityToWarehouse(long id, long warehouseId, int quantity)
+        {
+            WarehouseRepository.AddProductQuantityToWarehouse(id, warehouseId, quantity);
+        }
+
         public void AddProductToWarehouse(long productId, long warehouseId, int quantity, decimal sellingPrice)
         {
             WarehouseRepository.AddProductToWarehouse(new WarehouseProductEntity()

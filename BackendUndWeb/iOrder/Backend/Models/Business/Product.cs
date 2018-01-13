@@ -15,5 +15,10 @@ namespace Backend.Models.Business
         public virtual long SupplierId { get; set; }
         public virtual decimal SellingPrice { get; set; }
 
+
+
+        public string ToStsring() => Name + " " + OwnerId;
+
     }
+
 }

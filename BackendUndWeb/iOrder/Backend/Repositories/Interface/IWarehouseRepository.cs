@@ -13,5 +13,6 @@ namespace Backend.Repositories.Interface
         int GetQuantityForProductInWarehouse(long productId, long warehouseId);
         void AddProductToWarehouse(WarehouseProductEntity entity);
         void ReduceProductQuantityFromWarehouse(long productId, long warehouseId, int quantity);
+        void AddProductQuantityToWarehouse(long id, long warehouseId, int quantity);
     }
 }

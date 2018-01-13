@@ -13,6 +13,6 @@ namespace Backend.Services.Interface
         IEnumerable<Product> GetProductsForOwnerId(string username);
         void AddProductToWarehouse(long productId, long warehouseId, int quantity, decimal sellingPrice);
         void ReduceProductQuantityFromWarehouse(long productId, long warehouseId, int quantity);
-
+        void AddProductQuantityToWarehouse(long id, long warehouseId, int quantity);
     }
 }

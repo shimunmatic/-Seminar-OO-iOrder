@@ -20,6 +20,23 @@ namespace Backend.Repositories.Implementation
             BaseRepository = new BaseRepository<WarehouseEntity>();
         }
 
+        public void AddProductQuantityToWarehouse(long id, long warehouseId, int quantity)
+        {
+            using (var db = NHibernateHelper.OpenSession())
+            {
+                using (var transaction = db.BeginTransaction())
+                {
+                    var wp = db.Query<WarehouseProductEntity>().Where(wpe => wpe.ProductId == id && wpe.WearhouseId == warehouseId).First();
+                    if (null != wp)
+                    {
+                        wp.Quantity += quantity;
+                        db.SaveOrUpdate(wp);
+                        transaction.Commit();
+                    }
+                }
+            }
+        }
+
         public void AddProductToWarehouse(WarehouseProductEntity entity)
         {
             using (var db = NHibernateHelper.OpenSession())
@@ -76,8 +93,8 @@ namespace Backend.Repositories.Implementation
                     {
                         wp.Quantity -= quantity;
                         db.SaveOrUpdate(wp);
+                        transaction.Commit();
                     }
-                    transaction.Commit();
                 }
             }
         }

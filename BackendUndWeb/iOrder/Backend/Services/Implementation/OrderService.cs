@@ -65,6 +65,7 @@ namespace Backend.Services.Implementation
                 {
                     var p = ProductService.GetById(product.Product.Id);
                     SupplierService.NotifySupplier(p.SupplierId, GetMessage(p));
+                    ProductService.AddProductQuantityToWarehouse(p.Id, warehouseId, DEFAULT_BUYING_QUANTITY);
                     // todo send email to supplier
                 }
             }
@@ -74,7 +75,7 @@ namespace Backend.Services.Implementation
         private string GetMessage(Product p)
         {
 
-            return "Order for: " + p.ToString() + "\n" + "Quantity: " + DEFAULT_BUYING_QUANTITY;
+            return "Order for: " + p.ToStsring() + "\n" + "Quantity: " + DEFAULT_BUYING_QUANTITY;
 
 
         }

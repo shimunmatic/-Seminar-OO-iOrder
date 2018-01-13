@@ -17,6 +17,8 @@ namespace Backend.Models.Entity.Mappings
             Map(wp => wp.ProductId).Column("product_id");
             Map(wp => wp.WearhouseId).Column("warehouse_id");
             Map(wp => wp.SellingPrice).Column("selling_price");
+            Map(wp => wp.Quantity).Column("quantity");
+
         }
     }
 }
