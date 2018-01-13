@@ -31,6 +31,14 @@ namespace Backend.Controllers
         }
 
         // GET: api/Establishment/5
+        [HttpGet("Owner", Name = "GetEstablishmentsForOwner")]
+        public IEnumerable<Establishment> GetForOwner()
+        {
+            return EstablishmentService.GetAllForOwner(User.Identity.Name);
+        }
+
+
+        // GET: api/Establishment/5
         [HttpGet("{id}", Name = "GetEstablishment")]
         public Establishment Get(int id)
         {
@@ -39,14 +47,18 @@ namespace Backend.Controllers
 
         // POST: api/Establishment
         [HttpPost]
-        public void Post([FromBody]string value)
+        [Authorize(Roles = "ADMIN")]
+        public void Post([FromBody]Establishment establishment)
         {
+            establishment.OwnerId = User.Identity.Name;
+            EstablishmentService.Save(establishment);
         }
 
         // PUT: api/Establishment/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody]string value)
         {
+            
         }
 
         // DELETE: api/ApiWithActions/5

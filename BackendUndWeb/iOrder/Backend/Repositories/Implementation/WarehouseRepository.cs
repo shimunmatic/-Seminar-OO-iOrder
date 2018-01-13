@@ -20,16 +20,65 @@ namespace Backend.Repositories.Implementation
             BaseRepository = new BaseRepository<WarehouseEntity>();
         }
 
+        public void AddProductToWarehouse(WarehouseProductEntity entity)
+        {
+            using (var db = NHibernateHelper.OpenSession())
+            {
+                using (var transaction = db.BeginTransaction())
+                {
+                    var wp = db.Query<WarehouseProductEntity>().Where(wpe => wpe.ProductId == entity.ProductId && wpe.WearhouseId == entity.WearhouseId).First();
+                    if (null == wp)
+                        db.Save(entity);
+                    else
+                    {
+                        wp.SellingPrice = entity.SellingPrice;
+                        wp.Quantity += entity.Quantity;
+                        db.SaveOrUpdate(wp);
+                    }
+                    transaction.Commit();
+                }
+            }
+        }
+
         public bool Delete(Warehouse t) => BaseRepository.Delete(ModelEntity.Convert(t));
         public IEnumerable<Warehouse> GetAll() => EntityModel.Convert(BaseRepository.GetAll());
 
         public Warehouse GetById(object Id) => EntityModel.Convert(BaseRepository.GetById(Id));
+
+        public int GetQuantityForProductInWarehouse(long productId, long warehouseId)
+        {
+            using (var db = NHibernateHelper.OpenSession())
+            {
+                var wp = db.Query<WarehouseProductEntity>().Where(wpe => wpe.ProductId == productId && wpe.WearhouseId == warehouseId).First();
+                if (null == wp)
+                    return -1;
+                else
+                    return wp.Quantity;
+            }
+        }
 
         public IEnumerable<Warehouse> GetWearhousesForOwner(string Username)
         {
             using (var db = NHibernateHelper.OpenSession())
             {
                 return EntityModel.Convert(db.Query<WarehouseEntity>().Where(w => w.OwnerId.Equals(Username)));
+            }
+        }
+
+        public void ReduceProductQuantityFromWarehouse(long productId, long warehouseId, int quantity)
+        {
+            using (var db = NHibernateHelper.OpenSession())
+            {
+                using (var transaction = db.BeginTransaction())
+                {
+                    var wp = db.Query<WarehouseProductEntity>().Where(wpe => wpe.ProductId == productId && wpe.WearhouseId == warehouseId).First();
+                    if (null != wp)
+                    {
+                        wp.Quantity -= quantity;
+                        db.SaveOrUpdate(wp);
+                    }
+                    transaction.Commit();
+                }
             }
         }
 

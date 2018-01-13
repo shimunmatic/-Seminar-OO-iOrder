@@ -7,9 +7,7 @@ using System.Threading.Tasks;
 
 namespace Backend.Services.Interface
 {
-    public interface IOwnerService
+    public interface IOwnerService : IBaseService<Owner>
     {
-        IEnumerable<Owner> GetAllOwners();
-        Owner GetOwnerById(UserCredentials credentials);
     }
 }

@@ -31,30 +31,27 @@ namespace Backend.Controllers
             return ProductService.GetProductsForOwnerId(name);
         }
 
-        // GET: api/Product/5
-        [HttpGet("{id}", Name = "GetProduct")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-        
         // POST: api/Product
         [HttpPost]
+        [Authorize(Roles = "ADMIN")]
         public void Post([FromBody]Product product)
         {
+            product.OwnerId = User.Identity.Name;
             ProductService.Save(product);
         }
-        
+
         // PUT: api/Product/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public void Put(int id, [FromBody]Product product)
         {
+            ProductService.Update(id, product);
         }
-        
+
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            ProductService.Delete(id);
         }
     }
 }

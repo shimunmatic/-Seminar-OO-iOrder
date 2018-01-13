@@ -64,6 +64,8 @@ namespace Backend
             services.AddScoped<IConverter<OwnerEntity, Owner>, OwnerEntityToModelConverter>();
             services.AddScoped<IConverter<Owner, OwnerEntity>, OwnerModelToEntityConverter>();
             services.AddScoped<IOwnerRepository, OwnerRepository>();
+            services.AddScoped<IOwnerService, OwnerService>();
+
 
             services.AddScoped<IConverter<ProductEntity, Product>, ProductEntityToModelConverter>();
             services.AddScoped<IConverter<Product, ProductEntity>, ProductModelToEntityConverter>();
@@ -86,6 +88,7 @@ namespace Backend
             services.AddScoped<IConverter<SupplierEntity, Supplier>, SupplierEntityToModelConverter>();
             services.AddScoped<IConverter<Supplier, SupplierEntity>, SupplierModelToEntityConverter>();
             services.AddScoped<ISupplierRepository, SupplierRepository>();
+            services.AddScoped<ISupplierService, SupplierService>();
 
 
             services.AddScoped<IConverter<OrderPairEntity, OrderPair>, OrderPairEntityToModelConverter>();
