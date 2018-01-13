@@ -38,7 +38,7 @@ namespace Backend.Services.Implementation
 
         public IEnumerable<Category> GetAllForOwner(string username)
         {
-            return CategoryRepository.GetCategoriesOfOwner(username)
+            return CategoryRepository.GetCategoriesOfOwner(username);
         }
 
         public IEnumerable<Category> GetAllForWarehouseId(long id)

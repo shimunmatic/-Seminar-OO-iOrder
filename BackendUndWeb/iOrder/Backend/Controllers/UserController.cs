@@ -27,20 +27,19 @@ namespace Backend.Controllers
         [HttpGet("Get")]
         [Authorize(Roles = "GOD")]
         public User GetUser()
-        { 
+        {
             var name = User.Identity.Name;
             Console.WriteLine();
-            return UserService.Get(name);
+            return UserService.GetById(name);
         }
 
         // POST: api/User/Register
         [HttpPost("Register")]
         [AllowAnonymous]
-        public IActionResult Post([FromBody]User user)
+        public void Post([FromBody]User user)
         {
-            var u = UserService.Register(user);
-            if (u != null) return Ok();
-            return BadRequest();
+            UserService.RegisterCustomer(user);
+
         }
 
         // PUT: api/User/5

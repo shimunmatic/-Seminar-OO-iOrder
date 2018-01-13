@@ -42,7 +42,7 @@ namespace Backend.Controllers
         [HttpGet("{id}", Name = "GetEstablishment")]
         public Establishment Get(int id)
         {
-            return EstablishmentService.GetEstablishment(id);
+            return EstablishmentService.GetById(id);
         }
 
         // POST: api/Establishment

@@ -9,7 +9,6 @@ namespace Backend.Services.Interface
     public interface IOrderService : IBaseService<Order>
     {
 
-        void Save(Order order);
         IEnumerable<Order> GetCustomerHistoryForEstablishmentId(string username, long id);
         IEnumerable<Order> GetHistoryEstablishmentId(long id);
         void SetPaid(long id);

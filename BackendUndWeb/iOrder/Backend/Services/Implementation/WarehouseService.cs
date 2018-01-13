@@ -35,7 +35,7 @@ namespace Backend.Services.Implementation
 
         public int GetQuantityForProductInWarehouse(long productId, long warehouseId)
         {
-                WarehouseRepository.Ge
+            return WarehouseRepository.GetQuantityForProductInWarehouse(productId, warehouseId);
         }
 
         public IEnumerable<Warehouse> GetWarehousesForOwner(string username)
