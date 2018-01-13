@@ -32,7 +32,7 @@ namespace Backend.Controllers
 
         // GET: api/Order/EstablishmentHistory/5
         [HttpGet("EstablishmentHistory/{id}", Name = "GetOrdersForEst")]
-        [Authorize(Roles = "EMPLOYEE,ADMIN")]
+        [Authorize(Roles = "EMPLOYEE, ADMIN")]
         public IEnumerable<Order> GetEstablishmentHistory(int id)
         {
             return OrderService.GetHistoryEstablishmentId(id);
@@ -50,7 +50,7 @@ namespace Backend.Controllers
 
         // DELETE: api/Order/5
         [HttpDelete("{id}")]
-        [Authorize("CUSTOMER,ADMIN,EMPLOYEE")]
+        [Authorize(Roles = "CUSTOMER, ADMIN, EMPLOYEE")]
         public void Delete(int id)
         {
             OrderService.Delete(id);
