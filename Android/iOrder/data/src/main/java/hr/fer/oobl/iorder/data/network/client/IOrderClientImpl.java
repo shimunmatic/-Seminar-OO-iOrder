@@ -1,5 +1,7 @@
 package hr.fer.oobl.iorder.data.network.client;
 
+import android.util.Log;
+
 import java.util.List;
 
 import hr.fer.oobl.iorder.data.network.model.ApiCategory;
@@ -42,6 +44,7 @@ public final class IOrderClientImpl implements IOrderClient {
 
     @Override
     public Single<Void> processOrderRequest(final String authToken, final ApiOrderPost apiOrderPost) {
+        Log.d("info", apiOrderPost.toString());
         return iOrderService.processOrder(authToken, apiOrderPost);
     }
 }

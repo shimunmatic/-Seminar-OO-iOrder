@@ -26,4 +26,14 @@ public final class ApiOrderPost {
     }
 
     public ApiOrderPost() {}
+
+    @Override
+    public String toString() {
+        return "ApiOrderPost{" +
+                "products=" + products +
+                ", customerId='" + customerId + '\'' +
+                ", locationId=" + locationId +
+                ", establishmentId=" + establishmentId +
+                '}';
+    }
 }

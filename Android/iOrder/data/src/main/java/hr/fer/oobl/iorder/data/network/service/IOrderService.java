@@ -28,9 +28,6 @@ public interface IOrderService {
     @GET("/api/Establishment/{establishmentId}")
     Single<ApiEstablishment> getEstablishment(@Header("Authorization") String authHeader, @Path("establishmentId") long establishmentId);
 
-    @GET("/api/Category/{establishmentId}")
-    Single<List<ApiCategory>> getCategories(@Header("Authorization") String authHeader, @Path("establishmentId") long establishmentId);
-
     @GET("/api/Order/History/{establishmentId}/{userId")
     Single<List<ApiOrderHistory>> getOrderHistoryForUserAndEstablishment(@Header("Authorization") String authHeader, @Path("userId") String username, @Path("establishmentId") long establishmentId);
 

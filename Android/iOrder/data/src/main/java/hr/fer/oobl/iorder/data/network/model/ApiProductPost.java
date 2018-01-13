@@ -24,4 +24,14 @@ public final class ApiProductPost {
     }
 
     public ApiProductPost() {}
+
+    @Override
+    public String toString() {
+        return "ApiProductPost{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", quantity=" + quantity +
+                '}';
+    }
 }
