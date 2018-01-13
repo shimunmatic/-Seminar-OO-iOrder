@@ -10,9 +10,9 @@ namespace Backend.Models.Entity.Mappings
     {
         public OrderMap()
         {
-            Table("order");
+            Table("[order]");
             Schema("dbo");
-            Id(o => o.Id).Column("id").GeneratedBy.Increment();
+            Id(o => o.Id).Column("id").GeneratedBy.Native();
             Map(o => o.Date).Column("date");
             Map(o => o.Paid).Column("paid");
             Map(o => o.EstablishmentId).Column("establishment_id");

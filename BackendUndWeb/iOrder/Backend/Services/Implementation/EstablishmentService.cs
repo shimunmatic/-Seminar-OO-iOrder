@@ -21,6 +21,11 @@ namespace Backend.Services.Implementation
             EstablishmentRepository = establishmentRepository;
         }
 
+        public void Delete(object id)
+        {
+            EstablishmentRepository.Delete(EstablishmentRepository.GetById(id));
+        }
+
         public IEnumerable<Establishment> GetAll()
         {
             var establishments = EstablishmentRepository.GetAll();
@@ -32,13 +37,34 @@ namespace Backend.Services.Implementation
             return establishments;
         }
 
-        public Establishment GetEstablishment(long id)
+        public IEnumerable<Establishment> GetAllForOwner(string username)
+        {
+            var establishments = EstablishmentRepository.GetEstablishmentsForOwner(username);
+            foreach (var establishment in establishments)
+            {
+                establishment.Categories = CategoryService.GetAllForWarehouseId(establishment.WarehouseId);
+                establishment.Locations = LocationService.GetLocationsForEstablishmentId(establishment.Id);
+            }
+            return establishments;
+        }
+
+        public Establishment GetById(object id)
         {
             var establishment = EstablishmentRepository.GetById(id);
             establishment.Categories = CategoryService.GetAllForWarehouseId(establishment.WarehouseId);
-            establishment.Locations = LocationService.GetLocationsForEstablishmentId(id);
+            establishment.Locations = LocationService.GetLocationsForEstablishmentId((long)id);
             return establishment;
 
+        }
+
+        public void Save(Establishment t)
+        {
+            EstablishmentRepository.Save(t);
+        }
+
+        public void Update(object id, Establishment t)
+        {
+            EstablishmentRepository.Update(id, t);
         }
     }
 }

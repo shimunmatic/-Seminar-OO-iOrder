@@ -15,19 +15,19 @@ namespace Backend.Models.Business
         public virtual long LocationId { get; set; }
         public virtual long EstablishmentId { get; set; }
         public IEnumerable<OrderPair> OrderedProducts { get; set; }
-        public float Price
+        public decimal Price
         {
             get
             {
-                var price = 0.0f;
+                var price = (decimal)0.0;
                 foreach (var op in OrderedProducts)
                 {
-                    price = price + (float)op.Price * op.Quantity;
+                    price = price + op.Price;
                 }
                 return price;
             }
         }
-        
+
         public Order()
         {
             OrderedProducts = new List<OrderPair>();

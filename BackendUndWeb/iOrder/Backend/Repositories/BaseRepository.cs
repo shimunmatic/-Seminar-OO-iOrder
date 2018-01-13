@@ -45,9 +45,9 @@ namespace Backend.Repositories
                 old = t;
                 using (var transaction = db.BeginTransaction())
                 {
-                    var updatedId = db.Save(old);
+                    db.SaveOrUpdate(old);
                     transaction.Commit();
-                    return updatedId;
+                    return Id;
                 }
             }
         }

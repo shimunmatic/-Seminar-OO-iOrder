@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Backend.Repositories.Interface
 {
-    interface IOrderRepository:IBaseRepository<Order>
+    public interface IOrderRepository:IBaseRepository<Order>
     {
         IEnumerable<Order> GetOrdersForEstablishment(long Id);
         IEnumerable<Order> GetOrdersForCustomer(string Username);

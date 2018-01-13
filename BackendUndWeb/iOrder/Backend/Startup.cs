@@ -35,6 +35,7 @@ namespace Backend
             services.AddScoped<IConverter<RoleEntity, Role>, RoleEntityToModelConverter>();
             services.AddScoped<IConverter<Role, RoleEntity>, RoleModelToEntityConverter>();
             services.AddScoped<IRoleRepository, RoleRepository>();
+            services.AddScoped<IRoleService, RoleService>();
 
             services.AddScoped<IConverter<CategoryEntity, Category>, CategoryEntityToModelConverter>();
             services.AddScoped<IConverter<Category, CategoryEntity>, CategoryModelToEntityConverter>();
@@ -57,10 +58,14 @@ namespace Backend
             services.AddScoped<IConverter<OrderEntity, Order>, OrderEntityToModelConverter>();
             services.AddScoped<IConverter<Order, OrderEntity>, OrderModelToEntityConverter>();
             services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IOrderService, OrderService>();
+
 
             services.AddScoped<IConverter<OwnerEntity, Owner>, OwnerEntityToModelConverter>();
             services.AddScoped<IConverter<Owner, OwnerEntity>, OwnerModelToEntityConverter>();
             services.AddScoped<IOwnerRepository, OwnerRepository>();
+            services.AddScoped<IOwnerService, OwnerService>();
+
 
             services.AddScoped<IConverter<ProductEntity, Product>, ProductEntityToModelConverter>();
             services.AddScoped<IConverter<Product, ProductEntity>, ProductModelToEntityConverter>();
@@ -83,12 +88,12 @@ namespace Backend
             services.AddScoped<IConverter<SupplierEntity, Supplier>, SupplierEntityToModelConverter>();
             services.AddScoped<IConverter<Supplier, SupplierEntity>, SupplierModelToEntityConverter>();
             services.AddScoped<ISupplierRepository, SupplierRepository>();
+            services.AddScoped<ISupplierService, SupplierService>();
 
 
             services.AddScoped<IConverter<OrderPairEntity, OrderPair>, OrderPairEntityToModelConverter>();
             services.AddScoped<IConverter<OrderPair, OrderPairEntity>, OrderPairModelToEntityConverter>();
 
-            services.AddScoped<IRoleService, RoleService>();
 
 
             // add Authentication

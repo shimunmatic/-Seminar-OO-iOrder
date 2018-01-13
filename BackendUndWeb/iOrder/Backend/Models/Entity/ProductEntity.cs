@@ -12,6 +12,6 @@ namespace Backend.Models.Entity
         public virtual string Name { get; set; }
         public virtual decimal BuyingPrice { get; set; }
         public virtual string OwnerId { get; set; }
-        public virtual string SupplierId { get; set; }
+        public virtual long SupplierId { get; set; }
     }
 }

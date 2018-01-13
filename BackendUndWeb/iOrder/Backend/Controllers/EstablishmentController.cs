@@ -25,34 +25,52 @@ namespace Backend.Controllers
 
         // GET: api/Establishment
         [HttpGet]
+        [Authorize(Roles = "CUSTOMER, ADMIN")]
         public IEnumerable<Establishment> Get()
         {
             return EstablishmentService.GetAll();
         }
 
+        // GET: api/Establishment/Owner
+        [HttpGet("Owner", Name = "GetEstablishmentsForOwner")]
+        [Authorize(Roles = "CUSTOMER, ADMIN")]
+        public IEnumerable<Establishment> GetForOwner()
+        {
+            return EstablishmentService.GetAllForOwner(User.Identity.Name);
+        }
+
+
         // GET: api/Establishment/5
         [HttpGet("{id}", Name = "GetEstablishment")]
+        [Authorize(Roles = "CUSTOMER, ADMIN")]
         public Establishment Get(int id)
         {
-            return EstablishmentService.GetEstablishment(id);
+            return EstablishmentService.GetById(id);
         }
 
         // POST: api/Establishment
         [HttpPost]
-        public void Post([FromBody]string value)
+        [Authorize(Roles = "ADMIN")]
+        public void Post([FromBody]Establishment establishment)
         {
+            establishment.OwnerId = User.Identity.Name;
+            EstablishmentService.Save(establishment);
         }
 
         // PUT: api/Establishment/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        [Authorize(Roles = "ADMIN")]
+        public void Put(int id, [FromBody]Establishment establishment)
         {
+            EstablishmentService.Update(id, establishment);
         }
 
-        // DELETE: api/ApiWithActions/5
+        // DELETE: api/Establishment/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "ADMIN")]
         public void Delete(int id)
         {
+            EstablishmentService.Delete(id);
         }
     }
 }

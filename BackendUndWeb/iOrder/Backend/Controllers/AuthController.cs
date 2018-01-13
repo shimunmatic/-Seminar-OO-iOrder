@@ -34,7 +34,7 @@ namespace Backend.Controllers
             {
                 return Unauthorized();
             }
-            var user = UserService.Get(credentials.Username);
+            var user = UserService.GetById(credentials.Username);
 
             var claims = new[]
             {

@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace Backend.Services.Interface
 {
-    public interface IRoleService
+    public interface IRoleService : IBaseService<Role>
     {
-        IEnumerable<Role> GetAll();
-        Role GetById(long Id);
         Role GetByName(string name);
     }
 }

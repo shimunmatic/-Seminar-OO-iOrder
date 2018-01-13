@@ -14,7 +14,7 @@ namespace Backend.Models.Business
         public virtual string LastName { get; set; }
         public virtual string Email { get; set; }
         public virtual string OwnerId { get; set; }
-        public virtual long EstablishmentId { get; set; }
+        public virtual long? EstablishmentId { get; set; }
 
     }
 }
