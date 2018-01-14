@@ -1,5 +1,7 @@
 package hr.fer.oobl.iorder.iorder.injection.application.modules;
 
+import java.util.concurrent.TimeUnit;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -37,7 +39,7 @@ public final class DataModule {
     @Singleton
     OkHttpClient provideOkhttpClient(final HttpLoggingInterceptor interceptor) {
         final OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        builder.interceptors().add(interceptor);
+        builder.connectTimeout(100, TimeUnit.SECONDS).interceptors().add(interceptor);
 
         return builder.build();
     }
@@ -45,8 +47,7 @@ public final class DataModule {
     @Provides
     @Singleton
     Retrofit provideRetrofit(final OkHttpClient okHttpClient) {
-        //TODO: Add base URL
-        return new Retrofit.Builder().baseUrl("")
+        return new Retrofit.Builder().baseUrl("http://iorder.azurewebsites.net")
                                      .client(okHttpClient)
                                      .addConverterFactory(GsonConverterFactory.create())
                                      .addCallAdapterFactory(RxJavaCallAdapterFactory.create())

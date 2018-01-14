@@ -9,5 +9,7 @@ namespace Backend.Repositories.Interface
     public interface ILocationRepository:IBaseRepository<Location>
     {
         IEnumerable<Location> GetLocationsForEstablishment(long Id);
+        IEnumerable<Location> GetLocationsForOwnerId(string username);
+
     }
 }

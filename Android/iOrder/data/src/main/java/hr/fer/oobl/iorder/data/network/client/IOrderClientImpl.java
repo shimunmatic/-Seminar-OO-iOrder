@@ -1,11 +1,14 @@
 package hr.fer.oobl.iorder.data.network.client;
 
+import android.util.Log;
+
 import java.util.List;
 
 import hr.fer.oobl.iorder.data.network.model.ApiCategory;
 import hr.fer.oobl.iorder.data.network.model.ApiEstablishment;
 import hr.fer.oobl.iorder.data.network.model.ApiOrderHistory;
 import hr.fer.oobl.iorder.data.network.model.ApiOrderPost;
+import hr.fer.oobl.iorder.data.network.model.ApiToken;
 import hr.fer.oobl.iorder.data.network.model.ApiUser;
 import hr.fer.oobl.iorder.data.network.model.ApiUserCredentials;
 import hr.fer.oobl.iorder.data.network.service.IOrderService;
@@ -20,7 +23,7 @@ public final class IOrderClientImpl implements IOrderClient {
     }
 
     @Override
-    public Single<String> fetchAuthToken(final ApiUserCredentials apiUserCredentials) {
+    public Single<ApiToken> fetchAuthToken(final ApiUserCredentials apiUserCredentials) {
         return iOrderService.login(apiUserCredentials);
     }
 
@@ -35,17 +38,13 @@ public final class IOrderClientImpl implements IOrderClient {
     }
 
     @Override
-    public Single<List<ApiCategory>> fetchCategories(final String authToken, final Long establishmentId) {
-        return iOrderService.getCategories(authToken, establishmentId);
-    }
-
-    @Override
-    public Single<ApiEstablishment> findEstablishment(final String authToken, final long establishmentId, final long locationInsideEstablishmentId) {
-        return iOrderService.getEstablishment(authToken, establishmentId, locationInsideEstablishmentId);
+    public Single<ApiEstablishment> findEstablishment(final String authToken, final Long establishmentId) {
+        return iOrderService.getEstablishment("Bearer " + authToken, establishmentId);
     }
 
     @Override
     public Single<Void> processOrderRequest(final String authToken, final ApiOrderPost apiOrderPost) {
+        Log.d("info", apiOrderPost.toString());
         return iOrderService.processOrder(authToken, apiOrderPost);
     }
 }

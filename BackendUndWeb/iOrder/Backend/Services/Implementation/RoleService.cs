@@ -17,12 +17,17 @@ namespace Backend.Services.Implementation
             RoleRepository = roleRepository;
         }
 
+        public void Delete(object id)
+        {
+            RoleRepository.Delete(RoleRepository.GetById(id));
+        }
+
         public IEnumerable<Role> GetAll()
         {
             return RoleRepository.GetAll();
         }
 
-        public Role GetById(long Id)
+        public Role GetById(object Id)
         {
             return RoleRepository.GetById(Id);
         }
@@ -30,6 +35,16 @@ namespace Backend.Services.Implementation
         public Role GetByName(string name)
         {
             return RoleRepository.GetByName(name);
+        }
+
+        public void Save(Role t)
+        {
+            RoleRepository.Save(t);
+        }
+
+        public void Update(object id, Role t)
+        {
+            RoleRepository.Update(id, t);
         }
     }
 }

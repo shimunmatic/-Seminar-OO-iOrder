@@ -7,7 +7,7 @@ public final class ApiUserCredentials {
     @SerializedName("username")
     public String username;
 
-    @SerializedName("passowrd")
+    @SerializedName("password")
     public String password;
 
     public ApiUserCredentials(final String username, final String password) {

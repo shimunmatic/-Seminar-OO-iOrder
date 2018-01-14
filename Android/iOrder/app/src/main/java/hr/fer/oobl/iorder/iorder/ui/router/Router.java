@@ -5,11 +5,9 @@ public interface Router {
 
     void showSignUp();
 
-    void showMainScreen();
+    void showMainScreen(String displayValue);
 
     void showScanner();
-
-    void popUpCart();
 
     void showHistory();
 }

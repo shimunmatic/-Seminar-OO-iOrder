@@ -15,14 +15,17 @@ namespace Backend.Repositories.Implementation
         private IConverter<Order, OrderEntity> ModelEntity;
         private IConverter<OrderEntity, Order> EntityModel;
         private IConverter<OrderPairEntity, OrderPair> OrderPairEntityModel;
+        private IConverter<OrderPair, OrderPairEntity> OrderPairModelEntity;
+
         private IProductRepository ProductRepository;
         private BaseRepository<OrderEntity> BaseRepository;
 
-        public OrderRepository(IProductRepository productRepository, IConverter<Order, OrderEntity> modelEntity, IConverter<OrderEntity, Order> entityModel, IConverter<OrderPairEntity, OrderPair> orderPairConverter)
+        public OrderRepository(IConverter<Order, OrderEntity> modelEntity, IConverter<OrderEntity, Order> entityModel, IConverter<OrderPairEntity, OrderPair> orderPairEntityModel, IConverter<OrderPair, OrderPairEntity> orderPairModelEntity, IProductRepository productRepository)
         {
             ModelEntity = modelEntity;
             EntityModel = entityModel;
-            OrderPairEntityModel = orderPairConverter;
+            OrderPairEntityModel = orderPairEntityModel;
+            OrderPairModelEntity = orderPairModelEntity;
             ProductRepository = productRepository;
             BaseRepository = new BaseRepository<OrderEntity>();
         }
@@ -121,8 +124,22 @@ namespace Backend.Repositories.Implementation
 
         public object Save(Order t)
         {
-            return (long)BaseRepository.Save(ModelEntity.Convert(t));
-          
+            var orderId =(long)BaseRepository.Save(ModelEntity.Convert(t));
+            using (var db = NHibernateHelper.OpenSession())
+            {
+                using (var transaction = db.BeginTransaction())
+                {
+                    foreach (var op in t.OrderedProducts)
+                    {
+                        op.OrderId = orderId;
+                        db.Save(OrderPairModelEntity.Convert(op));
+                    }
+                    transaction.Commit();
+                    return orderId;
+                }
+            }
+
+
         }
 
         public object Update(object Id, Order t)

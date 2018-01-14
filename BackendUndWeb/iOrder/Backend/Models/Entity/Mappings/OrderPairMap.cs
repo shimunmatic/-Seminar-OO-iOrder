@@ -12,7 +12,7 @@ namespace Backend.Models.Entity.Mappings
         {
             Table("order_pair");
             Schema("dbo");
-            Id(op => op.Id).Column("id").GeneratedBy.Increment();
+            Id(op => op.Id).Column("id").GeneratedBy.Native();
             Map(op => op.Quantity).Column("quantity");
             Map(op => op.OrderId).Column("order_id");
             Map(op => op.ProductId).Column("product_id");

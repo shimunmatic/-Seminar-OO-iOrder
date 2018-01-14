@@ -43,5 +43,9 @@ public interface LoginContract {
         void displayPasswordInvalidError();
 
         void processOfflineMode();
+
+        void showError(String message);
+
+        void startScanner();
     }
 }

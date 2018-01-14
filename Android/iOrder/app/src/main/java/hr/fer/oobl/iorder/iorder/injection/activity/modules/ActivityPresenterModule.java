@@ -11,6 +11,8 @@ import hr.fer.oobl.iorder.iorder.ui.login.LoginContract;
 import hr.fer.oobl.iorder.iorder.ui.login.LoginPresenter;
 import hr.fer.oobl.iorder.iorder.ui.main.MainContract;
 import hr.fer.oobl.iorder.iorder.ui.main.MainPresenter;
+import hr.fer.oobl.iorder.iorder.ui.scanner.ScannerContract;
+import hr.fer.oobl.iorder.iorder.ui.scanner.ScannerPresenter;
 import hr.fer.oobl.iorder.iorder.ui.signup.SignupContract;
 import hr.fer.oobl.iorder.iorder.ui.signup.SignupPresenter;
 
@@ -55,20 +57,12 @@ public final class ActivityPresenterModule {
         daggerActivity.getActivityComponent().inject(presenter);
         return presenter;
     }
-//
-//    @Provides
-//    @ActivityScope
-//    NewsContract.Presenter provideNewsPresenter() {
-//        final HomePresenter presenter = new HomePresenter((NewsContract.View) daggerActivity);
-//        daggerActivity.getActivityComponent().inject(presenter);
-//        return presenter;
-//    }
-//
-//    @Provides
-//    @ActivityScope
-//    LoginContract.Presenter provideLoginPresenter() {
-//        LoginPresenter presenter = new LoginPresenter((LoginContract.View) daggerActivity);
-//        daggerActivity.getActivityComponent().inject(presenter);
-//        return presenter;
-//    }
+
+    @Provides
+    @ActivityScope
+    ScannerContract.Presenter provideScannerPresenter() {
+        final ScannerPresenter presenter = new ScannerPresenter((ScannerContract.View) daggerActivity);
+        daggerActivity.getActivityComponent().inject(presenter);
+        return presenter;
+    }
 }
