@@ -6,58 +6,54 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace DesktopApp.controllers
 {
-   
-    class ProductController
+    class SupplierController
     {
         static HttpClient client = HttpBuilder.Build();
-        public static async Task<HttpResponseMessage> CreateProductAsync(ProductEntity product)
+        public static async Task<HttpResponseMessage> CreateProductAsync(Supplier supplier)
         {
             HttpResponseMessage response = await client.PostAsJsonAsync(
-                "Product", product);
+                "Supplier", supplier);
 
             return response;
         }
 
-        public static async Task<ProductEntity> GetProductAsync(string path)
+        public static async Task<Supplier> GetProductAsync(string path)
         {
-            ProductEntity product = null;
+            Supplier supplier = null;
             HttpResponseMessage response = await client.GetAsync(path);
             if (response.IsSuccessStatusCode)
             {
-                product = await response.Content.ReadAsAsync<ProductEntity>();
+                supplier = await response.Content.ReadAsAsync<Supplier>();
             }
-            return product;
+            return supplier;
         }
 
-        public static async Task<ProductEntity> UpdateProductAsync(ProductEntity product)
+        public static async Task<Supplier> UpdateProductAsync(Supplier supplier)
         {
             HttpResponseMessage response = await client.PutAsJsonAsync(
-                $"Product/{product.Id}", product);
+                $"Supplier/{supplier.Id}", supplier);
             response.EnsureSuccessStatusCode();
 
             // Deserialize the updated product from the response body.
-            product = await response.Content.ReadAsAsync<ProductEntity>();
-            return product;
+            supplier = await response.Content.ReadAsAsync<Supplier>();
+            return supplier;
         }
 
         public static async Task<HttpStatusCode> DeleteProductAsync(string id)
         {
             HttpResponseMessage response = await client.DeleteAsync(
-                $"Product/{id}");
+                $"Supplier/{id}");
             return response.StatusCode;
         }
 
-        public static async Task<IEnumerable<ProductEntity>> GetAllProductAsync()
+        public static async Task<IEnumerable<Supplier>> GetAllSupplierAsync()
         {
-            HttpResponseMessage response = await client.GetAsync("Product");
-            var product = await response.Content.ReadAsAsync<IEnumerable<ProductEntity>>();
-
-            return product;
+            HttpResponseMessage response = await client.GetAsync("Supplier");
+            var supplier = await response.Content.ReadAsAsync<IEnumerable<Supplier>>();
+            return supplier;
         }
-
     }
 }

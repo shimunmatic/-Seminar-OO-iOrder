@@ -16,6 +16,7 @@ namespace DesktopApp
             client = new HttpClient()
             {
                 BaseAddress = new Uri("http://iorder.azurewebsites.net/api/")
+               
             };
         }
 

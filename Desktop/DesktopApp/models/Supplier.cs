@@ -14,5 +14,10 @@ namespace DesktopApp.models
         public virtual string Email { get; set; }
         public virtual string Name { get; set; }
         public virtual string PhoneNumber { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

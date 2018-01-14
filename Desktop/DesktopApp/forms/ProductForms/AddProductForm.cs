@@ -19,6 +19,23 @@ namespace DesktopApp
         {
             InitializeComponent();
             //popuni sve comboBoxove sa podacima
+
+            addDataToForm();
+        }
+
+        private async void addDataToForm()
+        {
+            var category = await CategoryController.GetAllCategoryAsync();
+            var supplier = await SupplierController.GetAllSupplierAsync();
+
+            category.ToList().ForEach(item =>
+            {
+                comboBox1.Items.Add(item);
+            });
+            supplier.ToList().ForEach(item =>
+            {
+                comboBox1.Items.Add(item);
+            });
         }
 
         private void confirmButton_Click(object sender, EventArgs e)

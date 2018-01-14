@@ -87,6 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="controllers\AuthController.cs" />
+    <Compile Include="controllers\SupplierController.cs" />
     <Compile Include="forms\CategoryForms\AddCategoryForm.cs">
       <SubType>Form</SubType>
     </Compile>

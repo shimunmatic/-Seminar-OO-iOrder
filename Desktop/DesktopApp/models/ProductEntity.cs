@@ -14,5 +14,10 @@ namespace DesktopApp.models
         public virtual decimal BuyingPrice { get; set; }
         public virtual string OwnerId { get; set; }
         public virtual string SupplierId { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }
