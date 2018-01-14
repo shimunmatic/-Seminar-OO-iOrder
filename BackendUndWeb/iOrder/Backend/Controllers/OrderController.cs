@@ -44,7 +44,7 @@ namespace Backend.Controllers
         public void Post([FromBody]Order order)
         {
             order.CustomerId = User.Identity.Name;
-            order.Date = DateTime.Now;
+            order.Date = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, TimeZoneInfo.FindSystemTimeZoneById("Central Europe Standard Time"));
             OrderService.Save(order);
         }
 
