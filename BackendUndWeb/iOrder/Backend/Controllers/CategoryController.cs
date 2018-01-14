@@ -25,7 +25,7 @@ namespace Backend.Controllers
         // GET: api/Category/Warehouse/5
         [HttpGet("Warehouse/{id}", Name = "GetCategoriesForWarehouse")]
         [Authorize(Roles = "ADMIN")]
-        public IEnumerable<Category> GetCategoriesForWarehouse(int id)
+        public IEnumerable<Category> GetCategoriesForWarehouse(long id)
         {
             return CategoryService.GetAllForWarehouseId(id);
         }
@@ -50,7 +50,7 @@ namespace Backend.Controllers
         // PUT: api/Category/5
         [HttpPut("{id}")]
         [Authorize(Roles = "ADMIN")]
-        public void Put(int id, [FromBody]Category value)
+        public void Put(long id, [FromBody]Category value)
         {
             CategoryService.Update(id, value);
         }
@@ -58,7 +58,7 @@ namespace Backend.Controllers
         // DELETE: api/Category/5
         [HttpDelete("{id}")]
         [Authorize(Roles = "ADMIN")]
-        public void Delete(int id)
+        public void Delete(long id)
         {
             CategoryService.Delete(id);
         }

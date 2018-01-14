@@ -43,7 +43,7 @@ namespace Backend.Controllers
         // GET: api/Establishment/5
         [HttpGet("{id}", Name = "GetEstablishment")]
         [Authorize(Roles = "CUSTOMER, ADMIN")]
-        public Establishment Get(int id)
+        public Establishment Get(long id)
         {
             return EstablishmentService.GetById(id);
         }
@@ -60,7 +60,7 @@ namespace Backend.Controllers
         // PUT: api/Establishment/5
         [HttpPut("{id}")]
         [Authorize(Roles = "ADMIN")]
-        public void Put(int id, [FromBody]Establishment establishment)
+        public void Put(long id, [FromBody]Establishment establishment)
         {
             EstablishmentService.Update(id, establishment);
         }
@@ -68,7 +68,7 @@ namespace Backend.Controllers
         // DELETE: api/Establishment/5
         [HttpDelete("{id}")]
         [Authorize(Roles = "ADMIN")]
-        public void Delete(int id)
+        public void Delete(long id)
         {
             EstablishmentService.Delete(id);
         }
