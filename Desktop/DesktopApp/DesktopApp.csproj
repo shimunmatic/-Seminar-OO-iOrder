@@ -86,6 +86,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="controllers\AuthController.cs" />
     <Compile Include="forms\CategoryForms\AddCategoryForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -94,6 +95,12 @@
     </Compile>
     <Compile Include="controllers\CategoryController.cs" />
     <Compile Include="controllers\ProductController.cs" />
+    <Compile Include="forms\CategoryForms\UpdateCategoryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\CategoryForms\UpdateCategoryForm.Designer.cs">
+      <DependentUpon>UpdateCategoryForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="forms\ProductForms\AddProductForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -101,6 +108,13 @@
       <DependentUpon>AddProductForm.cs</DependentUpon>
     </Compile>
     <Compile Include="controllers\WarehouseController.cs" />
+    <Compile Include="forms\WarehouseForms\AddWarehouseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forms\WarehouseForms\AddWarehouseForm.Designer.cs">
+      <DependentUpon>AddWarehouseForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HttpBuilder.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -114,7 +128,11 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="models\Establishment.cs" />
+    <Compile Include="models\Location.cs" />
     <Compile Include="models\ProductEntity.cs" />
+    <Compile Include="models\Supplier.cs" />
+    <Compile Include="models\UserCredentials.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="models\WarehouseEntity.cs" />
@@ -124,6 +142,13 @@
     <Compile Include="forms\ProductForms\UpdateProductForm.Designer.cs">
       <DependentUpon>UpdateProductForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="models\Token.cs" />
+    <EmbeddedResource Include="forms\CategoryForms\UpdateCategoryForm.resx">
+      <DependentUpon>UpdateCategoryForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forms\WarehouseForms\AddWarehouseForm.resx">
+      <DependentUpon>AddWarehouseForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>

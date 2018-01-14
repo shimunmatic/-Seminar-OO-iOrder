@@ -8,20 +8,18 @@ using System.Threading.Tasks;
 
 namespace DesktopApp.controllers
 {
-    class CategoryController
-    {
+    class CategoryController {
         
-        static async Task<Uri> CreateCategoryAsync(CategoryEntity category, HttpClient client)
+        static HttpClient client = HttpBuilder.Build();
+        public static async Task<HttpResponseMessage> CreateCategoryAsync(CategoryEntity category)
         {
             HttpResponseMessage response = await client.PostAsJsonAsync(
-                "api/categorys", category);
-            response.EnsureSuccessStatusCode();
-
-            // return URI of the created resource.
-            return response.Headers.Location;
+                "Category", category);
+           
+            return response;
         }
 
-        static async Task<CategoryEntity> GetCategoryAsync(string path, HttpClient client)
+        public static async Task<CategoryEntity> GetCategoryAsync(string path)
         {
             CategoryEntity category = null;
             HttpResponseMessage response = await client.GetAsync(path);
@@ -32,10 +30,10 @@ namespace DesktopApp.controllers
             return category;
         }
 
-        static async Task<CategoryEntity> UpdateCategoryAsync(CategoryEntity category, HttpClient client)
+        public static async Task<CategoryEntity> UpdateCategoryAsync(CategoryEntity category)
         {
             HttpResponseMessage response = await client.PutAsJsonAsync(
-                $"api/categorys/{category.Id}", category);
+                $"Category/{category.Id}", category);
             response.EnsureSuccessStatusCode();
 
             // Deserialize the updated product from the response body.
@@ -43,11 +41,18 @@ namespace DesktopApp.controllers
             return category;
         }
 
-        static async Task<HttpStatusCode> DeleteCategoryAsync(string id, HttpClient client)
+        public static async Task<HttpStatusCode> DeleteCategoryAsync(string id)
         {
             HttpResponseMessage response = await client.DeleteAsync(
-                $"api/categorys/{id}");
+                $"Category/{id}");
             return response.StatusCode;
+        }
+
+        public static async Task<IEnumerable<CategoryEntity>> GetAllCategoryAsync()
+        {
+            HttpResponseMessage response = await client.GetAsync("Category");
+            var category = await response.Content.ReadAsAsync<IEnumerable<CategoryEntity>>();
+            return category;
         }
 
     }

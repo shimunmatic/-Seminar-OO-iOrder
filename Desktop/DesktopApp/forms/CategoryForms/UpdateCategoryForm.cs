@@ -8,20 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace DesktopApp
+namespace DesktopApp.forms.CategoryForms
 {
-    public partial class AddCategoryForm : Form
+    public partial class UpdateCategoryForm : Form
     {
-        public AddCategoryForm()
+        public UpdateCategoryForm()
         {
             InitializeComponent();
         }
 
         private void confirmButton_Click(object sender, EventArgs e)
         {
-            CategoryEntity category = new CategoryEntity();
 
-            category.Name = this.AddCategoryNameTextBox.Text;
         }
     }
 }
