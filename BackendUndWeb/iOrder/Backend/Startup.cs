@@ -2,6 +2,8 @@
 using Backend.Converters.EntityBusiness;
 using Backend.Models.Business;
 using Backend.Models.Entity;
+using Backend.Notifications;
+using Backend.Notifications.Observable;
 using Backend.Repositories.Implementation;
 using Backend.Repositories.Interface;
 using Backend.Services.Implementation;
@@ -93,6 +95,9 @@ namespace Backend
 
             services.AddScoped<IConverter<OrderPairEntity, OrderPair>, OrderPairEntityToModelConverter>();
             services.AddScoped<IConverter<OrderPair, OrderPairEntity>, OrderPairModelToEntityConverter>();
+
+            services.AddScoped<IObservable, NotificationObservable>();
+
 
 
 
