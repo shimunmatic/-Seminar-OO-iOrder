@@ -63,12 +63,6 @@ namespace Backend
             services.AddScoped<IOrderService, OrderService>();
 
 
-            services.AddScoped<IConverter<OwnerEntity, Owner>, OwnerEntityToModelConverter>();
-            services.AddScoped<IConverter<Owner, OwnerEntity>, OwnerModelToEntityConverter>();
-            services.AddScoped<IOwnerRepository, OwnerRepository>();
-            services.AddScoped<IOwnerService, OwnerService>();
-
-
             services.AddScoped<IConverter<ProductEntity, Product>, ProductEntityToModelConverter>();
             services.AddScoped<IConverter<Product, ProductEntity>, ProductModelToEntityConverter>();
             services.AddScoped<IProductRepository, ProductRepository>();
