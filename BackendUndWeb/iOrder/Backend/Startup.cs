@@ -2,6 +2,8 @@
 using Backend.Converters.EntityBusiness;
 using Backend.Models.Business;
 using Backend.Models.Entity;
+using Backend.Notifications;
+using Backend.Notifications.Observable;
 using Backend.Repositories.Implementation;
 using Backend.Repositories.Interface;
 using Backend.Services.Implementation;
@@ -61,12 +63,6 @@ namespace Backend
             services.AddScoped<IOrderService, OrderService>();
 
 
-            services.AddScoped<IConverter<OwnerEntity, Owner>, OwnerEntityToModelConverter>();
-            services.AddScoped<IConverter<Owner, OwnerEntity>, OwnerModelToEntityConverter>();
-            services.AddScoped<IOwnerRepository, OwnerRepository>();
-            services.AddScoped<IOwnerService, OwnerService>();
-
-
             services.AddScoped<IConverter<ProductEntity, Product>, ProductEntityToModelConverter>();
             services.AddScoped<IConverter<Product, ProductEntity>, ProductModelToEntityConverter>();
             services.AddScoped<IProductRepository, ProductRepository>();
@@ -93,6 +89,9 @@ namespace Backend
 
             services.AddScoped<IConverter<OrderPairEntity, OrderPair>, OrderPairEntityToModelConverter>();
             services.AddScoped<IConverter<OrderPair, OrderPairEntity>, OrderPairModelToEntityConverter>();
+
+            services.AddScoped<IObservable, NotificationObservable>();
+
 
 
 

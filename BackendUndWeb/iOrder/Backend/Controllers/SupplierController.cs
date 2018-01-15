@@ -38,14 +38,14 @@ namespace Backend.Controllers
 
         // PUT: api/Supplier/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]Supplier supplier)
+        public void Put(long id, [FromBody]Supplier supplier)
         {
             SupplierService.Update(id, supplier);
         }
 
         // DELETE: api/Location/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public void Delete(long id)
         {
             SupplierService.Delete(id);
         }

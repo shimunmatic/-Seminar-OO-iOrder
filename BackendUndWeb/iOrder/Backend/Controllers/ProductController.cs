@@ -45,7 +45,7 @@ namespace Backend.Controllers
         // PUT: api/Product/5
         [HttpPut("{id}")]
         [Authorize(Roles = "ADMIN")]
-        public void Put(int id, [FromBody]Product product)
+        public void Put(long id, [FromBody]Product product)
         {
             ProductService.Update(id, product);
         }
@@ -53,7 +53,7 @@ namespace Backend.Controllers
         // DELETE: api/Product/5
         [HttpDelete("{id}")]
         [Authorize(Roles = "ADMIN")]
-        public void Delete(int id)
+        public void Delete(long id)
         {
             ProductService.Delete(id);
         }

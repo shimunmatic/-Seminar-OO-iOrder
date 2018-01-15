@@ -16,5 +16,12 @@ namespace DesktopApp
         {
             InitializeComponent();
         }
+
+        private void confirmButton_Click(object sender, EventArgs e)
+        {
+            CategoryEntity category = new CategoryEntity();
+
+            category.Name = this.AddCategoryNameTextBox.Text;
+        }
     }
 }
