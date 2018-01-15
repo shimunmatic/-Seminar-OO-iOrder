@@ -10,6 +10,6 @@ namespace Backend.Repositories.Interface
     {
         IEnumerable<User> GetEmployeesOfEsatblishemnt(long Id);
         IEnumerable<User> GetEmployeesOfOwner(string username);
-
+        IEnumerable<User> GetByRole(long roleId);
     }
 }

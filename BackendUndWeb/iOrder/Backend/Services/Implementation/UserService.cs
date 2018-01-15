@@ -31,6 +31,12 @@ namespace Backend.Services.Implementation
             return UserRepository.GetAll();
         }
 
+        public IEnumerable<User> GetAllAdmins()
+        {
+            var users = UserRepository.GetByRole(RoleRepository.GetByName("ADMIN").Id);
+            return users;
+        }
+
         public IEnumerable<User> GetAllEmployeesForEstablishment(long Id)
         {
             return UserRepository.GetEmployeesOfEsatblishemnt(Id);
@@ -44,6 +50,12 @@ namespace Backend.Services.Implementation
         public User GetById(object id)
         {
             return UserRepository.GetById(id);
+        }
+
+        public void RegisteAdmin(User user)
+        {
+            user.Role = RoleRepository.GetByName("ADMIN");
+            Save(user);
         }
 
         public void RegisterCustomer(User customer)
