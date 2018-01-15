@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,22 +14,30 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import hr.fer.oobl.iorder.domain.model.Order;
 import hr.fer.oobl.iorder.domain.model.Product;
 import hr.fer.oobl.iorder.iorder.R;
+import hr.fer.oobl.iorder.iorder.ui.history.HistoryContract;
 import hr.fer.oobl.iorder.iorder.ui.main.model.CartAdapter;
 
 public class HistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+    @Inject
+    HistoryContract.Presenter presenter;
 
     private static final int ITEMS = 1;
     private static final int EMPTY_STATE = 0;
 
     private List<Order> orderHistory;
     private Context context;
+    private String establishmentName;
 
-    public HistoryAdapter(final List<Order> orderHistory, final Context context) {
+    public HistoryAdapter(final List<Order> orderHistory, final Context context, String establishmentName) {
         this.orderHistory = orderHistory;
         this.context = context;
+        this.establishmentName = establishmentName;
     }
 
     @Override
@@ -94,7 +103,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         public void setData(final Order order) {
             date.setText(order.getDate());
-            establishment.setText(order.getEstablishment().getName());
+            establishment.setText(establishmentName);
 
             String priceString = String.valueOf(order.getPrice()) + " HRK";
             price.setText(priceString);
@@ -107,6 +116,10 @@ public class HistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private void showDetails(final Order order) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context, AlertDialog.THEME_HOLO_LIGHT);
         final List<Product> products = order.getProducts();
+
+        for(final Product product : products) {
+            Log.d("product " + product.getId(), product.toString());
+        }
         View dialogView;
 
         if (products == null || products.isEmpty()) {
@@ -138,7 +151,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
             AlertDialog alertDialog = dialogBuilder.create();
             orderButton.setOnClickListener(view -> {
-                //TODO: Send ApiOrderHistory
+                //TODO: send order again
                 alertDialog.cancel();
             });
             alertDialog.show();

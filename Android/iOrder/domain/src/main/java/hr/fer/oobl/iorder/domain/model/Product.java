@@ -11,7 +11,11 @@ public final class Product {
         this.id = id;
         this.name = name;
         this.price = price;
-        this.quantity = "0";
+        if (!quantity.isEmpty()) {
+            this.quantity = quantity;
+        } else {
+            this.quantity = "0";
+        }
     }
 
     public long getId() {
@@ -76,5 +80,15 @@ public final class Product {
         result = 31 * result + price.hashCode();
         result = 31 * result + quantity.hashCode();
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price='" + price + '\'' +
+                ", quantity='" + quantity + '\'' +
+                '}';
     }
 }

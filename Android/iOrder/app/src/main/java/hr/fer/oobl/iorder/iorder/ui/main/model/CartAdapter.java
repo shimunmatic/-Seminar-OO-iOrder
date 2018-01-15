@@ -29,7 +29,7 @@ public class CartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public RecyclerView.ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         RecyclerView.ViewHolder viewHolder = null;
-        View view = null;
+        View view;
 
         switch (viewType) {
             case EMPTY_STATE:
@@ -77,23 +77,18 @@ public class CartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return cartProducts.size();
     }
 
-    // Provide a direct reference to each of the views within a data item
-    // Used to cache the views within the item layout for fast access
+
     public class CartViewHolder extends RecyclerView.ViewHolder {
 
         private TextView quantity;
         private TextView productName;
         private TextView price;
 
-        // We also create a constructor that accepts the entire item row
-        // and does the view lookups to find each subview
         public CartViewHolder(View itemView) {
-            // Stores the itemView in a public final member variable that can be used
-            // to access the context from any ViewHolder instance.
             super(itemView);
 
-            quantity = (TextView) itemView.findViewById(R.id.cart_quantity);
-            productName = (TextView) itemView.findViewById(R.id.cart_product);
+            quantity = itemView.findViewById(R.id.cart_quantity);
+            productName = itemView.findViewById(R.id.cart_product);
             price = itemView.findViewById(R.id.cart_price);
         }
     }

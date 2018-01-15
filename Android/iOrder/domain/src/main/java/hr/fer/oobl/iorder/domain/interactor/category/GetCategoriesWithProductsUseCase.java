@@ -18,3 +18,5 @@ public final class GetCategoriesWithProductsUseCase implements SingleUseCaseWith
         return iOrderRepository.findEstablishment(establishmentId);
     }
 }
+
+
