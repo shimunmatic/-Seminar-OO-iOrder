@@ -43,6 +43,15 @@
             Buying_price = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
+            // Buying_price
+            // 
+            Buying_price.AutoSize = true;
+            Buying_price.Location = new System.Drawing.Point(46, 67);
+            Buying_price.Name = "Buying_price";
+            Buying_price.Size = new System.Drawing.Size(65, 13);
+            Buying_price.TabIndex = 15;
+            Buying_price.Text = "Buying price";
+            // 
             // cancelButton
             // 
             this.cancelButton.Location = new System.Drawing.Point(163, 199);
@@ -51,6 +60,7 @@
             this.cancelButton.TabIndex = 25;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
+            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
             // confirmButton
             // 
@@ -126,15 +136,6 @@
             this.owner.TabIndex = 16;
             this.owner.Text = "Owner";
             // 
-            // Buying_price
-            // 
-            Buying_price.AutoSize = true;
-            Buying_price.Location = new System.Drawing.Point(46, 67);
-            Buying_price.Name = "Buying_price";
-            Buying_price.Size = new System.Drawing.Size(65, 13);
-            Buying_price.TabIndex = 15;
-            Buying_price.Text = "Buying price";
-            // 
             // Name
             // 
             this.Name.AutoSize = true;
@@ -161,7 +162,7 @@
             this.Controls.Add(this.owner);
             this.Controls.Add(Buying_price);
             this.Controls.Add(this.Name);
- 
+        
             this.Text = "AddProductForm";
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DesktopApp.models
 {
-    class Location
+    class Location: ItemInterface
     {
         public virtual long Id { get; set; }
         public virtual long EstablishmentId { get; set; }

@@ -10,7 +10,8 @@ namespace DesktopApp
     class HttpBuilder
     {
         private static HttpClient client;
-            
+        private static string owner;
+
         public static void Init()
         {
             client = new HttpClient()
@@ -26,6 +27,15 @@ namespace DesktopApp
         public static void AddHeader(string token)
         {
             client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+        }
+
+        public static string getOwner() {
+            return owner;
+        }
+
+        public static void setOwner(string ow)
+        {
+            owner = ow;
         }
        
     }

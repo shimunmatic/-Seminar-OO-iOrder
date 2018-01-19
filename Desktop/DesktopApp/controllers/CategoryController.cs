@@ -11,7 +11,7 @@ namespace DesktopApp.controllers
     class CategoryController {
         
         static HttpClient client = HttpBuilder.Build();
-        public static async Task<HttpResponseMessage> CreateCategoryAsync(CategoryEntity category)
+        public static async Task<HttpResponseMessage> CreateCategoryAsync(Category category)
         {
             HttpResponseMessage response = await client.PostAsJsonAsync(
                 "Category", category);
@@ -19,26 +19,26 @@ namespace DesktopApp.controllers
             return response;
         }
 
-        public static async Task<CategoryEntity> GetCategoryAsync(string path)
+        public static async Task<Category> GetCategoryAsync(string path)
         {
-            CategoryEntity category = null;
+            Category category = null;
             HttpResponseMessage response = await client.GetAsync(path);
             if (response.IsSuccessStatusCode)
             {
-                category = await response.Content.ReadAsAsync<CategoryEntity>();
+                category = await response.Content.ReadAsAsync<Category>();
             }
             return category;
         }
 
-        public static async Task<CategoryEntity> UpdateCategoryAsync(CategoryEntity category)
+        public static async Task<HttpResponseMessage> UpdateCategoryAsync(Category category)
         {
             HttpResponseMessage response = await client.PutAsJsonAsync(
                 $"Category/{category.Id}", category);
-            response.EnsureSuccessStatusCode();
+          
 
             // Deserialize the updated product from the response body.
-            category = await response.Content.ReadAsAsync<CategoryEntity>();
-            return category;
+            category = await response.Content.ReadAsAsync<Category>();
+            return response;
         }
 
         public static async Task<HttpStatusCode> DeleteCategoryAsync(string id)
@@ -48,10 +48,10 @@ namespace DesktopApp.controllers
             return response.StatusCode;
         }
 
-        public static async Task<IEnumerable<CategoryEntity>> GetAllCategoryAsync()
+        public static async Task<IEnumerable<Category>> GetAllCategoryAsync()
         {
             HttpResponseMessage response = await client.GetAsync("Category");
-            var category = await response.Content.ReadAsAsync<IEnumerable<CategoryEntity>>();
+            var category = await response.Content.ReadAsAsync<IEnumerable<Category>>();
             return category;
         }
 

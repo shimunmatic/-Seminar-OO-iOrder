@@ -34,6 +34,7 @@ namespace DesktopApp
 
             if (response.StatusCode == System.Net.HttpStatusCode.OK)
             {
+                HttpBuilder.setOwner(userCredentials.Username);
                 string json = await response.Content.ReadAsStringAsync();
                 Token t = JsonConvert.DeserializeObject<Token>(json);
                 HttpBuilder.AddHeader(t.AccessToken);

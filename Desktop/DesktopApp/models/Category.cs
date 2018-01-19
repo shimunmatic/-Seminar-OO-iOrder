@@ -6,12 +6,16 @@ using System.Threading.Tasks;
 
 namespace DesktopApp
 {
-    class WarehouseEntity
+    class Category: ItemInterface
     {
+
         public virtual long Id { get; set; }
+        public virtual string Name { get; set; }
         public virtual string OwnerId { get; set; }
-        public virtual string Address { get; set; }
-        public virtual string Zip { get; set; }
-        public virtual string City { get; set; }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

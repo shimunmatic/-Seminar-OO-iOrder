@@ -14,7 +14,7 @@ namespace DesktopApp.controllers
     class ProductController
     {
         static HttpClient client = HttpBuilder.Build();
-        public static async Task<HttpResponseMessage> CreateProductAsync(ProductEntity product)
+        public static async Task<HttpResponseMessage> CreateProductAsync(Product product)
         {
             HttpResponseMessage response = await client.PostAsJsonAsync(
                 "Product", product);
@@ -22,26 +22,26 @@ namespace DesktopApp.controllers
             return response;
         }
 
-        public static async Task<ProductEntity> GetProductAsync(string path)
+        public static async Task<Product> GetProductAsync(string path)
         {
-            ProductEntity product = null;
+            Product product = null;
             HttpResponseMessage response = await client.GetAsync(path);
             if (response.IsSuccessStatusCode)
             {
-                product = await response.Content.ReadAsAsync<ProductEntity>();
+                product = await response.Content.ReadAsAsync<Product>();
             }
             return product;
         }
 
-        public static async Task<ProductEntity> UpdateProductAsync(ProductEntity product)
+        public static async Task<HttpResponseMessage> UpdateProductAsync(Product product)
         {
             HttpResponseMessage response = await client.PutAsJsonAsync(
                 $"Product/{product.Id}", product);
-            response.EnsureSuccessStatusCode();
-
+           
             // Deserialize the updated product from the response body.
-            product = await response.Content.ReadAsAsync<ProductEntity>();
-            return product;
+            product = await response.Content.ReadAsAsync<Product>();
+            MessageBox.Show(response.StatusCode.ToString());
+            return response;
         }
 
         public static async Task<HttpStatusCode> DeleteProductAsync(string id)
@@ -49,15 +49,17 @@ namespace DesktopApp.controllers
             HttpResponseMessage response = await client.DeleteAsync(
                 $"Product/{id}");
             return response.StatusCode;
+            
         }
 
-        public static async Task<IEnumerable<ProductEntity>> GetAllProductAsync()
+        public static async Task<IEnumerable<Product>> GetAllProductAsync()
         {
             HttpResponseMessage response = await client.GetAsync("Product");
-            var product = await response.Content.ReadAsAsync<IEnumerable<ProductEntity>>();
+            var product = await response.Content.ReadAsAsync<IEnumerable<Product>>();
 
             return product;
         }
+
 
     }
 }

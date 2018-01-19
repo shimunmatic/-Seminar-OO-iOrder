@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DesktopApp.models
 {
-    class Establishment
+    class Establishment: ItemInterface
     {
 
         public virtual long Id { get; set; }
@@ -16,5 +16,11 @@ namespace DesktopApp.models
         public virtual string OwnerId { get; set; }
         public virtual string Zip { get; set; }
         public virtual string City { get; set; }
+
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

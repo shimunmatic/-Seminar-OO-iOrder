@@ -7,6 +7,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -15,6 +16,9 @@ namespace DesktopApp
 {
     public partial class AddProductForm : Form
     {
+
+        IEnumerable<Category> categoryList;
+        IEnumerable<Supplier> supplierList;
         public AddProductForm()
         {
             InitializeComponent();
@@ -25,20 +29,20 @@ namespace DesktopApp
 
         private async void addDataToForm()
         {
-            var category = await CategoryController.GetAllCategoryAsync();
-            var supplier = await SupplierController.GetAllSupplierAsync();
+            categoryList = await MainController.GetAllItemsAsync<Category>("Category");
+            supplierList = await MainController.GetAllItemsAsync<Supplier>("Supplier");
 
-            category.ToList().ForEach(item =>
+            categoryList.ToList().ForEach(item =>
             {
                 comboBox1.Items.Add(item);
             });
-            supplier.ToList().ForEach(item =>
+            supplierList.ToList().ForEach(item =>
             {
-                comboBox1.Items.Add(item);
+                comboBox2.Items.Add(item);
             });
         }
 
-        private void confirmButton_Click(object sender, EventArgs e)
+        private async void confirmButton_Click(object sender, EventArgs e)
         {
 
             //add some data control
@@ -47,18 +51,29 @@ namespace DesktopApp
 
             if (validData)
             {
-                ProductEntity product = new ProductEntity();
-
+                Product product = new Product();
 
                 product.Name = textBox1.Text;
                 product.BuyingPrice = Decimal.Parse(textBox2.Text);
+                product.OwnerId = HttpBuilder.getOwner();
 
-                //treba uzet id od selected item
-                //product.CategoryId = comboBox1.SelectedItem;
-                //product.OwnerId = spremi svoj id
-                //product.SupplierId = comboBox3.SelectedItem;
+                string CategoryName = comboBox1.SelectedItem.ToString();
+                long categoryId = findCategory(CategoryName, categoryList);
+                product.CategoryId = categoryId;
 
-                //ProductController.CreateProductAsync(product);
+                string SupplierName = comboBox2.SelectedItem.ToString();
+                long supplierid = findSupplier(SupplierName, supplierList);
+                product.CategoryId = supplierid;
+
+                HttpResponseMessage response = await MainController.CreateItemAsync(product, "Product");
+                if (response.IsSuccessStatusCode)
+                {
+                    MessageBox.Show("Dodavanje uspjelo");
+
+                }
+                else {
+                    MessageBox.Show(response.StatusCode.ToString());
+                }
 
                 this.Close();
             }
@@ -87,6 +102,18 @@ namespace DesktopApp
             }
             return validData;
            
+        }
+
+        private long findCategory(string name, IEnumerable<Category> list)
+        {
+            return list.First(c => c.Name == name).Id;
+
+        }
+
+        private long findSupplier(string name, IEnumerable<Supplier> list)
+        {
+            return list.First(c => c.Name == name).Id;
+
         }
     }
 }

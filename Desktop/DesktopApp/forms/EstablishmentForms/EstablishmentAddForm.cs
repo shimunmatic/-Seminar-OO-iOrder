@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace DesktopApp.forms.CategoryForms
+namespace DesktopApp.forms.EstablishmentForms
 {
-    public partial class UpdateCategoryForm : Form
+    public partial class EstablishmentAddForm : Form
     {
-        public UpdateCategoryForm()
+        public EstablishmentAddForm()
         {
             InitializeComponent();
         }

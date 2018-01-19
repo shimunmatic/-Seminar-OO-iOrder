@@ -11,7 +11,7 @@ namespace DesktopApp.controllers
     class WarehouseController
     {
         static HttpClient client = HttpBuilder.Build();
-        public static async Task<Uri> CreateWarehouseAsync(WarehouseEntity warehouse)
+        public static async Task<Uri> CreateWarehouseAsync(Warehouse warehouse)
         {
             HttpResponseMessage response = await client.PostAsJsonAsync(
                 "Warehouse", warehouse);
@@ -19,25 +19,25 @@ namespace DesktopApp.controllers
             return response.Headers.Location;
         }
 
-        public static async Task<WarehouseEntity> GetWarehouseAsync(string path)
+        public static async Task<Warehouse> GetWarehouseAsync(string path)
         {
-            WarehouseEntity warehouse = null;
+            Warehouse warehouse = null;
             HttpResponseMessage response = await client.GetAsync(path);
             if (response.IsSuccessStatusCode)
             {
-                warehouse = await response.Content.ReadAsAsync<WarehouseEntity>();
+                warehouse = await response.Content.ReadAsAsync<Warehouse>();
             }
             return warehouse;
         }
 
-        public static async Task<WarehouseEntity> UpdateWarehouseAsync(WarehouseEntity warehouse)
+        public static async Task<Warehouse> UpdateWarehouseAsync(Warehouse warehouse)
         {
             HttpResponseMessage response = await client.PutAsJsonAsync(
                 $"Warehouse/{warehouse.Id}", warehouse);
             response.EnsureSuccessStatusCode();
 
             // Deserialize the updated product from the response body.
-            warehouse = await response.Content.ReadAsAsync<WarehouseEntity>();
+            warehouse = await response.Content.ReadAsAsync<Warehouse>();
             return warehouse;
         }
         public static async Task<HttpStatusCode> DeleteWarehouseAsync(string id)
@@ -47,10 +47,10 @@ namespace DesktopApp.controllers
             return response.StatusCode;
         }
 
-        public static async Task<IEnumerable<WarehouseEntity>> GetAllWarehouseAsync()
+        public static async Task<IEnumerable<Warehouse>> GetAllWarehouseAsync()
         {
             HttpResponseMessage response = await client.GetAsync("Warehouse");
-            var warehouse = await response.Content.ReadAsAsync<IEnumerable<WarehouseEntity>>();
+            var warehouse = await response.Content.ReadAsAsync<IEnumerable<Warehouse>>();
             return warehouse;
         }
 

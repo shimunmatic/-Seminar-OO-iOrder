@@ -35,7 +35,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.category = new System.Windows.Forms.Label();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.confirmButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
             Buying_price = new System.Windows.Forms.Label();
@@ -99,13 +99,13 @@
             this.category.TabIndex = 9;
             this.category.Text = "Category";
             // 
-            // comboBox3
+            // comboBox2
             // 
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(81, 110);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(121, 21);
-            this.comboBox3.TabIndex = 11;
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Location = new System.Drawing.Point(81, 110);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(121, 21);
+            this.comboBox2.TabIndex = 11;
             // 
             // confirmButton
             // 
@@ -134,7 +134,7 @@
             this.ClientSize = new System.Drawing.Size(253, 238);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.confirmButton);
-            this.Controls.Add(this.comboBox3);
+            this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.category);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label1);
@@ -142,7 +142,7 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(Buying_price);
             this.Controls.Add(this.Name);
-   
+          
             this.Text = "Add new product";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -157,7 +157,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label category;
-        private System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.Button confirmButton;
         private System.Windows.Forms.Button cancelButton;
     }
