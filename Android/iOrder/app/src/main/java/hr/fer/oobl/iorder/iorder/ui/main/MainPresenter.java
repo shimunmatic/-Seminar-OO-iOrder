@@ -50,7 +50,7 @@ public final class MainPresenter extends BasePresenter<MainContract.View> implem
 
     @Override
     public void showBlackBoard() {
-        router.showHistory();
+        router.showHistory(currentEstablishment.getId(), currentEstablishment.getName());
     }
 
     @Override
@@ -87,8 +87,20 @@ public final class MainPresenter extends BasePresenter<MainContract.View> implem
     public void sendOrder(long establishmentId, long locationId) {
         final String username = userManager.get("username", "");
         if (!username.isEmpty()) {
-            orderUseCase.execute(new OrderRequest(cartProducts, username, establishmentId, locationId));
+            addSubscription(orderUseCase.execute(new OrderRequest(cartProducts, username, locationId, establishmentId))
+                    .subscribeOn(backgroundScheduler)
+                    .observeOn(mainThreadScheduler)
+                    .subscribe(this::onOrderSuccessfullyProcessed,
+                            this::onOrderFailed));
         }
+    }
+
+    private void onOrderFailed(final Throwable throwable) {
+        doIfViewNotNull(view -> view.showError(throwable.getMessage()));
+    }
+
+    private void onOrderSuccessfullyProcessed(final Void aVoid) {
+        doIfViewNotNull(MainContract.View::showOrderSuccess);
     }
 
     @Override

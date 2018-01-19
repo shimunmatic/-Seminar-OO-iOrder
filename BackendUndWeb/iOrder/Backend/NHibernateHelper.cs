@@ -42,7 +42,6 @@ namespace Backend
                             m.FluentMappings.Add<LocationMap>();
                             m.FluentMappings.Add<OrderMap>();
                             m.FluentMappings.Add<OrderPairMap>();
-                            m.FluentMappings.Add<OwnerMap>();
                             m.FluentMappings.Add<WarehouseMap>();
                             m.FluentMappings.Add<WarehouseProductMap>();
                             m.FluentMappings.Add<SupplierMap>();

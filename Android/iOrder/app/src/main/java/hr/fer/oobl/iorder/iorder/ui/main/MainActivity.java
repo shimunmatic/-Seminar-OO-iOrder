@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
-import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -87,6 +86,11 @@ public class MainActivity extends BaseActivity implements MainContract.View {
         expandableListView.setAdapter(expandableListAdapter);
     }
 
+    @Override
+    public void showOrderSuccess() {
+        Toast.makeText(this, "Order processed successfully! :)", Toast.LENGTH_LONG).show();
+    }
+
     public void updateCartUp(final Product product) {
         presenter.incrementCart(product);
     }
@@ -155,7 +159,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
         }
     }
 
-    @OnClick({R.id.blackboard, R.id.notification_icon})
+    @OnClick(R.id.blackboard)
     public void blackboardPressed() {
         presenter.showBlackBoard();
     }

@@ -19,7 +19,7 @@ import rx.Single;
 
 public interface IOrderService {
 
-    @POST("/api/User/Register")
+    @POST("/api/User/Register/Customer")
     Single<Void> createUser(@Body ApiUser registeringUser);
 
     @POST("/api/Auth")
@@ -28,8 +28,8 @@ public interface IOrderService {
     @GET("/api/Establishment/{establishmentId}")
     Single<ApiEstablishment> getEstablishment(@Header("Authorization") String authHeader, @Path("establishmentId") long establishmentId);
 
-    @GET("/api/Order/History/{establishmentId}/{userId")
-    Single<List<ApiOrderHistory>> getOrderHistoryForUserAndEstablishment(@Header("Authorization") String authHeader, @Path("userId") String username, @Path("establishmentId") long establishmentId);
+    @GET("/api/Order/CustomerHistory/{establishmentId}")
+    Single<List<ApiOrderHistory>> getOrderHistoryForUserAndEstablishment(@Header("Authorization") String authHeader, @Path("establishmentId") long establishmentId);
 
     @POST("/api/Order")
     Single<Void> processOrder(@Header("Authorization") String authHeader, @Body ApiOrderPost apiOrderPost);

@@ -14,5 +14,7 @@ namespace Backend.Services.Interface
         IEnumerable<User> GetAllEmployeesForEstablishment(long Id);
         void RegisterCustomer(User customer);
         void RegisterEmployee(User employee);
+        IEnumerable<User> GetAllAdmins();
+        void RegisteAdmin(User user);
     }
 }

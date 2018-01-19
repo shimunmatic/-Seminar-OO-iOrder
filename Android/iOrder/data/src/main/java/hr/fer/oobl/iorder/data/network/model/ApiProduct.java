@@ -12,4 +12,13 @@ public final class ApiProduct {
 
     @SerializedName("sellingPrice")
     public float price;
+
+    @Override
+    public String toString() {
+        return "ApiProduct{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                '}';
+    }
 }

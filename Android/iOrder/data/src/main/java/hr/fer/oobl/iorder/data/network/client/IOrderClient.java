@@ -17,7 +17,7 @@ public interface IOrderClient {
 
     Single<Void> registerUser(ApiUser apiUser);
 
-    Single<List<ApiOrderHistory>> fetchOrderHistoryForUser(String authToken, String username, long establishmentId);
+    Single<List<ApiOrderHistory>> fetchOrderHistory(String authToken, long establishmentId);
 
     Single<ApiEstablishment> findEstablishment(String authToken, Long establishmentId);
 

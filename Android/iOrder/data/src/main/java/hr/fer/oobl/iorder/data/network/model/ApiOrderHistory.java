@@ -6,15 +6,21 @@ import java.util.List;
 
 public final class ApiOrderHistory {
 
-    @SerializedName("products")
-    public List<ApiProductPost> products;
+    @SerializedName("orderedProducts")
+    public List<ApiProductPairGet> products;
 
     @SerializedName("date")
     public String date;
 
-    @SerializedName("apiEstablishment")
-    public ApiEstablishment apiEstablishment;
-
     @SerializedName("price")
     public float price;
+
+    @Override
+    public String toString() {
+        return "ApiOrderHistory{" +
+                "products=" + products +
+                ", date='" + date + '\'' +
+                ", price=" + price +
+                '}';
+    }
 }

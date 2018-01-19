@@ -39,7 +39,9 @@ public final class DataModule {
     @Singleton
     OkHttpClient provideOkhttpClient(final HttpLoggingInterceptor interceptor) {
         final OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        builder.connectTimeout(100, TimeUnit.SECONDS).interceptors().add(interceptor);
+        builder.connectTimeout(100, TimeUnit.SECONDS)
+                .readTimeout(100, TimeUnit.SECONDS)
+                .interceptors().add(interceptor);
 
         return builder.build();
     }
@@ -48,10 +50,10 @@ public final class DataModule {
     @Singleton
     Retrofit provideRetrofit(final OkHttpClient okHttpClient) {
         return new Retrofit.Builder().baseUrl("http://iorder.azurewebsites.net")
-                                     .client(okHttpClient)
-                                     .addConverterFactory(GsonConverterFactory.create())
-                                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                                     .build();
+                .client(okHttpClient)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .build();
     }
 
     @Provides

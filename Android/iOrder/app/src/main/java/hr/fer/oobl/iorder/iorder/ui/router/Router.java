@@ -9,5 +9,5 @@ public interface Router {
 
     void showScanner();
 
-    void showHistory();
+    void showHistory(long id, String name);
 }

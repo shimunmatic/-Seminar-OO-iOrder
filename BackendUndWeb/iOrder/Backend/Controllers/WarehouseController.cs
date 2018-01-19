@@ -40,7 +40,7 @@ namespace Backend.Controllers
 
         // PUT: api/Warehouse/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]Warehouse warehouse)
+        public void Put(long id, [FromBody]Warehouse warehouse)
         {
             WarehouseService.Update(id, warehouse);
 
@@ -48,7 +48,7 @@ namespace Backend.Controllers
 
         // DELETE: api/Warehouse/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public void Delete(long id)
         {
             WarehouseService.Delete(id);
         }

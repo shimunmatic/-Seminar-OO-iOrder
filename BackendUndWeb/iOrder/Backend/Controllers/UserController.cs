@@ -33,6 +33,14 @@ namespace Backend.Controllers
             return UserService.GetAllEmployeesForOwner(name);
         }
 
+        //GET: api/User/Employee
+        [HttpGet("Admin")]
+        [Authorize(Roles = "GOD")]
+        public IEnumerable<User> GetAdmins()
+        {
+            return UserService.GetAllAdmins();
+        }
+
         // POST: api/User/Customer
         [HttpPost("Customer")]
         [AllowAnonymous]
@@ -51,6 +59,15 @@ namespace Backend.Controllers
 
         }
 
+        // POST: api/User/Admin
+        [HttpPost("Admin")]
+        [Authorize(Roles = "GOD")]
+        public void CreateAdmin([FromBody]User user)
+        {
+            UserService.RegisteAdmin(user);
+
+        }
+
 
         // DELETE: api/User/Customer
         [HttpDelete("Customer")]
@@ -65,6 +82,14 @@ namespace Backend.Controllers
         [HttpDelete("Employee/{username}")]
         [Authorize(Roles = "ADMIN")]
         public void DeleteEmployee(string username)
+        {
+            UserService.Delete(username);
+        }
+
+        // DELETE: api/User/Admin/shemso
+        [HttpDelete("Admin/{username}")]
+        [Authorize(Roles = "GOD")]
+        public void DeleteAdmin(string username)
         {
             UserService.Delete(username);
         }

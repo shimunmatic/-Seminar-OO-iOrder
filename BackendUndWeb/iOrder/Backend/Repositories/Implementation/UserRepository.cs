@@ -52,6 +52,23 @@ namespace Backend.Repositories.Implementation
             return user;
         }
 
+        public IEnumerable<User> GetByRole(long roleId)
+        {
+            using (var db = NHibernateHelper.OpenSession())
+            {
+
+                var entities = db.Query<UserEntity>().Where(u => u.RoleId == roleId).ToList();
+                var users = new List<User>();
+                foreach (var u in entities)
+                {
+                    var user = EntityModelConverter.Convert(u);
+                    user.Role = GetRole(u.RoleId);
+                    users.Add(user);
+                }
+                return users;
+            }
+        }
+
         public IEnumerable<User> GetEmployeesOfEsatblishemnt(long Id)
         {
             using (var db = NHibernateHelper.OpenSession())

@@ -44,8 +44,10 @@ public final class RouterImpl implements Router {
     }
 
     @Override
-    public void showHistory() {
+    public void showHistory(long id, String name) {
         Intent intent = new Intent(activity, HistoryActivity.class);
+        intent.putExtra("name", name);
+        intent.putExtra("establishmentId", id);
         activity.startActivity(intent);
     }
 }

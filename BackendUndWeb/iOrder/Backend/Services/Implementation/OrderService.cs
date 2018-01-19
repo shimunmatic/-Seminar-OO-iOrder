@@ -1,4 +1,5 @@
 ﻿using Backend.Models.Business;
+using Backend.Notifications;
 using Backend.Repositories.Interface;
 using Backend.Services.Interface;
 using System;
@@ -70,6 +71,7 @@ namespace Backend.Services.Implementation
                 }
             }
             OrderRepository.Save(order);
+            NotificationManager.NotifyAll(order.EstablishmentId);
         }
 
         private string GetMessage(Product p)

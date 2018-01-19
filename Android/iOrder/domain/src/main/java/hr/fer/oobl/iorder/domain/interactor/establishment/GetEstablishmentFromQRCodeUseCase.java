@@ -2,7 +2,6 @@ package hr.fer.oobl.iorder.domain.interactor.establishment;
 
 import hr.fer.oobl.iorder.domain.interactor.type.SingleUseCaseWithParameter;
 import hr.fer.oobl.iorder.domain.model.Establishment;
-import hr.fer.oobl.iorder.domain.model.EstablishmentRequest;
 import hr.fer.oobl.iorder.domain.repository.IOrderRepository;
 import rx.Single;
 

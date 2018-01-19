@@ -39,7 +39,7 @@ namespace Backend.Controllers
 
         // GET: api/Role/5
         [HttpGet("{id}", Name = "Get")]
-        public Role Get(int id)
+        public Role Get(long id)
         {
             return Service.GetById(id);
         }

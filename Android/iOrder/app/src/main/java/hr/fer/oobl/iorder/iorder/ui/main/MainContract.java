@@ -18,6 +18,8 @@ public interface MainContract {
         void showError(String message);
 
         void fillViewState();
+
+        void showOrderSuccess();
     }
 
     interface Presenter extends ScopedPresenter {

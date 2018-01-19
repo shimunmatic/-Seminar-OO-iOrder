@@ -2,11 +2,8 @@ package hr.fer.oobl.iorder.domain.repository;
 
 import java.util.List;
 
-import hr.fer.oobl.iorder.domain.model.Category;
 import hr.fer.oobl.iorder.domain.model.Establishment;
-import hr.fer.oobl.iorder.domain.model.EstablishmentRequest;
 import hr.fer.oobl.iorder.domain.model.Order;
-import hr.fer.oobl.iorder.domain.model.OrderHistoryRequest;
 import hr.fer.oobl.iorder.domain.model.OrderRequest;
 import hr.fer.oobl.iorder.domain.model.UserCredentials;
 import hr.fer.oobl.iorder.domain.model.UserRegistration;
@@ -18,7 +15,7 @@ public interface IOrderRepository {
 
     Single<Void> requestRegistration(UserRegistration userRegistration);
 
-    Single<List<Order>> fetchOrderHistory(OrderHistoryRequest orderHistoryRequest);
+    Single<List<Order>> fetchOrderHistory(long orderHistoryRequest);
 
     Single<Establishment> findEstablishment(Long establishmentId);
 
