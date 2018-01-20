@@ -63,9 +63,11 @@ namespace DesktopApp
 
                 string SupplierName = comboBox2.SelectedItem.ToString();
                 long supplierid = findSupplier(SupplierName, supplierList);
-                product.CategoryId = supplierid;
+                product.SupplierId = supplierid;
 
-                HttpResponseMessage response = await MainController.CreateItemAsync(product, "Product");
+
+
+				HttpResponseMessage response = await MainController.CreateItemAsync(product, "Product");
                 if (response.IsSuccessStatusCode)
                 {
                     MessageBox.Show("Dodavanje uspjelo");

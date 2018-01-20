@@ -13,5 +13,10 @@ namespace DesktopApp
         public virtual string Address { get; set; }
         public virtual string Zip { get; set; }
         public virtual string City { get; set; }
+
+        public override string ToString()
+        {
+            return Id.ToString();
+        }
     }
 }

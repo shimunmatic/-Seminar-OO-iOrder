@@ -32,8 +32,8 @@ namespace DesktopApp.forms.LocationForms
             long establishmentId = findEstablishment(LocationName, establishmentList);
             location.EstablishmentId = establishmentId;
 
-
-            HttpResponseMessage response = await MainController.CreateItemAsync(location, "Location");
+		
+			HttpResponseMessage response = await MainController.CreateItemAsync(location, "Location");
             if (response.IsSuccessStatusCode)
             {
                 MessageBox.Show("Dodavanje uspjelo");

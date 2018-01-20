@@ -38,8 +38,8 @@ C:\Users\Borna2\source\repos\iOrder\Desktop\DesktopApp\obj\Debug\DesktopApp.cspr
 C:\Users\Borna2\source\repos\iOrder\Desktop\DesktopApp\obj\Debug\DesktopApp.csproj.CoreCompileInputs.cache
 C:\Users\Borna2\source\repos\iOrder\Desktop\DesktopApp\obj\Debug\DesktopApp.exe
 C:\Users\Borna2\source\repos\iOrder\Desktop\DesktopApp\obj\Debug\DesktopApp.pdb
-C:\Users\Borna2\source\repos\iOrder\Desktop\DesktopApp\obj\Debug\DesktopApp.forms.WarehouseForms.AddWarehouseForm.resources
 C:\Users\Borna2\source\repos\iOrder\Desktop\DesktopApp\obj\Debug\DesktopApp.forms.AddWarehouseForm.resources
 C:\Users\Borna2\source\repos\iOrder\Desktop\DesktopApp\obj\Debug\DesktopApp.forms.CategoryForms.AddCategoryForm.resources
 C:\Users\Borna2\source\repos\iOrder\Desktop\DesktopApp\obj\Debug\DesktopApp.forms.LocationForms.AddLocationForm.resources
 C:\Users\Borna2\source\repos\iOrder\Desktop\DesktopApp\obj\Debug\DesktopApp.forms.EstablishmentForms.EstablishmentAddForm.resources
+C:\Users\Borna2\source\repos\iOrder\Desktop\DesktopApp\obj\Debug\DesktopApp.forms.EmployeeForms.EmployeeAddForm.resources

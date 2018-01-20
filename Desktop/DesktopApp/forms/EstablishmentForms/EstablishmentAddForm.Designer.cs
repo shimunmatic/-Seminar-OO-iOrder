@@ -30,9 +30,9 @@
         {
             System.Windows.Forms.Label Warehouse;
             this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox4 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.cancelButton = new System.Windows.Forms.Button();
             this.confirmButton = new System.Windows.Forms.Button();
@@ -43,6 +43,15 @@
             Warehouse = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
+            // Warehouse
+            // 
+            Warehouse.AutoSize = true;
+            Warehouse.Location = new System.Drawing.Point(46, 61);
+            Warehouse.Name = "Warehouse";
+            Warehouse.Size = new System.Drawing.Size(62, 13);
+            Warehouse.TabIndex = 20;
+            Warehouse.Text = "Warehouse";
+            // 
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
@@ -51,26 +60,26 @@
             this.comboBox1.Size = new System.Drawing.Size(121, 21);
             this.comboBox1.TabIndex = 30;
             // 
-            // textBox5
+            // textBox3
             // 
-            this.textBox5.Location = new System.Drawing.Point(117, 112);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(121, 20);
-            this.textBox5.TabIndex = 29;
+            this.textBox3.Location = new System.Drawing.Point(117, 112);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(121, 20);
+            this.textBox3.TabIndex = 29;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(117, 85);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(121, 20);
+            this.textBox2.TabIndex = 28;
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(117, 85);
+            this.textBox4.Location = new System.Drawing.Point(117, 138);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(121, 20);
-            this.textBox4.TabIndex = 28;
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(117, 138);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(121, 20);
-            this.textBox3.TabIndex = 27;
+            this.textBox4.TabIndex = 27;
             // 
             // label2
             // 
@@ -125,15 +134,6 @@
             this.textBox1.Size = new System.Drawing.Size(121, 20);
             this.textBox1.TabIndex = 21;
             // 
-            // Warehouse
-            // 
-            Warehouse.AutoSize = true;
-            Warehouse.Location = new System.Drawing.Point(46, 61);
-            Warehouse.Name = "Warehouse";
-            Warehouse.Size = new System.Drawing.Size(62, 13);
-            Warehouse.TabIndex = 20;
-            Warehouse.Text = "Warehouse";
-            // 
             // Name
             // 
             this.Name.AutoSize = true;
@@ -149,9 +149,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.textBox5);
-            this.Controls.Add(this.textBox4);
             this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.textBox4);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.confirmButton);
@@ -160,7 +160,7 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(Warehouse);
             this.Controls.Add(this.Name);
-         
+          
             this.Text = "EstablishmentAddForm";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -170,9 +170,9 @@
         #endregion
 
         private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBox4;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Button confirmButton;
