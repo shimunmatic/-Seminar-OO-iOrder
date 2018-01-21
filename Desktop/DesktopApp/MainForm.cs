@@ -68,12 +68,6 @@ namespace DesktopApp
                 dataGridViewProduct.DataSource = product;	
 				fillDataInProductView();
 
-				var WProduct = await MainController.GetAllItemsAsync<WarehouseProduct>("Product/Storage/1");
-				foreach (var item in WProduct)
-				{
-					MessageBox.Show(item.ToString());
-				}
-
 
             }
             else if (Tabs.SelectedTab == Establishment)
@@ -90,7 +84,6 @@ namespace DesktopApp
 			else if (Tabs.SelectedTab == Employee)
 			{
 				var employee = await MainController.GetAllItemsAsync<User>("User/Employee");
-				//foreach (var item in employee)
 				dataGridViewEmployee.DataSource = employee;
 
 			}
@@ -426,14 +419,17 @@ namespace DesktopApp
 
         private async void dataGridViewWarehouse_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            //var product = await MainController.GetAllItemsAsync<Product>("Product");
-            //long warehouseID = Convert.ToInt64(UpdateCategoryIDtextBox.Text);
-
-            //var details = product.Where(p => p.CategoryId == warehouseID).ToList();
-            //dataGridViewCategoryDetail.DataSource = details;
-        }
+			int index = e.RowIndex;
+			DataGridViewRow selectedRow = dataGridViewWarehouse.Rows[index];
 
 		
+			string warehouseID = selectedRow.Cells[0].Value.ToString();
+			var WProduct = await MainController.GetAllItemsAsync<Product>("Product/Storage/" + warehouseID);
+			dataGridViewWarehouseDetail.DataSource = WProduct;
+			
+		}
+
+
 
 
 

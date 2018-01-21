@@ -22,18 +22,13 @@ namespace DesktopApp.forms.EmployeeForms
 		private async void confirmButton_Click(object sender, EventArgs e)
 		{
 			User employee = new User();
-			Role role = new Role();
-			role.Id = 4;
-			role.RoleName = "EMPLOYEE";
-			
-
+		
 			employee.Username = textBox11.Text;
 			employee.Password = textBox12.Text;
 			employee.FirstName = textBox13.Text;
 			employee.LastName = textBox14.Text;
 			employee.Email = textBox15.Text;
-			employee.Role = role;
-
+			
 
 			HttpResponseMessage response = await MainController.CreateItemAsync(employee, "User/Employee");
 			if (response.IsSuccessStatusCode)
