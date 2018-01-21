@@ -22,5 +22,12 @@ namespace DesktopApp.models
         {
             return Name;
         }
-    }
+
+		//public async static long findEstablishment(string name, IEnumerable<Establishment> list)
+		//{
+		//	IEnumerable<Establishment> lista = await MainController.GetAllItemsAsync<Establishment>("Establishment");
+		//	return list.First(c => c.Name == name).Id;
+
+		//}
+	}
 }
