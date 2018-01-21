@@ -47,11 +47,11 @@ public final class SignUpActivity extends BaseActivity implements SignupContract
     @BindView(R.id.etConfirmPass)
     TextInputEditText etConfirmPass;
 
-    @BindView(R.id.etUsernameLayout)
-    TextInputLayout etUsernameLayout;
-
     @BindView(R.id.etEmailLayout)
     TextInputLayout etEmailLayout;
+
+    @BindView(R.id.etUsernameLayout)
+    TextInputLayout etUsernameLayout;
 
     @BindView(R.id.etNameLayout)
     TextInputLayout etNameLayout;
@@ -94,7 +94,7 @@ public final class SignUpActivity extends BaseActivity implements SignupContract
         activityComponent.inject(this);
     }
 
-    @OnFocusChange(R.id.etEmail)
+    @OnFocusChange(R.id.etUsername)
     public void checkEmailError() {
         if (!etEmail.isFocused()) {
             if (CredentialsValidator.validateEmail(etEmail.getText().toString())) {
@@ -110,7 +110,7 @@ public final class SignUpActivity extends BaseActivity implements SignupContract
     @OnFocusChange(R.id.etUsername)
     public void checkUsernameError() {
         if (!etUsername.isFocused()) {
-            if (CredentialsValidator.validateEmail(etUsername.getText().toString())) {
+            if (CredentialsValidator.validateNickname(etUsername.getText().toString())) {
                 setUsernameError(null);
             } else {
                 setUsernameError(getString(R.string.usernameError));
@@ -163,7 +163,7 @@ public final class SignUpActivity extends BaseActivity implements SignupContract
     public void checkConfPassError() {
         if (!etConfirmPass.isFocused()) {
             if (CredentialsValidator.comparePasswords(etPassword.getText().toString(),
-                                                      etConfirmPass.getText().toString())) {
+                    etConfirmPass.getText().toString())) {
                 setConfPasswordError(null);
             } else {
                 setConfPasswordError(getString(R.string.passwordError));
@@ -213,6 +213,7 @@ public final class SignUpActivity extends BaseActivity implements SignupContract
     @Override
     public void navigateToContentScreen() {
         setProgress(false);
+        Toast.makeText(this, "Scanner is starting...", Toast.LENGTH_SHORT).show();
         presenter.navigateToContentScreen();
     }
 
@@ -260,6 +261,41 @@ public final class SignUpActivity extends BaseActivity implements SignupContract
     @Override
     public String getSurname() {
         return etSurname.getText().toString();
+    }
+
+    @Override
+    public void displayEmailInvalidError() {
+        setEmailError(getString(R.string.emailError));
+    }
+
+    @Override
+    public void displayPasswordInvalidError() {
+        setEmailError(getString(R.string.passwordError));
+    }
+
+    @Override
+    public void displayUsernameInvalidError() {
+        setEmailError(getString(R.string.usernameError));
+    }
+
+    @Override
+    public String getConfPassword() {
+        return etConfirmPass.getText().toString();
+    }
+
+    @Override
+    public void displaConfPassInvalidError() {
+        setEmailError(getString(R.string.passwordError));
+    }
+
+    @Override
+    public void displaySurnameInvalidError() {
+        setEmailError(getString(R.string.surnameError));
+    }
+
+    @Override
+    public void displayNameInvalidError() {
+        setEmailError(getString(R.string.nameError));
     }
 
     private void setupToolbar() {

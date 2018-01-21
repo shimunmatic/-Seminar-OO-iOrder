@@ -14,7 +14,5 @@ namespace Backend.Repositories.Interface
         IEnumerable<Product> GetProductsForSupplier(long Id);
 
 
-
-
     }
 }

@@ -4,6 +4,9 @@ import android.os.Bundle;
 
 import javax.inject.Inject;
 
+import hr.fer.oobl.iorder.data.util.UserManager;
+import hr.fer.oobl.iorder.domain.interactor.login.GetLoginTokenUseCase;
+import hr.fer.oobl.iorder.domain.model.UserCredentials;
 import hr.fer.oobl.iorder.iorder.base.BasePresenter;
 import hr.fer.oobl.iorder.iorder.network.NetworkManager;
 import hr.fer.oobl.iorder.iorder.ui.router.Router;
@@ -13,6 +16,12 @@ public final class LoginPresenter extends BasePresenter<LoginContract.View> impl
 
     @Inject
     NetworkManager networkManager;
+
+    @Inject
+    UserManager userManager;
+
+    @Inject
+    GetLoginTokenUseCase getLoginTokenUseCase;
 
     @Inject
     Router router;
@@ -27,11 +36,11 @@ public final class LoginPresenter extends BasePresenter<LoginContract.View> impl
     }
 
     @Override
-    public void onLoginClicked(final String email, final String password) {
+    public void onLoginClicked(final String username, final String password) {
         doIfViewNotNull(view -> {
             view.hideErrors();
             boolean inputValid = true;
-            if (!CredentialsValidator.validateEmail(email)) {
+            if (!CredentialsValidator.validateNickname(username)) {
                 view.displayEmailInvalidError();
                 inputValid = false;
             }
@@ -43,14 +52,31 @@ public final class LoginPresenter extends BasePresenter<LoginContract.View> impl
             if (inputValid) {
                 if (networkManager.isNetworkAvailable()) {
                     view.showProgress(true);
-                    router.showMainScreen();
-                    //TODO: Backend authentication
+                    addSubscription(getLoginTokenUseCase.execute(new UserCredentials(username, password))
+                            .subscribeOn(backgroundScheduler)
+                            .observeOn(mainThreadScheduler)
+                            .subscribe(token -> onGetLoginTokenSuccess(token, username, password),
+                                    this::onGetLoginTokenError));
                 } else {
                     view.processOfflineMode();
-                    //TODO: Offline mode, database storage
                 }
             }
         });
+    }
+
+    private void onGetLoginTokenError(final Throwable throwable) {
+        doIfViewNotNull(view -> {
+            view.showProgress(false);
+            view.showError(throwable.getMessage());
+        });
+    }
+
+    private void onGetLoginTokenSuccess(final String loginToken, final String username, final String password) {
+        userManager.set("username", username);
+        userManager.set("password", password);
+        userManager.set("token", loginToken);
+        doIfViewNotNull(LoginContract.View::startScanner);
+        router.showScanner();
     }
 
     @Override

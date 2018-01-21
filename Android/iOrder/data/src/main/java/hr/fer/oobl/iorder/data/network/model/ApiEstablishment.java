@@ -1,10 +1,10 @@
 package hr.fer.oobl.iorder.data.network.model;
 
-import android.location.Location;
-
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
+
+import hr.fer.oobl.iorder.domain.model.Category;
 
 public final class ApiEstablishment {
 
@@ -14,14 +14,15 @@ public final class ApiEstablishment {
     @SerializedName("name")
     public String name;
 
-    @SerializedName("locations")
-    public List<Location> locations;
+    @SerializedName("categories")
+    public List<ApiCategory> categories;
 
-    public ApiEstablishment(final long id, final String name, final List<Location> locations) {
+    public ApiEstablishment(final long id, final String name, final List<ApiCategory> categories) {
         this.id = id;
         this.name = name;
-        this.locations = locations;
+        this.categories = categories;
     }
 
-    public ApiEstablishment() {}
+    public ApiEstablishment() {
+    }
 }

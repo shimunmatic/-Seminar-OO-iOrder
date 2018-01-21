@@ -8,7 +8,7 @@ namespace Backend.Models.Entity.Mappings
         {
             Table("role");
             Schema("dbo");
-            Id(role => role.Id).Column("id");
+            Id(role => role.Id).Column("id").GeneratedBy.Native();
             Map(role => role.RoleName).Column("role").Not.Nullable();
         }
     }

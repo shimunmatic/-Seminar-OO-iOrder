@@ -43,5 +43,19 @@ public interface SignupContract {
         String getName();
 
         String getSurname();
+
+        void displayEmailInvalidError();
+
+        void displayPasswordInvalidError();
+
+        void displayUsernameInvalidError();
+
+        String getConfPassword();
+
+        void displaConfPassInvalidError();
+
+        void displaySurnameInvalidError();
+
+        void displayNameInvalidError();
     }
 }

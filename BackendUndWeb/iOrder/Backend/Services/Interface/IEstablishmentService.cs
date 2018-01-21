@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Backend.Services.Interface
 {
-    public interface IEstablishmentService
+    public interface IEstablishmentService: IBaseService<Establishment>
     {
-        Establishment GetEstablishment(long id);
-        IEnumerable<Establishment> GetAll();
+        IEnumerable<Establishment> GetAllForOwner(string username);
+
     }
 }

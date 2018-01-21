@@ -6,6 +6,7 @@ import hr.fer.oobl.iorder.data.network.model.ApiCategory;
 import hr.fer.oobl.iorder.data.network.model.ApiEstablishment;
 import hr.fer.oobl.iorder.data.network.model.ApiOrderHistory;
 import hr.fer.oobl.iorder.data.network.model.ApiOrderPost;
+import hr.fer.oobl.iorder.data.network.model.ApiToken;
 import hr.fer.oobl.iorder.data.network.model.ApiUser;
 import hr.fer.oobl.iorder.data.network.model.ApiUserCredentials;
 import retrofit2.http.Body;
@@ -18,22 +19,17 @@ import rx.Single;
 
 public interface IOrderService {
 
-    @POST("/api/User/Register")
-    @FormUrlEncoded
+    @POST("/api/User/Register/Customer")
     Single<Void> createUser(@Body ApiUser registeringUser);
 
     @POST("/api/Auth")
-    @FormUrlEncoded
-    Single<String> login(@Body ApiUserCredentials loggingUser);
+    Single<ApiToken> login(@Body ApiUserCredentials loggingUser);
 
-    @GET("/api/Establishment/{establishmentId}/{locationId}")
-    Single<ApiEstablishment> getEstablishment(@Header("Authorization") String authHeader, @Path("establishmentId") long establishmentId, @Path("locationId") long locationId);
+    @GET("/api/Establishment/{establishmentId}")
+    Single<ApiEstablishment> getEstablishment(@Header("Authorization") String authHeader, @Path("establishmentId") long establishmentId);
 
-    @GET("/api/Category/{establishmentId}")
-    Single<List<ApiCategory>> getCategories(@Header("Authorization") String authHeader, @Path("establishmentId") long establishmentId);
-
-    @GET("/api/Order/History/{establishmentId}/{userId")
-    Single<List<ApiOrderHistory>> getOrderHistoryForUserAndEstablishment(@Header("Authorization") String authHeader, @Path("userId") String username, @Path("establishmentId") long establishmentId);
+    @GET("/api/Order/CustomerHistory/{establishmentId}")
+    Single<List<ApiOrderHistory>> getOrderHistoryForUserAndEstablishment(@Header("Authorization") String authHeader, @Path("establishmentId") long establishmentId);
 
     @POST("/api/Order")
     Single<Void> processOrder(@Header("Authorization") String authHeader, @Body ApiOrderPost apiOrderPost);

@@ -46,6 +46,15 @@ namespace Backend.Repositories.Implementation
             }
         }
 
+        public IEnumerable<Location> GetLocationsForOwnerId(string username)
+        {
+            using (var db = NHibernateHelper.OpenSession())
+            {
+                var establishmentForUser = db.Query<EstablishmentEntity>().Where(e => e.OwnerId.Equals(username)).Select(s => s.Id).ToList();
+                return EntityModelConverter.Convert(db.Query<LocationEntity>().Where(l => establishmentForUser.Contains(l.Id)).ToList());
+            }
+        }
+
         public object Save(Location t)
         {
             return (long)BaseRepository.Save(ModelEntityConverter.Convert(t));

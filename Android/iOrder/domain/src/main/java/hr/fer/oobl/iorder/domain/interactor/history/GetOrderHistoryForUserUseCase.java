@@ -8,7 +8,7 @@ import hr.fer.oobl.iorder.domain.model.OrderHistoryRequest;
 import hr.fer.oobl.iorder.domain.repository.IOrderRepository;
 import rx.Single;
 
-public final class GetOrderHistoryForUserUseCase implements SingleUseCaseWithParameter<OrderHistoryRequest, List<Order>> {
+public final class GetOrderHistoryForUserUseCase implements SingleUseCaseWithParameter<Long, List<Order>> {
 
     private IOrderRepository iOrderRepository;
 
@@ -17,7 +17,7 @@ public final class GetOrderHistoryForUserUseCase implements SingleUseCaseWithPar
     }
 
     @Override
-    public Single<List<Order>> execute(final OrderHistoryRequest orderHistoryRequest) {
-        return iOrderRepository.fetchOrderHistory(orderHistoryRequest);
+    public Single<List<Order>> execute(final Long establishmentId) {
+        return iOrderRepository.fetchOrderHistory(establishmentId);
     }
 }

@@ -7,6 +7,7 @@ import hr.fer.oobl.iorder.iorder.ui.login.LoginPresenter;
 import hr.fer.oobl.iorder.iorder.ui.main.MainActivity;
 import hr.fer.oobl.iorder.iorder.ui.main.MainPresenter;
 import hr.fer.oobl.iorder.iorder.ui.scanner.ScannerActivity;
+import hr.fer.oobl.iorder.iorder.ui.scanner.ScannerPresenter;
 import hr.fer.oobl.iorder.iorder.ui.signup.SignUpActivity;
 import hr.fer.oobl.iorder.iorder.ui.signup.SignupPresenter;
 
@@ -29,4 +30,6 @@ public interface ActivityComponentInjects {
     void inject(HistoryActivity historyActivity);
 
     void inject(HistoryPresenter presenter);
+
+    void inject(ScannerPresenter presenter);
 }

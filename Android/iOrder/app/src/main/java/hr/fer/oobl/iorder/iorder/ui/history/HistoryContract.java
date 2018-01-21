@@ -10,10 +10,15 @@ public interface HistoryContract {
 
     interface View extends BaseView {
 
+        void initializeRecyclerView(List<Order> orderHistroy);
+
+        void showError(String message);
     }
 
     interface Presenter extends ScopedPresenter {
 
         List<Order> getHistory();
+
+        void fetchHistory(long establishmentId);
     }
 }

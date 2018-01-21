@@ -6,8 +6,8 @@ import java.util.List;
 
 public final class ApiOrderPost {
 
-    @SerializedName("products")
-    public List<ApiProductPost> products;
+    @SerializedName("orderedProducts")
+    public List<ApiProductPairSend> orderedProducts;
 
     @SerializedName("customerId")
     public String customerId;
@@ -15,15 +15,25 @@ public final class ApiOrderPost {
     @SerializedName("locationId")
     public long locationId;
 
-    @SerializedName("establishmentIdd")
+    @SerializedName("establishmentId")
     public long establishmentId;
 
-    public ApiOrderPost(final List<ApiProductPost> products, final String customerId, final long locationId, final long establishmentId) {
-        this.products = products;
+    public ApiOrderPost(final List<ApiProductPairSend> orderedProducts, final String customerId, final long locationId, final long establishmentId) {
+        this.orderedProducts = orderedProducts;
         this.customerId = customerId;
         this.locationId = locationId;
         this.establishmentId = establishmentId;
     }
 
     public ApiOrderPost() {}
+
+    @Override
+    public String toString() {
+        return "ApiOrderPost{" +
+                "orderedProducts=" + orderedProducts +
+                ", customerId='" + customerId + '\'' +
+                ", locationId=" + locationId +
+                ", establishmentId=" + establishmentId +
+                '}';
+    }
 }

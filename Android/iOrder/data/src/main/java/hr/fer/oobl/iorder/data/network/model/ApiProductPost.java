@@ -13,15 +13,20 @@ public final class ApiProductPost {
     @SerializedName("price")
     public float price;
 
-    @SerializedName("quantity")
-    public int quantity;
-
-    public ApiProductPost(final long id, final String name, final float price, final int quantity) {
+    public ApiProductPost(final long id, final String name, final float price) {
         this.id = id;
         this.name = name;
         this.price = price;
-        this.quantity = quantity;
     }
 
     public ApiProductPost() {}
+
+    @Override
+    public String toString() {
+        return "ApiProductPost{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                '}';
+    }
 }

@@ -16,6 +16,12 @@ public final class Order {
         this.price = price;
     }
 
+    public Order(final List<Product> products, final String date, final String price) {
+        this.products = products;
+        this.date = date;
+        this.price = price;
+    }
+
     public List<Product> getProducts() {
         return products;
     }
@@ -46,5 +52,15 @@ public final class Order {
 
     public void setPrice(final String price) {
         this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "products=" + products +
+                ", date='" + date + '\'' +
+                ", establishment=" + establishment +
+                ", price='" + price + '\'' +
+                '}';
     }
 }

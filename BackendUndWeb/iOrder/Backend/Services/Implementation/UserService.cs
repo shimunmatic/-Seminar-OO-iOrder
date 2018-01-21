@@ -21,9 +21,20 @@ namespace Backend.Services.Implementation
             RoleRepository = roleRepository;
         }
 
-        public User Get(string Username)
+        public void Delete(object id)
         {
-            return UserRepository.GetById(Username);
+            UserRepository.Delete(UserRepository.GetById(id));
+        }
+
+        public IEnumerable<User> GetAll()
+        {
+            return UserRepository.GetAll();
+        }
+
+        public IEnumerable<User> GetAllAdmins()
+        {
+            var users = UserRepository.GetByRole(RoleRepository.GetByName("ADMIN").Id);
+            return users;
         }
 
         public IEnumerable<User> GetAllEmployeesForEstablishment(long Id)
@@ -36,11 +47,37 @@ namespace Backend.Services.Implementation
             return UserRepository.GetEmployeesOfOwner(Username);
         }
 
-        public User Register(User user)
+        public User GetById(object id)
         {
-            user.Role = RoleRepository.GetByName("CUSTOMER");
-            user.EstablishmentId = 2;
-            return UserRepository.GetById(UserRepository.Save(user));
+            return UserRepository.GetById(id);
+        }
+
+        public void RegisteAdmin(User user)
+        {
+            user.Role = RoleRepository.GetByName("ADMIN");
+            Save(user);
+        }
+
+        public void RegisterCustomer(User customer)
+        {
+            customer.Role = RoleRepository.GetByName("CUSTOMER");
+            Save(customer);
+        }
+
+        public void RegisterEmployee(User employee)
+        {
+            employee.Role = RoleRepository.GetByName("EMPLOYEE");
+            Save(employee);
+        }
+
+        public void Save(User t)
+        {
+            UserRepository.Save(t);
+        }
+
+        public void Update(object id, User t)
+        {
+            UserRepository.Update(id, t);
         }
 
         public bool ValidateUserCredentials(UserCredentials uc)

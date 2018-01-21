@@ -23,36 +23,75 @@ namespace Backend.Controllers
             UserService = userService;
         }
 
-        //POST: api/User/Get
-        [HttpGet("Get")]
-        [Authorize(Roles = "GOD")]
-        public User GetUser()
-        { 
+        //GET: api/User/Employee
+        [HttpGet("Employee")]
+        [Authorize(Roles = "ADMIN")]
+        public IEnumerable<User> GetEmployees()
+        {
             var name = User.Identity.Name;
             Console.WriteLine();
-            return UserService.Get(name);
+            return UserService.GetAllEmployeesForOwner(name);
         }
 
-        // POST: api/User/Register
-        [HttpPost("Register")]
+        //GET: api/User/Employee
+        [HttpGet("Admin")]
+        [Authorize(Roles = "GOD")]
+        public IEnumerable<User> GetAdmins()
+        {
+            return UserService.GetAllAdmins();
+        }
+
+        // POST: api/User/Customer
+        [HttpPost("Customer")]
         [AllowAnonymous]
-        public IActionResult Post([FromBody]User user)
+        public void PoCreateCustomer([FromBody]User user)
         {
-            var u = UserService.Register(user);
-            if (u != null) return Ok();
-            return BadRequest();
+            UserService.RegisterCustomer(user);
+
         }
 
-        // PUT: api/User/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        // POST: api/User/Employee
+        [HttpPost("Employee")]
+        [Authorize(Roles = "ADMIN")]
+        public void CreateEmployee([FromBody]User user)
         {
+            UserService.RegisterEmployee(user);
+
         }
 
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        // POST: api/User/Admin
+        [HttpPost("Admin")]
+        [Authorize(Roles = "GOD")]
+        public void CreateAdmin([FromBody]User user)
         {
+            UserService.RegisteAdmin(user);
+
+        }
+
+
+        // DELETE: api/User/Customer
+        [HttpDelete("Customer")]
+        [Authorize(Roles = "CUSTOMER")]
+        public void DeleteCustomer()
+        {
+            UserService.Delete(User.Identity.Name);
+        }
+
+
+        // DELETE: api/User/Employee/shemso
+        [HttpDelete("Employee/{username}")]
+        [Authorize(Roles = "ADMIN")]
+        public void DeleteEmployee(string username)
+        {
+            UserService.Delete(username);
+        }
+
+        // DELETE: api/User/Admin/shemso
+        [HttpDelete("Admin/{username}")]
+        [Authorize(Roles = "GOD")]
+        public void DeleteAdmin(string username)
+        {
+            UserService.Delete(username);
         }
     }
 }

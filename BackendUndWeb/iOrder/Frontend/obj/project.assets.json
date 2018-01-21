@@ -9864,7 +9864,7 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Matija\\.nuget\\packages\\": {},
+    "C:\\Users\\Borna2\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
@@ -9873,17 +9873,17 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "D:\\Development\\Repos\\iOrder\\BackendUndWeb\\iOrder\\Frontend\\Frontend.csproj",
+      "projectUniqueName": "C:\\Users\\Borna2\\source\\repos\\iOrder\\BackendUndWeb\\iOrder\\Frontend\\Frontend.csproj",
       "projectName": "Frontend",
-      "projectPath": "D:\\Development\\Repos\\iOrder\\BackendUndWeb\\iOrder\\Frontend\\Frontend.csproj",
-      "packagesPath": "C:\\Users\\Matija\\.nuget\\packages\\",
-      "outputPath": "D:\\Development\\Repos\\iOrder\\BackendUndWeb\\iOrder\\Frontend\\obj\\",
+      "projectPath": "C:\\Users\\Borna2\\source\\repos\\iOrder\\BackendUndWeb\\iOrder\\Frontend\\Frontend.csproj",
+      "packagesPath": "C:\\Users\\Borna2\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Borna2\\source\\repos\\iOrder\\BackendUndWeb\\iOrder\\Frontend\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Matija\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Borna2\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -9896,8 +9896,8 @@
       "frameworks": {
         "net471": {
           "projectReferences": {
-            "D:\\Development\\Repos\\iOrder\\BackendUndWeb\\iOrder\\Backend\\Backend.csproj": {
-              "projectPath": "D:\\Development\\Repos\\iOrder\\BackendUndWeb\\iOrder\\Backend\\Backend.csproj"
+            "C:\\Users\\Borna2\\source\\repos\\iOrder\\BackendUndWeb\\iOrder\\Backend\\Backend.csproj": {
+              "projectPath": "C:\\Users\\Borna2\\source\\repos\\iOrder\\BackendUndWeb\\iOrder\\Backend\\Backend.csproj"
             }
           }
         }

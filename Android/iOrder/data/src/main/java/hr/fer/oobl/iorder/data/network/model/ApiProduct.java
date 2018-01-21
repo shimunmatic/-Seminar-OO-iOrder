@@ -10,6 +10,15 @@ public final class ApiProduct {
     @SerializedName("name")
     public String name;
 
-    @SerializedName("price")
+    @SerializedName("sellingPrice")
     public float price;
+
+    @Override
+    public String toString() {
+        return "ApiProduct{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                '}';
+    }
 }
