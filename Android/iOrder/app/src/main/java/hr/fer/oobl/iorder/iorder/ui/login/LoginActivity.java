@@ -1,13 +1,11 @@
 package hr.fer.oobl.iorder.iorder.ui.login;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -26,7 +24,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnFocusChange;
 import hr.fer.oobl.iorder.data.util.Constants;
-import hr.fer.oobl.iorder.data.util.UserManager;
+import hr.fer.oobl.iorder.data.util.SharedPrefsManager;
 import hr.fer.oobl.iorder.iorder.R;
 import hr.fer.oobl.iorder.iorder.base.BaseActivity;
 import hr.fer.oobl.iorder.iorder.base.ScopedPresenter;
@@ -72,7 +70,7 @@ public final class LoginActivity extends BaseActivity implements LoginContract.V
     LoginContract.Presenter presenter;
 
     @Inject
-    UserManager userManager;
+    SharedPrefsManager sharedPrefsManager;
 
     @Override
     protected void inject(@NonNull final ActivityComponent activityComponent) {
@@ -155,8 +153,8 @@ public final class LoginActivity extends BaseActivity implements LoginContract.V
 
     @Override
     public void saveChanges() {
-        userManager.set(Constants.USER_KEY, etUsername.getText().toString());
-        userManager.set(Constants.PASSWORD_KEY, etPassword.getText().toString());
+        sharedPrefsManager.set(Constants.USER_KEY, etUsername.getText().toString());
+        sharedPrefsManager.set(Constants.PASSWORD_KEY, etPassword.getText().toString());
     }
 
     @Override
@@ -174,8 +172,8 @@ public final class LoginActivity extends BaseActivity implements LoginContract.V
 
     @Override
     public void animateLogo(final Bundle savedInstanceState) {
-        final String username = userManager.get("username", "");
-        final String password = userManager.get("password", "");
+        final String username = sharedPrefsManager.get("username", "");
+        final String password = sharedPrefsManager.get("password", "");
 
         if (savedInstanceState != null) {
             return;
@@ -211,7 +209,7 @@ public final class LoginActivity extends BaseActivity implements LoginContract.V
                     public void onAnimationEnd(Animation animation) {
                         setInitialFields(username, password);
                         if (CredentialsValidator.checkInternetConnection(LoginActivity.this)) {
-                            final String authToken = userManager.get("authToken", "");
+                            final String authToken = sharedPrefsManager.get("authToken", "");
 
                             if (!authToken.equals("")) {
                                 Handler handler = new Handler();

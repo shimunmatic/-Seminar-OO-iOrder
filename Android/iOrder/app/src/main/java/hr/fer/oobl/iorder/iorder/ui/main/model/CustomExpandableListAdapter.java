@@ -12,10 +12,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.annimon.stream.Stream;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import hr.fer.oobl.iorder.domain.interactor.order.ProcessOrderUseCase;
 import hr.fer.oobl.iorder.domain.model.Product;
 import hr.fer.oobl.iorder.iorder.R;
 import hr.fer.oobl.iorder.iorder.ui.main.MainActivity;
@@ -36,7 +39,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public Object getChild(int listPosition, int expandedListPosition) {
         return this.expandableListDetail.get(this.expandableListTitle.get(listPosition))
-                .get(expandedListPosition);
+                                        .get(expandedListPosition);
     }
 
     @Override
@@ -108,6 +111,15 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
         return convertView;
     }
 
+    public void emptyQuantities() {
+        Stream.of(expandableListDetail.keySet())
+              .forEach(title -> {
+                  for (Product product : expandableListDetail.get(title)) {
+                      product.setQuantity("0");
+                  }
+              });
+    }
+
     private void popupDialog(final Product product, final TextView quantity) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(activity, AlertDialog.THEME_HOLO_LIGHT);
         final LayoutInflater layoutInflater = (LayoutInflater) this.activity
@@ -139,7 +151,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public int getChildrenCount(int listPosition) {
         return this.expandableListDetail.get(this.expandableListTitle.get(listPosition))
-                .size();
+                                        .size();
     }
 
     @Override

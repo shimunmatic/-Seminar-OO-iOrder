@@ -7,7 +7,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import hr.fer.oobl.iorder.data.util.UserManager;
+import hr.fer.oobl.iorder.data.util.SharedPrefsManager;
 import hr.fer.oobl.iorder.iorder.base.IOrderApplication;
 import hr.fer.oobl.iorder.iorder.injection.application.ForApplication;
 import hr.fer.oobl.iorder.iorder.network.NetworkManager;
@@ -37,8 +37,8 @@ public final class ApplicationModule {
 
     @Provides
     @Singleton
-    UserManager provideUserManager() {
-        return new UserManager(iOrderApplication);
+    SharedPrefsManager provideUserManager() {
+        return new SharedPrefsManager(iOrderApplication);
     }
 
     @Provides
@@ -60,7 +60,7 @@ public final class ApplicationModule {
         @ForApplication
         Context context();
 
-        UserManager userManager();
+        SharedPrefsManager userManager();
 
         NetworkManager networkManager();
 

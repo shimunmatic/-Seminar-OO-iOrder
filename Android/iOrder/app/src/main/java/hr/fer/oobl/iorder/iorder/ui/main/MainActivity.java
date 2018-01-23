@@ -29,8 +29,6 @@ import hr.fer.oobl.iorder.iorder.ui.main.model.CustomExpandableListAdapter;
 
 public class MainActivity extends BaseActivity implements MainContract.View {
 
-    private static final String QR_CODE_ERROR = "QR code has invalid types of data.";
-
     @BindView(R.id.cartQuantity)
     TextView cartQuantity;
 
@@ -46,10 +44,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
     @Inject
     MainContract.Presenter presenter;
 
-    private long locationId;
-    private long establishmentId;
-
-    private BaseExpandableListAdapter expandableListAdapter;
+    private CustomExpandableListAdapter expandableListAdapter;
 
     @Override
     protected void onCreate(@Nullable final Bundle savedInstanceState) {
@@ -57,21 +52,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
         setContentView(R.layout.main_layout);
         ButterKnife.bind(this);
 
-        final String code = getIntent().getExtras().getString("code");
-
-        if (code != null && !code.isEmpty()) {
-            final String[] parameters = code.split("&");
-
-            try {
-                establishmentId = Long.parseLong(parameters[0].split("=")[1]);
-                locationId = Long.parseLong(parameters[1].split("=")[1]);
-                presenter.fetchCategories(establishmentId);
-            } catch (NumberFormatException ne) {
-                showError(QR_CODE_ERROR);
-            }
-        } else {
-            showError(QR_CODE_ERROR);
-        }
+        presenter.fetchCategories();
     }
 
     @Override
@@ -88,6 +69,8 @@ public class MainActivity extends BaseActivity implements MainContract.View {
 
     @Override
     public void showOrderSuccess() {
+        expandableListAdapter.emptyQuantities();
+        expandableListAdapter.notifyDataSetChanged();
         Toast.makeText(this, "Order processed successfully! :)", Toast.LENGTH_LONG).show();
     }
 
@@ -149,7 +132,7 @@ public class MainActivity extends BaseActivity implements MainContract.View {
 
             AlertDialog alertDialog = dialogBuilder.create();
             orderButton.setOnClickListener(view -> {
-                presenter.sendOrder(establishmentId, locationId);
+                presenter.sendOrder();
                 alertDialog.cancel();
             });
             cancelOrderButton.setOnClickListener(v -> {

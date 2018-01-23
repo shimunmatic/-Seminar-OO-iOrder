@@ -5,12 +5,12 @@ import com.google.gson.annotations.SerializedName;
 public final class ApiProductPairSend {
 
     @SerializedName("quantity")
-    public float quantity;
+    public int quantity;
 
     @SerializedName("product")
     public ApiProductPost product;
 
-    public ApiProductPairSend(float quantity, ApiProductPost product) {
+    public ApiProductPairSend(int quantity, ApiProductPost product) {
         this.quantity = quantity;
         this.product = product;
     }

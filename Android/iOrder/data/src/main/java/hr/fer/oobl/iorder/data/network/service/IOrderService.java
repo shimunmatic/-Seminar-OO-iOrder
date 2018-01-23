@@ -19,7 +19,7 @@ import rx.Single;
 
 public interface IOrderService {
 
-    @POST("/api/User/Register/Customer")
+    @POST("/api/User/Customer")
     Single<Void> createUser(@Body ApiUser registeringUser);
 
     @POST("/api/Auth")

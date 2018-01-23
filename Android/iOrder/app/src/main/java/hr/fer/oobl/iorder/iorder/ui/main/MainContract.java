@@ -34,9 +34,9 @@ public interface MainContract {
 
         List<Product> getCartProducts();
 
-        void sendOrder(long establishmentId, long locationId);
+        void sendOrder();
 
-        void fetchCategories(long establishmentId);
+        void fetchCategories();
 
         List<String> getExpandableTitles();
 
