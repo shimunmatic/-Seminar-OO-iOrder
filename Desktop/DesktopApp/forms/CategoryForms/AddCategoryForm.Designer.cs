@@ -1,4 +1,4 @@
-﻿namespace DesktopApp
+﻿namespace DesktopApp.forms.CategoryForms
 {
     partial class AddCategoryForm
     {
@@ -30,40 +30,41 @@
         {
             this.cancelButton = new System.Windows.Forms.Button();
             this.confirmButton = new System.Windows.Forms.Button();
-            this.AddCategoryNameTextBox = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.Name = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // cancelButton
             // 
-            this.cancelButton.Location = new System.Drawing.Point(93, 74);
+            this.cancelButton.Location = new System.Drawing.Point(163, 93);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
-            this.cancelButton.TabIndex = 25;
+            this.cancelButton.TabIndex = 23;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
+            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
             // confirmButton
             // 
-            this.confirmButton.Location = new System.Drawing.Point(12, 74);
+            this.confirmButton.Location = new System.Drawing.Point(82, 93);
             this.confirmButton.Name = "confirmButton";
             this.confirmButton.Size = new System.Drawing.Size(75, 23);
-            this.confirmButton.TabIndex = 24;
+            this.confirmButton.TabIndex = 22;
             this.confirmButton.Text = "Confirm";
             this.confirmButton.UseVisualStyleBackColor = true;
             this.confirmButton.Click += new System.EventHandler(this.confirmButton_Click);
             // 
-            // AddCategoryNameTextBox
+            // textBox1
             // 
-            this.AddCategoryNameTextBox.Location = new System.Drawing.Point(47, 38);
-            this.AddCategoryNameTextBox.Name = "AddCategoryNameTextBox";
-            this.AddCategoryNameTextBox.Size = new System.Drawing.Size(121, 20);
-            this.AddCategoryNameTextBox.TabIndex = 17;
+            this.textBox1.Location = new System.Drawing.Point(117, 54);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(121, 20);
+            this.textBox1.TabIndex = 16;
             // 
             // Name
             // 
             this.Name.AutoSize = true;
-            this.Name.Location = new System.Drawing.Point(6, 41);
+            this.Name.Location = new System.Drawing.Point(76, 57);
             this.Name.Name = "Name";
             this.Name.Size = new System.Drawing.Size(35, 13);
             this.Name.TabIndex = 14;
@@ -73,11 +74,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(194, 176);
+            this.ClientSize = new System.Drawing.Size(284, 159);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.confirmButton);
-            this.Controls.Add(this.AddCategoryNameTextBox);
-            this.Controls.Add(this.Name); 
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.Name);
+      
             this.Text = "AddCategoryForm";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -88,7 +90,7 @@
 
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Button confirmButton;
-        private System.Windows.Forms.TextBox AddCategoryNameTextBox;
+        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label Name;
     }
 }
