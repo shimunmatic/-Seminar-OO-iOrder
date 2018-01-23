@@ -12,6 +12,8 @@ namespace Frontend.Controllers
     {
         public IActionResult Index()
         {
+            var credentials = HttpContext.Session.Get<LoginModel>(Default.KEY);
+            // check credentials and redirect to login if necessary
             return View();
         }
 
