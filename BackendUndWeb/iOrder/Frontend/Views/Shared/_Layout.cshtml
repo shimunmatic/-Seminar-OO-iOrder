@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@model Backend.Models.ModelView.UserCredentials
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor httpContext
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -17,6 +20,7 @@
     </environment>
 </head>
 <body>
+    
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -26,13 +30,16 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">iOrder</a>
+                <a asp-area="" asp-controller="Orders" asp-action="Index" class="navbar-brand">iOrder</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Order</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    <li><a asp-area="" asp-controller="Orders" asp-action="Index">Order</a></li>
+                    <li><a asp-area="" asp-controller="Orders" asp-action="About">About</a></li>
+                    <li><a asp-area="" asp-controller="Orders" asp-action="Contact">Contact</a></li>
+                </ul>
+                <ul class="nav navbar-nav pull-right">
+                    <li><a asp-area="" asp-controller="Login" asp-action="Logout">Logout '@httpContext.HttpContext.Session.Get().Username'</a></li>
                 </ul>
             </div>
         </div>
@@ -41,7 +48,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2018 - iOrder</p>
+            <p>&copy; @DateTime.Now.Year - iOrder&trade;</p>
         </footer>
     </div>
 

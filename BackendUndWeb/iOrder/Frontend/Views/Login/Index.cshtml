@@ -1,5 +1,29 @@
 ﻿@{
     ViewData["Title"] = "Login";
+    Layout = null;
 }
 
-<div>Login works</div>
+<html>
+<head>
+    <link href="@Url.Content("~/css/LoginPage.css")" rel="stylesheet" />
+</head>
+<body>
+    <div class="wrapper">
+        <form class="login" method="post" action='@Url.Action("Login","Login")' >
+            <p class="title">Log in to <b>iOrder</b></p>
+            <input id="usernameInput" type="text" placeholder="Username" name="Username" />
+            <i class="fa fa-user"></i>
+            <input id="passwordInput" type="password" placeholder="Password" name="Password" />
+            <i class="fa fa-key"></i>
+            <a >Forgot your password? Ask your admin.</a>
+            <button type="submit">
+                <i class="spinner"></i>
+                <span class="state">Log in</span>
+            </button>
+        </form>
+        <span id="errorMessage"></span>
+    </div>
+    <script src="@Url.Content("~/lib/jquery/dist/jquery.js")"></script>
+    <script src="@Url.Content("~/js/LoginPage.js")"></script>
+</body>
+</html>

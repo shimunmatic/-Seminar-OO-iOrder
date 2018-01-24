@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Backend.Controllers
 {
     [Produces("text/plain")]
-    [Route("")]
+    [Route("api/Role")]
     public class HomeController : Controller
     {
         // GET: /
