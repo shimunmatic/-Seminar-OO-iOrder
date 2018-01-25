@@ -40,7 +40,8 @@ namespace Backend.Converters.EntityBusiness
                     LastName = user.LastName,
                     Password = user.Password,
                     RoleId = user.Role.Id,
-                    OwnerId = user.OwnerId
+                    OwnerId = user.OwnerId,
+                    EstablishmentId = user.EstablishmentId
 
                 });
             }
