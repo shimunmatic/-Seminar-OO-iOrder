@@ -30,6 +30,7 @@
           "Microsoft.AspNetCore.Session": "2.0.1",
           "Microsoft.AspNetCore.StaticFiles": "2.0.1",
           "Microsoft.VisualStudio.Web.BrowserLink": "2.0.1",
+          "ModelLibrary": "1.0.0",
           "Microsoft.CSharp.Reference": "4.0.0.0",
           "mscorlib": "4.0.0.0",
           "System.ComponentModel.Composition": "4.0.0.0",
@@ -2163,11 +2164,17 @@
           "Microsoft.Extensions.Logging.Console": "2.0.0",
           "Microsoft.VisualStudio.Web.BrowserLink": "2.0.1",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.0.1",
+          "ModelLibrary": "1.0.0",
           "NHibernate": "5.0.3",
           "System.Configuration.ConfigurationManager": "4.4.1"
         },
         "compile": {
           "Backend.exe": {}
+        }
+      },
+      "ModelLibrary/1.0.0": {
+        "compile": {
+          "ModelLibrary.dll": {}
         }
       }
     },
@@ -2181,6 +2188,7 @@
           "Microsoft.AspNetCore.Session": "2.0.1",
           "Microsoft.AspNetCore.StaticFiles": "2.0.1",
           "Microsoft.VisualStudio.Web.BrowserLink": "2.0.1",
+          "ModelLibrary": "1.0.0",
           "Microsoft.CSharp.Reference": "4.0.0.0",
           "mscorlib": "4.0.0.0",
           "System.ComponentModel.Composition": "4.0.0.0",
@@ -3701,11 +3709,17 @@
           "Microsoft.Extensions.Logging.Console": "2.0.0",
           "Microsoft.VisualStudio.Web.BrowserLink": "2.0.1",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.0.1",
+          "ModelLibrary": "1.0.0",
           "NHibernate": "5.0.3",
           "System.Configuration.ConfigurationManager": "4.4.1"
         },
         "runtime": {
           "Backend.exe": {}
+        }
+      },
+      "ModelLibrary/1.0.0": {
+        "runtime": {
+          "ModelLibrary.dll": {}
         }
       }
     }
@@ -5019,6 +5033,11 @@
       "hashPath": "system.xml.xpath.xdocument.4.3.0.nupkg.sha512"
     },
     "Backend/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "ModelLibrary/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

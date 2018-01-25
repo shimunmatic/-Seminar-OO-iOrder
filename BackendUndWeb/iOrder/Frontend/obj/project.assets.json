@@ -2614,6 +2614,7 @@
           "Microsoft.Extensions.Logging.Console": "2.0.0",
           "Microsoft.VisualStudio.Web.BrowserLink": "2.0.1",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.0.1",
+          "ModelLibrary": "1.0.0",
           "NHibernate": "5.0.3",
           "System.Configuration.ConfigurationManager": "4.4.1"
         },
@@ -2622,6 +2623,15 @@
         },
         "runtime": {
           "bin/placeholder/Backend.dll": {}
+        }
+      },
+      "ModelLibrary/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/ModelLibrary.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ModelLibrary.dll": {}
         }
       }
     },
@@ -5097,6 +5107,7 @@
           "Microsoft.Extensions.Logging.Console": "2.0.0",
           "Microsoft.VisualStudio.Web.BrowserLink": "2.0.1",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.0.1",
+          "ModelLibrary": "1.0.0",
           "NHibernate": "5.0.3",
           "System.Configuration.ConfigurationManager": "4.4.1"
         },
@@ -5105,6 +5116,15 @@
         },
         "runtime": {
           "bin/placeholder/Backend.dll": {}
+        }
+      },
+      "ModelLibrary/1.0.0": {
+        "type": "project",
+        "compile": {
+          "bin/placeholder/ModelLibrary.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ModelLibrary.dll": {}
         }
       }
     }
@@ -9620,6 +9640,11 @@
       "type": "project",
       "path": "../Backend/Backend.csproj",
       "msbuildProject": "../Backend/Backend.csproj"
+    },
+    "ModelLibrary/1.0.0": {
+      "type": "project",
+      "path": "../ModelLibrary/ModelLibrary.csproj",
+      "msbuildProject": "../ModelLibrary/ModelLibrary.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -9630,7 +9655,8 @@
       "Microsoft.AspNetCore.Mvc.Razor.ViewCompilation >= 2.0.2",
       "Microsoft.AspNetCore.Session >= 2.0.1",
       "Microsoft.AspNetCore.StaticFiles >= 2.0.1",
-      "Microsoft.VisualStudio.Web.BrowserLink >= 2.0.1"
+      "Microsoft.VisualStudio.Web.BrowserLink >= 2.0.1",
+      "ModelLibrary >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -9643,11 +9669,11 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "D:\\Development\\Repos\\iOrder\\BackendUndWeb\\iOrder\\Frontend\\Frontend.csproj",
+      "projectUniqueName": "C:\\Users\\Matija\\Source\\Repos\\iOrder\\BackendUndWeb\\iOrder\\Frontend\\Frontend.csproj",
       "projectName": "Frontend",
-      "projectPath": "D:\\Development\\Repos\\iOrder\\BackendUndWeb\\iOrder\\Frontend\\Frontend.csproj",
+      "projectPath": "C:\\Users\\Matija\\Source\\Repos\\iOrder\\BackendUndWeb\\iOrder\\Frontend\\Frontend.csproj",
       "packagesPath": "C:\\Users\\Matija\\.nuget\\packages\\",
-      "outputPath": "D:\\Development\\Repos\\iOrder\\BackendUndWeb\\iOrder\\Frontend\\obj\\",
+      "outputPath": "C:\\Users\\Matija\\Source\\Repos\\iOrder\\BackendUndWeb\\iOrder\\Frontend\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -9666,8 +9692,11 @@
       "frameworks": {
         "net471": {
           "projectReferences": {
-            "D:\\Development\\Repos\\iOrder\\BackendUndWeb\\iOrder\\Backend\\Backend.csproj": {
-              "projectPath": "D:\\Development\\Repos\\iOrder\\BackendUndWeb\\iOrder\\Backend\\Backend.csproj"
+            "C:\\Users\\Matija\\Source\\Repos\\iOrder\\BackendUndWeb\\iOrder\\ModelLibrary\\ModelLibrary.csproj": {
+              "projectPath": "C:\\Users\\Matija\\Source\\Repos\\iOrder\\BackendUndWeb\\iOrder\\ModelLibrary\\ModelLibrary.csproj"
+            },
+            "C:\\Users\\Matija\\Source\\Repos\\iOrder\\BackendUndWeb\\iOrder\\Backend\\Backend.csproj": {
+              "projectPath": "C:\\Users\\Matija\\Source\\Repos\\iOrder\\BackendUndWeb\\iOrder\\Backend\\Backend.csproj"
             }
           }
         }
