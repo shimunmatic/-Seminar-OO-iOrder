@@ -12,7 +12,6 @@ namespace Backend.Repositories.Interface
         IEnumerable<Order> GetOrdersForCustomer(string Username);
         IEnumerable<Order> GetOrdersForEmployee(string Username);
         IEnumerable<Order> GetOrdersForLocation(long Id);
-
-
+        IEnumerable<Order> GetUnpaidOrdersForEstablishmentId(long id);
     }
 }

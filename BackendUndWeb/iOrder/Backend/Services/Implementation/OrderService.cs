@@ -93,5 +93,13 @@ namespace Backend.Services.Implementation
         {
             OrderRepository.Update(id, t);
         }
+
+        public IEnumerable<Order> GetUnpaidOrdersForEstablishmentId(long id)
+        {
+            return OrderRepository.GetUnpaidOrdersForEstablishmentId(id);
+
+
+
+        }
     }
 }

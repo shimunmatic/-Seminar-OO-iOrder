@@ -200,5 +200,25 @@ namespace Backend.Repositories.Implementation
             return (long)BaseRepository.Update(Id, ModelEntity.Convert(t));
 
         }
+
+        public IEnumerable<Order> GetUnpaidOrdersForEstablishmentId(long id)
+        {
+            using (var db = NHibernateHelper.OpenSession())
+            {
+                var entites = db.Query<OrderEntity>().Where(o => o.EstablishmentId == id && o.Paid == 0).ToList();
+                var warehouseProducts = db.Query<WarehouseProductEntity>().ToList();
+                var est = db.Query<EstablishmentEntity>().ToList();
+                var orders = EntityModel.Convert(entites);
+                foreach (var o in orders)
+                {
+                    foreach (var op in o.OrderedProducts)
+                    {
+
+                        op.Product.SellingPrice = warehouseProducts.Where(w => w.WearhouseId == est.Where(e => e.Id == o.EstablishmentId).First().WarehouseId && w.ProductId == op.Product.Id).FirstOrDefault().SellingPrice;
+                    }
+                }
+                return orders;
+            }
+        }
     }
 }
