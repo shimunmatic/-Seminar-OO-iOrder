@@ -6,17 +6,29 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Frontend.Models;
 using Backend.Models.ModelView;
+using Backend.Notifications.Observable;
+using Backend.Services.Interface;
 
 namespace Frontend.Controllers
 {
     public class OrdersController : Controller
     {
+
+        private IOrderService orderService;
+
+        public OrdersController(IOrderService orderService)
+        {
+            this.orderService = orderService;
+        }
+
         public IActionResult Index()
         {
             var exists = CheckAuth();
             if (exists)
             {
-                return View();
+                var user = HttpContext.Session.Get();
+                var orders = orderService.GetHistoryEstablishmentId(user.EstablishmentId.GetValueOrDefault());
+                return View(orders);
             }
             else
             {

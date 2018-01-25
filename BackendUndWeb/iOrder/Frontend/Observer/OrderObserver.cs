@@ -1,4 +1,6 @@
 ﻿using Backend.Models.Business;
+using Backend.Notifications.Observable;
+using Backend.Notifications.Observer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,21 +8,16 @@ using System.Threading.Tasks;
 
 namespace Frontend.Observer
 {
-    public class OrderObserver : IObserver<Order>
+    public class OrderObserver : ObserverAbstract
     {
-        public void OnCompleted()
+        public OrderObserver(IObservable observable) : base(observable)
         {
             
         }
 
-        public void OnError(Exception error)
+        public override void Notify(long establishmentId)
         {
-            
-        }
-
-        public void OnNext(Order value)
-        {
-            
+            Console.WriteLine("Notifajan sam: " + establishmentId);
         }
     }
 }

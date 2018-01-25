@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Backend.CommunicationServices;
+using Backend.CommunicationServices.Implementation;
 using Backend.Converters;
 using Backend.Converters.EntityBusiness;
 using Backend.Models.Business;
@@ -72,8 +74,23 @@ namespace Frontend
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
 
+
+            services.AddScoped<IConverter<WarehouseEntity, Warehouse>, WarehouseEntityToModelConverter>();
+            services.AddScoped<IConverter<Warehouse, WarehouseEntity>, WarehouseModelToEntityConverter>();
+            services.AddScoped<IWarehouseRepository, WarehouseRepository>();
+            services.AddScoped<IWarehouseService, WarehouseService>();
+
+
+            services.AddScoped<IConverter<SupplierEntity, Supplier>, SupplierEntityToModelConverter>();
+            services.AddScoped<IConverter<Supplier, SupplierEntity>, SupplierModelToEntityConverter>();
+            services.AddScoped<ISupplierRepository, SupplierRepository>();
+            services.AddScoped<ISupplierService, SupplierService>();
+
+
             services.AddScoped<IConverter<OrderPairEntity, OrderPair>, OrderPairEntityToModelConverter>();
             services.AddScoped<IConverter<OrderPair, OrderPairEntity>, OrderPairModelToEntityConverter>();
+
+            services.AddScoped<ICommunicationService, EmailService>();
 
             services.AddScoped<IObservable, NotificationObservable>();
 

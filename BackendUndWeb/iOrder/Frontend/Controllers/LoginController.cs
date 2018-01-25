@@ -4,6 +4,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Backend.Models.ModelView;
+using Backend.Notifications.Observable;
+using Backend.Notifications.Observer;
 using Backend.Services.Implementation;
 using Backend.Services.Interface;
 using Frontend.Models;
@@ -38,8 +40,16 @@ namespace Frontend.Controllers
                 if (exists)
                 {
                     var user = userService.GetById(login.Username);
-                    HttpContext.Session.Set(user);
-                    return RedirectToAction("Index", "Orders");
+                    if(user.EstablishmentId == null)
+                    {
+                        ViewBag.NoUser = "User is not an employee.";
+                        return View("Index", login);
+                    }
+                    else
+                    {
+                        HttpContext.Session.Set(user);
+                        return RedirectToAction("Index", "Orders");
+                    }
                 }
                 else
                 {
