@@ -61,9 +61,18 @@ namespace Backend.Controllers
         // POST: api/Product/Storage
         [HttpPost("Storage")]
         [Authorize(Roles = "ADMIN")]
-        void AddProductToWarehouse([FromBody]WarehouseProduct warehouseProduct)
+        public void AddProductToWarehouse([FromBody]WarehouseProduct warehouseProduct)
         {
             ProductService.AddProductToWarehouse(warehouseProduct.ProductId, warehouseProduct.WarehouseId, warehouseProduct.Quantity, warehouseProduct.SellingPrice);
         }
+
+        // GET: api/Product/Storage/1
+        [HttpGet("Storage/{warehouseId}")]
+        [Authorize(Roles = ("ADMIN"))]
+        public IEnumerable<Product> GetProductsForWarehouse(long warehouseId)
+        {
+            return ProductService.GetProductsForWarehouseId(warehouseId);
+        }
+
     }
 }

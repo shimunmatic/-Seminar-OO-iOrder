@@ -9,6 +9,13 @@ namespace Backend.Converters.EntityBusiness
 {
     public class OrderEntityToModelConverter : IConverter<OrderEntity, Order>
     {
+        IConverter<OrderPairEntity, OrderPair> OrderConverter;
+
+        public OrderEntityToModelConverter(IConverter<OrderPairEntity, OrderPair> orderConverter)
+        {
+            OrderConverter = orderConverter;
+        }
+
         public Order Convert(OrderEntity Source)
         {
             if (null == Source) return null;
@@ -21,7 +28,7 @@ namespace Backend.Converters.EntityBusiness
                 EmployeeId = Source.EmployeeId,
                 Paid = Source.Paid == 1,
                 LocationId = Source.LocationId,
-                OrderedProducts = new List<OrderPair>()
+                OrderedProducts = OrderConverter.Convert(Source.OrderPairs)
             };
         }
 
@@ -40,7 +47,7 @@ namespace Backend.Converters.EntityBusiness
                     EmployeeId = o.EmployeeId,
                     Paid = o.Paid == 1,
                     LocationId = o.LocationId,
-                    OrderedProducts = new List<OrderPair>()
+                    OrderedProducts = OrderConverter.Convert(o.OrderPairs)
                 });
             }
             return orders;

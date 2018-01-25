@@ -1,4 +1,5 @@
-﻿using Backend.Models.Business;
+﻿using Backend.CommunicationServices;
+using Backend.Models.Business;
 using Backend.Repositories.Interface;
 using Backend.Services.Interface;
 using System;
@@ -13,10 +14,12 @@ namespace Backend.Services.Implementation
     public class SupplierService : ISupplierService
     {
         private ISupplierRepository SupplierRepository;
+        private ICommunicationService CommunicationService;
 
-        public SupplierService(ISupplierRepository supplierRepository)
+        public SupplierService(ISupplierRepository supplierRepository, ICommunicationService communicationService)
         {
             SupplierRepository = supplierRepository;
+            CommunicationService = communicationService;
         }
 
         public void Delete(object id)
@@ -42,27 +45,16 @@ namespace Backend.Services.Implementation
         public void NotifySupplier(long id, string message)
         {
             var supplier = GetById(id);
+            if (null == supplier || supplier.Email == null)
+                return;
             var email = supplier.Email;
 
-            Console.WriteLine("Sending message to: " + supplier);
-            Console.WriteLine("Message: " + message);
-            // TODO send email to supplier
+            var subject = "Prodcut Order";
+            message = message + "\nThis is auto generated mail from iOrder Auto Ordering Server" + "\n" + "iorder Service\nOrdering Service\niOrder";
 
-            SmtpClient client = new SmtpClient("smtp.gmail.com");
-            client.Port = 587;
-            client.DeliveryMethod = SmtpDeliveryMethod.Network;
-            client.UseDefaultCredentials = false;
-            System.Net.NetworkCredential credentials =
-                new System.Net.NetworkCredential("iorder.orderingservice", "Iorder123456");
-            client.EnableSsl = true;
-            client.Credentials = credentials;
 
-            MailMessage mailMessage = new MailMessage();
-            mailMessage.From = new MailAddress("iorder.orderingservice@gmail.com");
-            mailMessage.To.Add(email);
-            mailMessage.Body = message + "\nThis is auto generated mail from iOrder Auto Ordering Server" + "\n" + "iorder Service\nOrdering Service\niOrder";
-            mailMessage.Subject = "Product Order";
-            client.Send(mailMessage);
+            CommunicationService.SendMessage(email, message, subject);
+
         }
 
         public void Save(Supplier t)

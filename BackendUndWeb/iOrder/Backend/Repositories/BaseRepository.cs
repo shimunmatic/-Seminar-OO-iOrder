@@ -41,11 +41,9 @@ namespace Backend.Repositories
         {
             using (var db = NHibernateHelper.OpenSession())
             {
-                var old = db.Get<T>(Id);
-                old = t;
                 using (var transaction = db.BeginTransaction())
                 {
-                    db.SaveOrUpdate(old);
+                    db.Update(t);
                     transaction.Commit();
                     return Id;
                 }

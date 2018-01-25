@@ -43,7 +43,7 @@ namespace Backend.Repositories.Implementation
             {
                 using (var transaction = db.BeginTransaction())
                 {
-                    var wp = db.Query<WarehouseProductEntity>().Where(wpe => wpe.ProductId == entity.ProductId && wpe.WearhouseId == entity.WearhouseId).First();
+                    var wp = db.Query<WarehouseProductEntity>().Where(wpe => wpe.ProductId == entity.ProductId && wpe.WearhouseId == entity.WearhouseId).FirstOrDefault();
                     if (null == wp)
                         db.Save(entity);
                     else

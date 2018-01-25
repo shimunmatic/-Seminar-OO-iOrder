@@ -1,4 +1,6 @@
-﻿using Backend.Converters;
+﻿using Backend.CommunicationServices;
+using Backend.CommunicationServices.Implementation;
+using Backend.Converters;
 using Backend.Converters.EntityBusiness;
 using Backend.Models.Business;
 using Backend.Models.Entity;
@@ -91,6 +93,10 @@ namespace Backend
             services.AddScoped<IConverter<OrderPair, OrderPairEntity>, OrderPairModelToEntityConverter>();
 
             services.AddScoped<IObservable, NotificationObservable>();
+
+            services.AddScoped<ICommunicationService, EmailService>();
+
+
 
 
 

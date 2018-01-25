@@ -31,17 +31,8 @@ namespace Backend.Repositories.Implementation
         public IEnumerable<Role> GetAll()
         {
             var roles = EntityModelConverter.Convert(BaseRepository.GetAll());
-            using (var db = NHibernateHelper.OpenSession())
-            {
-                var users = db.Query<UserEntity>().ToList();
-                foreach (var role in roles)
-                {
-                    role.Users = (from user in users
-                                  where user.RoleId == role.Id
-                                  select user).ToList();
-                }
                 return roles;
-            }
+            
         }
 
         public Role GetById(object Id)
@@ -51,12 +42,7 @@ namespace Backend.Repositories.Implementation
             var roleId = (long)Id;
             var role = EntityModelConverter.Convert(BaseRepository.GetById(Id));
 
-            using (var db = NHibernateHelper.OpenSession())
-            {
-                var users = db.Query<UserEntity>().Where(user => user.RoleId == roleId);
-                role.Users = users;
-                return role;
-            }
+            return role;
         }
 
         public Role GetByName(string name)

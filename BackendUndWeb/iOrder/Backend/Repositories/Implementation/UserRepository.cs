@@ -47,6 +47,7 @@ namespace Backend.Repositories.Implementation
         public User GetById(object Id)
         {
             var userEntity = BaseRepository.GetById(Id);
+            if (null == userEntity) return null;
             var user = EntityModelConverter.Convert(userEntity);
             user.Role = GetRole(userEntity.RoleId);
             return user;
