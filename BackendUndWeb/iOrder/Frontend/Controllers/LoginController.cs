@@ -27,19 +27,29 @@ namespace Frontend.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(UserCredentials login)
+        public IActionResult Login(LoginModel login)
         {
-            //var exists = userService.ValidateUserCredentials(login);
-            var exists = true;
-            if (exists)
+            if (ModelState.IsValid)
             {
-                HttpContext.Session.Set(login);
-                return RedirectToAction("Index", "Orders");
-                
+                var exists = userService.ValidateUserCredentials(new UserCredentials {
+                    Username = login.Username,
+                    Password = login.Password
+                });
+                if (exists)
+                {
+                    var user = userService.GetById(login.Username);
+                    HttpContext.Session.Set(user);
+                    return RedirectToAction("Index", "Orders");
+                }
+                else
+                {
+                    ViewBag.NoUser = "No such user.";
+                    return View("Index",login);
+                }
             }
             else
             {
-                return StatusCode(404);
+                return View("Index",login);
             }
 
         }
