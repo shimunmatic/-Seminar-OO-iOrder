@@ -9,65 +9,30 @@
         <div class="col-md-4">
 
             <div class="list-group">
-                @foreach (var order in Model) {
-                <button type="button" class="list-group-item">
-                    @Html.DisplayFor(o => order.CustomerId)
-                </button>
+                @foreach (var order in Model)
+                {
+                    <a class="list-group-item orderItem" href="@order.Id">
+                        @Html.DisplayFor(o => order.Date.Date)
+                    </a>
                 }
             </div>
+
         </div>
 
         <div class="col-md-8">
-
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title">Order user</h5>
-
-                    <ul class="nav nav-tabs" id="orderTabsNav" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" id="details-tab" data-toggle="tab" href="#details" role="tab" aria-controls="details" aria-selected="true">Details</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" id="products-tab" data-toggle="tab" href="#products" role="tab" aria-controls="products" aria-selected="false">Products</a>
-                        </li>
-
-                    </ul>
-                    <div class="tab-content" id="orderTabsContent">
-                        <div class="tab-pane fade show active" id="details" role="tabpanel" aria-labelledby="details-tab">
-                            <table class="table">
-                                <tbody>
-                                    <tr>
-                                        <th>User</th>
-                                        <td>John</td>
-                                        <td>Peter</td>
-                                        <td>John</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Last Name</th>
-                                        <td>Carter</td>
-                                        <td>Parker</td>
-                                        <td>Rambo</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Email</th>
-                                        <td>johncarter@mail.com</td>
-                                        <td>peterparker@mail.com</td>
-                                        <td>johnrambo@mail.com</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="tab-pane fade" id="products" role="tabpanel" aria-labelledby="products-tab">
-                            Products
-                        </div>
-                    </div>
-
-                    <a href="#" class="btn btn-primary">Bill</a>
-                    <a href="#" class="btn btn-primary">Process</a>
-                </div>
-            </div>
-
-
+            <div id="orderDetailsContainer"></div>
         </div>
     </div>
 </div>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $(".orderItem").click(function (e) {
+            e.preventDefault();
+            var orderId = $(this).attr("href");
+            $("#orderDetailsContainer").load('@Url.Action("Partial","Orders")'+"/"+orderId);
+        });
+    });
+</script> 
