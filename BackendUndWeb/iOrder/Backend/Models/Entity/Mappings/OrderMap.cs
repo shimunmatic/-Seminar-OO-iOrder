@@ -19,9 +19,8 @@ namespace Backend.Models.Entity.Mappings
             Map(o => o.CustomerId).Column("customer_id");
             Map(o => o.EmployeeId).Column("employee_id");
             Map(o => o.LocationId).Column("location_id");
-            HasMany(x => x.OrderPairs).ReadOnly().LazyLoad()
+            HasMany(x => x.OrderPairs).ReadOnly().Not.LazyLoad()
              .KeyColumn("order_id")
-             .AsBag()
              .Inverse()
              .ForeignKeyConstraintName("order_pair_order_id_fk")
             .Not.Cascade.All();

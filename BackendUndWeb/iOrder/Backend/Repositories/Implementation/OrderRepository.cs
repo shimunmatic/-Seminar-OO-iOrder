@@ -76,21 +76,25 @@ namespace Backend.Repositories.Implementation
 
         public Order GetById(object Id)
         {
+            var entites = BaseRepository.GetById(Id);
+            var warehouseProducts = new List<WarehouseProductEntity>();
+            var est = new List<EstablishmentEntity>();
             using (var db = NHibernateHelper.OpenSession())
             {
-                var entites = BaseRepository.GetById(Id);
-                var warehouseProducts = db.Query<WarehouseProductEntity>().ToList();
-                var est = db.Query<EstablishmentEntity>().ToList();
-                var order = EntityModel.Convert(entites);
-
-                foreach (var op in order.OrderedProducts)
-                {
-
-                    op.Product.SellingPrice = warehouseProducts.Where(w => w.WearhouseId == est.Where(e => e.Id == order.EstablishmentId).First().WarehouseId && w.ProductId == op.Product.Id).FirstOrDefault().SellingPrice;
-                }
-
-                return order;
+                entites = BaseRepository.GetById(Id);
+                warehouseProducts = db.Query<WarehouseProductEntity>().ToList();
+                est = db.Query<EstablishmentEntity>().ToList();
             }
+            var order = EntityModel.Convert(entites);
+
+            foreach (var op in order.OrderedProducts)
+            {
+
+                op.Product.SellingPrice = warehouseProducts.Where(w => w.WearhouseId == est.Where(e => e.Id == order.EstablishmentId).First().WarehouseId && w.ProductId == op.Product.Id).FirstOrDefault().SellingPrice;
+            }
+
+            return order;
+
         }
 
         public IEnumerable<Order> GetOrdersForCustomer(string Username)
