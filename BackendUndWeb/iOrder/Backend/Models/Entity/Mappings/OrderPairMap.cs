@@ -16,7 +16,7 @@ namespace Backend.Models.Entity.Mappings
             Map(op => op.Quantity).Column("quantity");
             Map(op => op.OrderId).Column("order_id");
             Map(op => op.ProductId).Column("product_id");
-            References(op => op.Product).Column("product_id").ReadOnly();
+            References(op => op.Product).Column("product_id").Fetch.Join().ReadOnly();
         }
     }
 }
