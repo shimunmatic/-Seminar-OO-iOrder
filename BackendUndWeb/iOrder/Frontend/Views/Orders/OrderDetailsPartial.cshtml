@@ -1,146 +1,133 @@
 ﻿@model Frontend.Models.OrderModel
 
-<div>
-    <h4 class="text-center">Customer: <b>@Model.Customer</b>  Order time: <b>@Model.Date.ToShortTimeString()</b></h4>
-    <hr />
 
+<div>
+    <div class="page-header">
+        <h1>Customer: '@Model.Customer' <small> Location: @Model.Location.Name</small></h1>
+    </div>
     <div class="container-fluid">
+
         <div class="row">
             <div class="pull-right">
-                <button type="button" class="btn btn-primary">Pay</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Pay</button>
                 <button type="button" class="btn btn-secondary">Bill</button>
             </div>
-        </div>
-        <div class="row">
-            <h4>Details</h4>
-            <hr />
-            <dl class="dl-horizontal">
-                <dt>
-                    @Html.DisplayNameFor(model => model.Customer)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Customer)
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.Date)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Date)
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.Employee)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Employee)
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.Paid)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Paid)
-                </dd>
-                <dt>
-                    @Html.DisplayNameFor(model => model.Price)
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Price) kn
-                </dd>
-                <dt>
-                    Location
-                </dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Location.Name)
-                </dd>
-            </dl>
-        </div>
-        <div class="row">
-            <h4>Products</h4>
-            <hr />
-            <div id="accordion">
-                <div class="card">
-                    <div class="card-header" id="headingOne">
-                        <h5 class="mb-0">
-                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                Collapsible Group Item #1
-                            </button>
-                        </h5>
-                    </div>
 
-                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                        <div class="card-body">
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" id="headingTwo">
-                        <h5 class="mb-0">
-                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                Collapsible Group Item #2
-                            </button>
-                        </h5>
-                    </div>
-                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                        <div class="card-body">
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" id="headingThree">
-                        <h5 class="mb-0">
-                            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                Collapsible Group Item #3
-                            </button>
-                        </h5>
-                    </div>
-                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-                        <div class="card-body">
-                            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                        </div>
+        </div>
+
+        <div class="row">
+            <div class="card">
+                <h5 class="card-header">
+                    <a class="collapsed d-block" data-toggle="collapse" href="#collapse-collapsed1" aria-expanded="true" aria-controls="collapse-collapsed1" id="heading-collapsed1">
+                        <i class="fa fa-chevron-down pull-right"></i>
+                        Details
+                    </a>
+                </h5>
+                <div id="collapse-collapsed1" class="collapse" aria-labelledby="heading-collapsed1">
+                    <div class="card-body">
+                        <dl class="dl-horizontal">
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Customer)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.Customer)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Date)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.Date)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Employee)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.Employee)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Paid)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.Paid)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Price)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.Price) kn
+                            </dd>
+                            <dt>
+                                Location
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.Location.Name)
+                            </dd>
+                        </dl>
                     </div>
                 </div>
             </div>
-            @*<div id="accordion" role="tablist" aria-multiselectable="false">
-                @foreach (var pair in Model.OrderedProducts)
-            {
-                <div class="card">
-                    <div class="card-header" role="tab" id="@(pair.Id)pair">
-                        <h5 class="mb-0">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#@(pair.Id)collapse" aria-expanded="true" aria-controls="@(pair.Id)collapse">
-                                @pair.Product.Name
-                            </a>
-                        </h5>
-                    </div>
-                    <div id="@(pair.Id)collapse'" class="collapse show" role="tabpanel" aria-labelledby="@(pair.Id)pair">
-                        <div class="card-block">
-                            <dl class="dl-horizontal">
-                                <dt>
-                                    @Html.DisplayNameFor(model => pair.Product.Name)
-                                </dt>
-                                <dd>
-                                    @Html.DisplayFor(model => pair.Product.Name)
-                                </dd>
-                                <dt>
-                                    @Html.DisplayNameFor(model => pair.Quantity)
-                                </dt>
-                                <dd>
-                                    @Html.DisplayFor(model => pair.Quantity)
-                                </dd>
-                                <dt>
-                                    @Html.DisplayNameFor(model => pair.Price)
-                                </dt>
-                                <dd>
-                                    @Html.DisplayFor(model => pair.Price)
-                                </dd>
-                            </dl>
-                        </div>
+        </div>
+
+        <div class="row">
+            <div class="card">
+                <h5 class="card-header">
+                    <a class="d-block collapsed" data-toggle="collapse" href="#collapse-collapsed" aria-expanded="true" aria-controls="collapse-collapsed" id="heading-collapsed">
+                        <i class="fa fa-chevron-down pull-right"></i>
+                        Products
+                    </a>
+                </h5>
+                <div id="collapse-collapsed" class="collapse" aria-labelledby="heading-collapsed">
+                    <div class="card-body">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var pair in Model.OrderedProducts)
+                                {
+                                    <tr>
+                                        <td>@pair.Product.Name</td>
+                                        <td>@pair.Quantity</td>
+                                        <td>@pair.Price</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-        }
-
-            </div>*@
+            </div>
         </div>
-     </div>
+    </div>
 </div>
 
+<div class="modal" tabindex="-1" role="dialog" id="myModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirmation</h5>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure order from <b>@Model.Customer</b> at <b>@Model.Location.Name</b> set as Paid?</p>
+            </div>
+            <div class="modal-footer">
+                <button id="setAsPaid" type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#setAsPaid").click(function (e) {
+            e.preventDefault();
+           
+        });
+    });
+</script> 

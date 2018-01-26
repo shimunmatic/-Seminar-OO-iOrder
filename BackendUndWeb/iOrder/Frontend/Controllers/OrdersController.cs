@@ -42,7 +42,7 @@ namespace Frontend.Controllers
                 // Cache current establishment.
                 var establishment = establishmentService.GetById(user.EstablishmentId);
                 // Fetch current unpaid orders.
-                var orders = orderService.GetUnpaidOrdersForEstablishmentId(establishment.Id);
+                var orders = orderService.GetUnpaidOrdersForEstablishmentId(establishment.Id).OrderByDescending(o => o.Date).ToList();
                 // Cache orders and establishment
                 cache.Set("orders",orders);
                 cache.Set("establishment", establishment);

@@ -23,6 +23,9 @@
           "lib/net40/FluentNHibernate.dll": {}
         }
       },
+      "FontAwesome/4.7.0": {
+        "type": "package"
+      },
       "Iesi.Collections/4.0.2": {
         "type": "package",
         "compile": {
@@ -2668,6 +2671,9 @@
           "lib/net40/FluentNHibernate.dll": {}
         }
       },
+      "FontAwesome/4.7.0": {
+        "type": "package"
+      },
       "Iesi.Collections/4.0.2": {
         "type": "package",
         "compile": {
@@ -5179,6 +5185,24 @@
         "lib/net40/FluentNHibernate.XML",
         "lib/net40/FluentNHibernate.dll",
         "lib/net40/FluentNHibernate.pdb"
+      ]
+    },
+    "FontAwesome/4.7.0": {
+      "sha512": "n4H/brfszElyoZ4kmGh8E75uqvLzLvFr3h2PFVdPH1LwUmWIpeqdaW2pcC4oZAhg7sESyObh0IZpAI8COCNeUg==",
+      "type": "package",
+      "path": "fontawesome/4.7.0",
+      "files": [
+        "Content/Content/font-awesome.css",
+        "Content/Content/font-awesome.min.css",
+        "Content/fonts/FontAwesome.otf",
+        "Content/fonts/fontawesome-webfont.eot",
+        "Content/fonts/fontawesome-webfont.svg",
+        "Content/fonts/fontawesome-webfont.ttf",
+        "Content/fonts/fontawesome-webfont.woff",
+        "Content/fonts/fontawesome-webfont.woff2",
+        "fontawesome.4.7.0.nupkg.sha512",
+        "fontawesome.nuspec",
+        "tools/install.ps1"
       ]
     },
     "Iesi.Collections/4.0.2": {
@@ -9762,6 +9786,7 @@
   "projectFileDependencyGroups": {
     ".NETFramework,Version=v4.7.1": [
       "Backend >= 1.0.0",
+      "FontAwesome >= 4.7.0",
       "Microsoft.AspNetCore >= 2.0.1",
       "Microsoft.AspNetCore.Mvc >= 2.0.2",
       "Microsoft.AspNetCore.Mvc.Razor.ViewCompilation >= 2.0.2",
@@ -9823,6 +9848,10 @@
     "frameworks": {
       "net471": {
         "dependencies": {
+          "FontAwesome": {
+            "target": "Package",
+            "version": "[4.7.0, )"
+          },
           "Microsoft.AspNetCore": {
             "target": "Package",
             "version": "[2.0.1, )"
