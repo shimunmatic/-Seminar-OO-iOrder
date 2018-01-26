@@ -114,7 +114,7 @@ namespace Frontend
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Orders/Error");
             }
 
             app.UseStaticFiles();

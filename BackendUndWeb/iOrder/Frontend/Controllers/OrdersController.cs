@@ -9,6 +9,8 @@ using Backend.Models.ModelView;
 using Backend.Notifications.Observable;
 using Backend.Services.Interface;
 using Backend.Models.Business;
+using Backend.Notifications.Observer;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Frontend.Controllers
 {
@@ -19,13 +21,16 @@ namespace Frontend.Controllers
         private ILocationService locationService;
         private IEstablishmentService establishmentService;
         private IUserService userService;
+        private IMemoryCache cache;
 
-        public OrdersController(IOrderService orderService, IUserService userService, ILocationService locationService,IEstablishmentService establishmentService)
+        public OrdersController(IMemoryCache cache, IOrderService orderService, IUserService userService, ILocationService locationService,IEstablishmentService establishmentService)
         {
             this.orderService = orderService;
             this.establishmentService = establishmentService;
             this.locationService = locationService;
             this.userService = userService;
+            this.cache = cache;
+
         }
 
         public IActionResult Index()
@@ -34,7 +39,14 @@ namespace Frontend.Controllers
             if (exists)
             {
                 var user = HttpContext.Session.Get();
-                var orders = orderService.GetUnpaidOrdersForEstablishmentId(user.EstablishmentId.GetValueOrDefault());
+                // Cache current establishment.
+                var establishment = establishmentService.GetById(user.EstablishmentId);
+                // Fetch current unpaid orders.
+                var orders = orderService.GetUnpaidOrdersForEstablishmentId(establishment.Id);
+                // Cache orders and establishment
+                cache.Set("orders",orders);
+                cache.Set("establishment", establishment);
+
                 return View(orders);
             }
             else
@@ -81,28 +93,65 @@ namespace Frontend.Controllers
 
         public IActionResult Partial(long id)
         {
-            Debug.WriteLine(id);
-            var order = orderService.GetById(id);
-            var realOrder = new OrderModel
+            // Find requested order
+            var establishment = cache.Get<Establishment>("establishment");
+            var order = GetOrderFromCache(id);
+
+            // Build corresponding order model for view.
+            var orderModel = new OrderModel
             {
                 Id = order.Id,
                 Date = order.Date,
                 Paid = order.Paid,
                 Price = order.Price,
                 OrderedProducts = order.OrderedProducts,
-                Customer = userService.GetById(order.CustomerId),
+                Customer = order.CustomerId,
                 Employee = HttpContext.Session.Get().Username,
-                Location = locationService.GetById(order.LocationId),
-                Establishment = establishmentService.GetById(order.EstablishmentId) 
+                Location = establishment.Locations.First(l => l.Id == order.LocationId),
+                Establishment = establishment
             };
-
-            return PartialView("OrderDetailsPartial",realOrder);
+            return PartialView("OrderDetailsPartial", orderModel);
         }
 
         private Boolean CheckAuth()
         {
             var credentials = HttpContext.Session.Get();
             return credentials != null;
+        }
+
+        public IActionResult Pay(long id)
+        {
+            var order = GetOrderFromCache(id);
+            orderService.SetPaid(id);
+            RemoveOrderFromCache(id);
+
+            ViewBag.PaidSuccessfully = "Order was processed";
+            return StatusCode(200);
+        }
+
+        public IActionResult Bill(long id)
+        {
+            var order = GetOrderFromCache(id);
+            return StatusCode(200);
+        }
+
+        public IActionResult QRGenerator()
+        {
+            return View();
+        }
+
+        private Order GetOrderFromCache(long id)
+        {
+            var orders = cache.Get<List<Order>>("orders");
+            var order = orders.Find(o => o.Id == id);
+            return order;
+        }
+
+        private void RemoveOrderFromCache(long id)
+        {
+            var orders = cache.Get<List<Order>>("orders");
+            orders.RemoveAll(o => o.Id != id);
+            cache.Set("orders", orders);
         }
     }
 }

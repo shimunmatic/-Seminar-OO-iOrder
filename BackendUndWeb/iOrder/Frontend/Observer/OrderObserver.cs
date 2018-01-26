@@ -3,6 +3,7 @@ using Backend.Notifications.Observable;
 using Backend.Notifications.Observer;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -17,7 +18,7 @@ namespace Frontend.Observer
 
         public override void Notify(long establishmentId)
         {
-            Console.WriteLine("Notifajan sam: " + establishmentId);
+            Debug.WriteLine("Notifajan sam: " + establishmentId);
         }
     }
 }

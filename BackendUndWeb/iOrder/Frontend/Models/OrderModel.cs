@@ -10,7 +10,7 @@ namespace Frontend.Models
     {
 
         public virtual long Id { get; set; }
-        public virtual User Customer { get; set; }
+        public virtual String Customer { get; set; }
         public virtual DateTime Date { get; set; }
         public virtual String Employee { get; set; }
         public virtual bool Paid { get; set; }

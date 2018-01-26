@@ -362,3 +362,5 @@ C:\Users\Matija\Source\Repos\iOrder\BackendUndWeb\iOrder\Frontend\obj\Debug\net4
 C:\Users\Matija\Source\Repos\iOrder\BackendUndWeb\iOrder\Frontend\obj\Debug\net471\Frontend.AssemblyInfo.cs
 C:\Users\Matija\Source\Repos\iOrder\BackendUndWeb\iOrder\Frontend\obj\Debug\net471\Frontend.exe
 C:\Users\Matija\Source\Repos\iOrder\BackendUndWeb\iOrder\Frontend\obj\Debug\net471\Frontend.pdb
+C:\Users\Matija\Source\Repos\iOrder\BackendUndWeb\iOrder\Frontend\bin\Debug\net471\zxing.dll
+C:\Users\Matija\Source\Repos\iOrder\BackendUndWeb\iOrder\Frontend\bin\Debug\net471\zxing.presentation.dll

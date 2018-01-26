@@ -12,7 +12,7 @@
                 @foreach (var order in Model)
                 {
                     <a class="list-group-item orderItem" href="@order.Id">
-                        @Html.DisplayFor(o => order.Date.Date)
+                        @Html.DisplayFor(o => order.Date)
                     </a>
                 }
             </div>
