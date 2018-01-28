@@ -161,7 +161,7 @@ namespace DesktopApp
 
 			WarehouseProduct wproduct = new WarehouseProduct();
 			wproduct.ProductId = Convert.ToInt64(textBox5.Text);
-			wproduct.WearhouseId = Convert.ToInt64(comboBox1.SelectedItem.ToString());
+			wproduct.WarehouseId = Convert.ToInt64(comboBox1.SelectedItem.ToString());
 			wproduct.Quantity = Convert.ToInt32(textBox6.Text);
 			wproduct.SellingPrice = Decimal.Parse(textBox7.Text);
 
@@ -201,6 +201,7 @@ namespace DesktopApp
 
 			var category = await MainController.GetAllItemsAsync<Category>("Category");
 			dataGridViewCategory.DataSource = category;
+
 		}
 
        
@@ -274,7 +275,7 @@ namespace DesktopApp
 
             product.Id = Convert.ToInt64(textBox5.Text);
 
-            HttpResponseMessage response = await MainController.UpdateItemAsync(product,product.Id, "Product");
+            HttpResponseMessage response = await MainController.UpdateItemAsync(product,product.Id.ToString(), "Product");
 			if (response.IsSuccessStatusCode)
 			{
 				MessageBox.Show("Proizvod je azuriran");
@@ -299,10 +300,10 @@ namespace DesktopApp
 			category.Id = Convert.ToInt64(UpdateCategoryIDtextBox.Text);
 			category.OwnerId = HttpBuilder.getOwner();
 
-			HttpResponseMessage response = await MainController.UpdateItemAsync(category, category.Id, "Category");
+			HttpResponseMessage response = await MainController.UpdateItemAsync(category, category.Id.ToString(), "Category");
 			if (response.IsSuccessStatusCode)
 			{
-				MessageBox.Show("Proizvod je azuriran");
+				MessageBox.Show("Kategorija je azurirana");
 				var categorys = await MainController.GetAllItemsAsync<Category>("Category");
 				dataGridViewCategory.DataSource = categorys;
 
@@ -323,7 +324,7 @@ namespace DesktopApp
 			location.Id = Convert.ToInt64(IDtextBox.Text);
 			location.EstablishmentId = Convert.ToInt64(EstablishmentIDtextBox.Text);
 
-			HttpResponseMessage response = await MainController.UpdateItemAsync(location, location.Id,"Location");
+			HttpResponseMessage response = await MainController.UpdateItemAsync(location, location.Id.ToString(), "Location");
 			if (response.IsSuccessStatusCode)
 			{
 				MessageBox.Show("Lokacija je azurirana");
@@ -340,27 +341,77 @@ namespace DesktopApp
 		private async void EmployeeUpdateButton_Click(object sender, EventArgs e)
 		{
 			User employee = new User();
-			Role role = new Role();
-
-			role.Id = 4;
-			role.RoleName = "EMPLOYEE";
-
+			
 			employee.Username = textBox10.Text;
 			employee.Password = textBox11.Text;
 			employee.FirstName = textBox12.Text;
 			employee.LastName = textBox13.Text;
 			employee.Email = textBox14.Text;
-			employee.Role = role;
 
-			//pitanje kak složit update -> nema na backendu rute
-			//HttpResponseMessage response = await MainController.UpdateItemAsync(employee, employee.Username, "User/Employee");
-			//if (response.IsSuccessStatusCode)
-			//{
-			//	MessageBox.Show("Azuriranje uspjelo!");
-			//var employees = await MainController.GetAllItemsAsync<User>("User/Employee");
-			//dataGridViewEmployee.DataSource = employees;
 
-			//}
+			HttpResponseMessage response = await MainController.UpdateItemAsync(employee, employee.Username, "User/Employee");
+			if (response.IsSuccessStatusCode)
+			{
+				MessageBox.Show("Azuriranje uspjelo!");
+				var employees = await MainController.GetAllItemsAsync<User>("User/Employee");
+				dataGridViewEmployee.DataSource = employees;
+
+			}
+			else
+			{
+				MessageBox.Show(response.StatusCode.ToString());
+			}
+		}
+
+		private async void UpdateButtonWare_Click(object sender, EventArgs e)
+		{
+			Warehouse warehouse = new Warehouse();
+			warehouse.Id = Convert.ToInt64(textBox20.Text);
+			warehouse.Address = textBox21.Text;
+			warehouse.Zip = textBox22.Text;
+			warehouse.City = textBox23.Text;
+			warehouse.OwnerId = HttpBuilder.getOwner();
+
+
+
+
+			HttpResponseMessage response = await MainController.UpdateItemAsync(warehouse, warehouse.Id.ToString(), "Warehouse");
+			if (response.IsSuccessStatusCode)
+			{
+				MessageBox.Show("Azuriranje uspjelo!");
+				var warehouses = await MainController.GetAllItemsAsync<Warehouse>("Warehouse");
+				dataGridViewWarehouse.DataSource = warehouses;
+			}
+			else
+			{
+				MessageBox.Show(response.StatusCode.ToString());
+			}
+		}
+
+
+		private async void EstablishmentUpdateButton_Click(object sender, EventArgs e)
+		{
+			Establishment establishment = new Establishment();
+			establishment.Id = Convert.ToInt64(EstablishmenttextBox.Text);
+			establishment.WarehouseId = Convert.ToInt64(EstablishmentWarehousetextBox.Text);
+			establishment.Name = EstablishmentNametextBox.Text;
+			establishment.Address = EstablishmentAddresstextBox.Text;
+			establishment.Zip = EstablishmentZIPtextBox.Text;
+			establishment.City = EstablishmentCitytextBox.Text;
+			establishment.OwnerId = HttpBuilder.getOwner();
+
+
+			HttpResponseMessage response = await MainController.UpdateItemAsync(establishment, establishment.Id.ToString(), "Establishment");
+			if (response.IsSuccessStatusCode)
+			{
+				MessageBox.Show("Azuriranje uspjelo!");
+				var establishments = await MainController.GetAllItemsAsync<Establishment>("Establishment");
+				dataGridViewWarehouse.DataSource = establishment;
+			}
+			else
+			{
+				MessageBox.Show(response.StatusCode.ToString());
+			}
 		}
 		//--------END of UPDATE item section
 
@@ -372,90 +423,110 @@ namespace DesktopApp
 
 
 		private void dataGridViewProduct_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            int index = e.RowIndex;
-            DataGridViewRow selectedRow = dataGridViewProduct.Rows[index];
+			{
+				int index = e.RowIndex;
+				DataGridViewRow selectedRow = dataGridViewProduct.Rows[index];
 
-            textBox1.Text = selectedRow.Cells[2].Value.ToString();
-            textBox2.Text = selectedRow.Cells[3].Value.ToString();
-            textBox3.Text = selectedRow.Cells[1].Value.ToString();
-            textBox4.Text = selectedRow.Cells[5].Value.ToString();
-            textBox5.Text = selectedRow.Cells[0].Value.ToString();
+				textBox1.Text = selectedRow.Cells[2].Value.ToString();
+				textBox2.Text = selectedRow.Cells[3].Value.ToString();
+				textBox3.Text = selectedRow.Cells[1].Value.ToString();
+				textBox4.Text = selectedRow.Cells[5].Value.ToString();
+				textBox5.Text = selectedRow.Cells[0].Value.ToString();
 
-        }
-
-   
-
-        private async void dataGridViewCategory_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
-        {
-            int index = e.RowIndex;
-            DataGridViewRow selectedRow = dataGridViewCategory.Rows[index];
-
-            UpdatecategorytextBox.Text = selectedRow.Cells[1].Value.ToString();
-            UpdateCategoryIDtextBox.Text = selectedRow.Cells[0].Value.ToString();
-
-            var product = await MainController.GetAllItemsAsync<Product>("Product");
-            long categoryID = Convert.ToInt64(UpdateCategoryIDtextBox.Text);
-
-            var details = product.Where(p => p.CategoryId == categoryID).ToList();
-            dataGridViewCategoryDetail.DataSource = details;
-
-        }
+			}
 
 
-        private void dataGridViewLocation_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            int index = e.RowIndex;
-            DataGridViewRow selectedRow = dataGridViewLocation.Rows[index];
 
-            IDtextBox.Text = selectedRow.Cells[0].Value.ToString();
-            EstablishmentIDtextBox.Text = selectedRow.Cells[1].Value.ToString();
-            NametextBox.Text = selectedRow.Cells[2].Value.ToString();
-          
-        }
+			private async void dataGridViewCategory_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+			{
+				int index = e.RowIndex;
+				DataGridViewRow selectedRow = dataGridViewCategory.Rows[index];
 
-      
-      
+				UpdatecategorytextBox.Text = selectedRow.Cells[1].Value.ToString();
+				UpdateCategoryIDtextBox.Text = selectedRow.Cells[0].Value.ToString();
 
-        private async void dataGridViewWarehouse_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
+				var product = await MainController.GetAllItemsAsync<Product>("Product");
+				long categoryID = Convert.ToInt64(UpdateCategoryIDtextBox.Text);
+
+				var details = product.Where(p => p.CategoryId == categoryID).ToList();
+				dataGridViewCategoryDetail.DataSource = details;
+
+			}
+
+
+			private void dataGridViewLocation_CellContentClick(object sender, DataGridViewCellEventArgs e)
+			{
+				int index = e.RowIndex;
+				DataGridViewRow selectedRow = dataGridViewLocation.Rows[index];
+
+				IDtextBox.Text = selectedRow.Cells[0].Value.ToString();
+				EstablishmentIDtextBox.Text = selectedRow.Cells[1].Value.ToString();
+				NametextBox.Text = selectedRow.Cells[2].Value.ToString();
+
+			}
+
+
+
+
+			private async void dataGridViewWarehouse_CellContentClick(object sender, DataGridViewCellEventArgs e)
+			{
+				int index = e.RowIndex;
+				DataGridViewRow selectedRow = dataGridViewWarehouse.Rows[index];
+
+				textBox20.Text = selectedRow.Cells[0].Value.ToString();
+				textBox21.Text = selectedRow.Cells[2].Value.ToString();
+				textBox22.Text = selectedRow.Cells[3].Value.ToString();
+				textBox23.Text = selectedRow.Cells[4].Value.ToString();
+
+				string warehouseID = selectedRow.Cells[0].Value.ToString();
+				var WProduct = await MainController.GetAllItemsAsync<Product>("Product/Storage/" + warehouseID);
+				dataGridViewWarehouseDetail.DataSource = WProduct;
+
+			}
+
+
+
+
+
+			private void dataGridViewEmployee_CellContentClick(object sender, DataGridViewCellEventArgs e)
+			{
+				int index = e.RowIndex;
+				DataGridViewRow selectedRow = dataGridViewEmployee.Rows[index];
+
+				textBox10.Text = selectedRow.Cells[0].Value.ToString();
+				textBox11.Text = selectedRow.Cells[1].Value.ToString();
+				textBox12.Text = selectedRow.Cells[2].Value.ToString();
+				textBox13.Text = selectedRow.Cells[3].Value.ToString();
+				textBox14.Text = selectedRow.Cells[4].Value.ToString();
+			}
+
+
+
+			private async void fillDataInProductView()
+			{
+				warehouseList = await MainController.GetAllItemsAsync<Warehouse>("Warehouse");
+
+				warehouseList.ToList().ForEach(item =>
+				{
+					comboBox1.Items.Add(item);
+				});
+			}
+
+		private void dataGridViewEstablishment_CellContentClick(object sender, DataGridViewCellEventArgs e)
+		{
 			int index = e.RowIndex;
-			DataGridViewRow selectedRow = dataGridViewWarehouse.Rows[index];
+			DataGridViewRow selectedRow = dataGridViewEstablishment.Rows[index];
 
-		
-			string warehouseID = selectedRow.Cells[0].Value.ToString();
-			var WProduct = await MainController.GetAllItemsAsync<Product>("Product/Storage/" + warehouseID);
-			dataGridViewWarehouseDetail.DataSource = WProduct;
+			EstablishmenttextBox.Text = selectedRow.Cells[0].Value.ToString();
+			EstablishmentWarehousetextBox.Text = selectedRow.Cells[1].Value.ToString();
+			EstablishmentNametextBox.Text = selectedRow.Cells[2].Value.ToString();
+			EstablishmentAddresstextBox.Text = selectedRow.Cells[3].Value.ToString();
+			EstablishmentZIPtextBox.Text = selectedRow.Cells[5].Value.ToString();
+			EstablishmentCitytextBox.Text = selectedRow.Cells[6].Value.ToString();
+			
 			
 		}
 
-
-
-
-
-		private void dataGridViewEmployee_CellContentClick(object sender, DataGridViewCellEventArgs e)
-		{
-			int index = e.RowIndex;
-			DataGridViewRow selectedRow = dataGridViewEmployee.Rows[index];
-
-			textBox10.Text = selectedRow.Cells[0].Value.ToString();
-			textBox11.Text = selectedRow.Cells[2].Value.ToString();
-			textBox12.Text = selectedRow.Cells[3].Value.ToString();
-			textBox13.Text = selectedRow.Cells[4].Value.ToString();
-			textBox14.Text = selectedRow.Cells[5].Value.ToString();
-		}
-
 		
-
-		private async void fillDataInProductView()
-		{
-			warehouseList = await MainController.GetAllItemsAsync<Warehouse>("Warehouse");
-
-			warehouseList.ToList().ForEach(item =>
-			{
-				comboBox1.Items.Add(item);
-			});
-		}
-
 	}
 }

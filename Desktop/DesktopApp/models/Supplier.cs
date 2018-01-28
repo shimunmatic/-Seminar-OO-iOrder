@@ -18,5 +18,12 @@ namespace DesktopApp.models
         {
             return Name;
         }
-    }
+
+		public async static Task<long> findItem(string name)
+		{
+			IEnumerable<Supplier> list = await MainController.GetAllItemsAsync<Supplier>("Supplier");
+			return list.First(c => c.Name == name).Id;
+
+		}
+	}
 }

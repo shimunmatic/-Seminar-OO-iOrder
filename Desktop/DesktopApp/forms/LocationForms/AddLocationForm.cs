@@ -28,9 +28,9 @@ namespace DesktopApp.forms.LocationForms
             location.Name = textBox1.Text;
 
 
-            string LocationName = comboBox1.SelectedItem.ToString();
-            long establishmentId = findEstablishment(LocationName, establishmentList);
-            location.EstablishmentId = establishmentId;
+            string LocationName = comboBox1.SelectedItem.ToString();	
+			long establishmentId = await Establishment.findItem(LocationName);
+			location.EstablishmentId = establishmentId;
 
 		
 			HttpResponseMessage response = await MainController.CreateItemAsync(location, "Location");
@@ -48,20 +48,13 @@ namespace DesktopApp.forms.LocationForms
         {
             establishmentList = await MainController.GetAllItemsAsync<Establishment>("Establishment");
 
-
-
-            establishmentList.ToList().ForEach(item =>
+			establishmentList.ToList().ForEach(item =>
             {
                 comboBox1.Items.Add(item);
             });
            
         }
-        private long findEstablishment(string name, IEnumerable<Establishment> list)
-        {
-            return list.First(c => c.Name == name).Id;
-
-        }
-
+      
         private void cancelButton_Click(object sender, EventArgs e)
         {
             this.Close();

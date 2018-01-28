@@ -58,11 +58,11 @@ namespace DesktopApp
                 product.OwnerId = HttpBuilder.getOwner();
 
                 string CategoryName = comboBox1.SelectedItem.ToString();
-                long categoryId = findCategory(CategoryName, categoryList);
+                long categoryId = await Category.findItem(CategoryName);
                 product.CategoryId = categoryId;
 
                 string SupplierName = comboBox2.SelectedItem.ToString();
-                long supplierid = findSupplier(SupplierName, supplierList);
+                long supplierid = await Supplier.findItem(SupplierName);
                 product.SupplierId = supplierid;
 
 
@@ -106,16 +106,5 @@ namespace DesktopApp
            
         }
 
-        private long findCategory(string name, IEnumerable<Category> list)
-        {
-            return list.First(c => c.Name == name).Id;
-
-        }
-
-        private long findSupplier(string name, IEnumerable<Supplier> list)
-        {
-            return list.First(c => c.Name == name).Id;
-
-        }
     }
 }

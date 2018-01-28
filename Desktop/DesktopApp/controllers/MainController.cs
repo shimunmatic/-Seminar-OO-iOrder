@@ -25,7 +25,7 @@ namespace DesktopApp
         }
 
         //pogledaj kolko dobro radi??
-        public static async Task<HttpResponseMessage> UpdateItemAsync(ItemInterface item,long itemID, string newItemType)
+        public static async Task<HttpResponseMessage> UpdateItemAsync(ItemInterface item,string itemID, string newItemType)
         {
             HttpResponseMessage response = await client.PutAsJsonAsync(
                 $"{newItemType}/{itemID}", item);

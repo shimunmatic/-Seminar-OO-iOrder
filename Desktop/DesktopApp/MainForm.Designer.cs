@@ -37,8 +37,17 @@
 			this.dataGridViewWarehouseDetail = new System.Windows.Forms.DataGridView();
 			this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
 			this.AddWarehouseButton = new System.Windows.Forms.Button();
-			this.UpdateWarehouseButton = new System.Windows.Forms.Button();
 			this.DeleteWarehouseButton = new System.Windows.Forms.Button();
+			this.panel6 = new System.Windows.Forms.Panel();
+			this.UpdateButtonWare = new System.Windows.Forms.Button();
+			this.textBox23 = new System.Windows.Forms.TextBox();
+			this.textBox22 = new System.Windows.Forms.TextBox();
+			this.label24 = new System.Windows.Forms.Label();
+			this.label25 = new System.Windows.Forms.Label();
+			this.textBox21 = new System.Windows.Forms.TextBox();
+			this.textBox20 = new System.Windows.Forms.TextBox();
+			this.label23 = new System.Windows.Forms.Label();
+			this.label18 = new System.Windows.Forms.Label();
 			this.Category = new System.Windows.Forms.TabPage();
 			this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
 			this.dataGridViewCategory = new System.Windows.Forms.DataGridView();
@@ -135,6 +144,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewWarehouse)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewWarehouseDetail)).BeginInit();
 			this.flowLayoutPanel3.SuspendLayout();
+			this.panel6.SuspendLayout();
 			this.Category.SuspendLayout();
 			this.tableLayoutPanel3.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewCategory)).BeginInit();
@@ -218,6 +228,7 @@
 			this.tableLayoutPanel1.Controls.Add(this.dataGridViewWarehouse, 0, 0);
 			this.tableLayoutPanel1.Controls.Add(this.dataGridViewWarehouseDetail, 1, 0);
 			this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel3, 0, 1);
+			this.tableLayoutPanel1.Controls.Add(this.panel6, 1, 1);
 			this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
 			this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -255,7 +266,6 @@
 			// flowLayoutPanel3
 			// 
 			this.flowLayoutPanel3.Controls.Add(this.AddWarehouseButton);
-			this.flowLayoutPanel3.Controls.Add(this.UpdateWarehouseButton);
 			this.flowLayoutPanel3.Controls.Add(this.DeleteWarehouseButton);
 			this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.flowLayoutPanel3.Location = new System.Drawing.Point(3, 339);
@@ -273,24 +283,105 @@
 			this.AddWarehouseButton.UseVisualStyleBackColor = true;
 			this.AddWarehouseButton.Click += new System.EventHandler(this.AddWarehouseButton_Click);
 			// 
-			// UpdateWarehouseButton
-			// 
-			this.UpdateWarehouseButton.Location = new System.Drawing.Point(84, 3);
-			this.UpdateWarehouseButton.Name = "UpdateWarehouseButton";
-			this.UpdateWarehouseButton.Size = new System.Drawing.Size(75, 23);
-			this.UpdateWarehouseButton.TabIndex = 1;
-			this.UpdateWarehouseButton.Text = "Update";
-			this.UpdateWarehouseButton.UseVisualStyleBackColor = true;
-			// 
 			// DeleteWarehouseButton
 			// 
-			this.DeleteWarehouseButton.Location = new System.Drawing.Point(165, 3);
+			this.DeleteWarehouseButton.Location = new System.Drawing.Point(84, 3);
 			this.DeleteWarehouseButton.Name = "DeleteWarehouseButton";
 			this.DeleteWarehouseButton.Size = new System.Drawing.Size(75, 23);
 			this.DeleteWarehouseButton.TabIndex = 2;
 			this.DeleteWarehouseButton.Text = "Delete";
 			this.DeleteWarehouseButton.UseVisualStyleBackColor = true;
 			this.DeleteWarehouseButton.Click += new System.EventHandler(this.DeleteWarehouseButton_Click);
+			// 
+			// panel6
+			// 
+			this.panel6.Controls.Add(this.UpdateButtonWare);
+			this.panel6.Controls.Add(this.textBox23);
+			this.panel6.Controls.Add(this.textBox22);
+			this.panel6.Controls.Add(this.label24);
+			this.panel6.Controls.Add(this.label25);
+			this.panel6.Controls.Add(this.textBox21);
+			this.panel6.Controls.Add(this.textBox20);
+			this.panel6.Controls.Add(this.label23);
+			this.panel6.Controls.Add(this.label18);
+			this.panel6.Location = new System.Drawing.Point(454, 339);
+			this.panel6.Name = "panel6";
+			this.panel6.Size = new System.Drawing.Size(424, 84);
+			this.panel6.TabIndex = 3;
+			// 
+			// UpdateButtonWare
+			// 
+			this.UpdateButtonWare.Location = new System.Drawing.Point(335, 3);
+			this.UpdateButtonWare.Name = "UpdateButtonWare";
+			this.UpdateButtonWare.Size = new System.Drawing.Size(75, 23);
+			this.UpdateButtonWare.TabIndex = 11;
+			this.UpdateButtonWare.Text = "Update";
+			this.UpdateButtonWare.UseVisualStyleBackColor = true;
+			this.UpdateButtonWare.Click += new System.EventHandler(this.UpdateButtonWare_Click);
+			// 
+			// textBox23
+			// 
+			this.textBox23.Location = new System.Drawing.Point(211, 29);
+			this.textBox23.Name = "textBox23";
+			this.textBox23.Size = new System.Drawing.Size(100, 20);
+			this.textBox23.TabIndex = 10;
+			// 
+			// textBox22
+			// 
+			this.textBox22.Location = new System.Drawing.Point(211, 3);
+			this.textBox22.Name = "textBox22";
+			this.textBox22.Size = new System.Drawing.Size(100, 20);
+			this.textBox22.TabIndex = 9;
+			// 
+			// label24
+			// 
+			this.label24.AutoSize = true;
+			this.label24.Location = new System.Drawing.Point(181, 32);
+			this.label24.Name = "label24";
+			this.label24.Size = new System.Drawing.Size(24, 13);
+			this.label24.TabIndex = 8;
+			this.label24.Text = "City";
+			// 
+			// label25
+			// 
+			this.label25.AutoSize = true;
+			this.label25.Location = new System.Drawing.Point(181, 10);
+			this.label25.Name = "label25";
+			this.label25.Size = new System.Drawing.Size(24, 13);
+			this.label25.TabIndex = 7;
+			this.label25.Text = "ZIP";
+			// 
+			// textBox21
+			// 
+			this.textBox21.Location = new System.Drawing.Point(60, 29);
+			this.textBox21.Name = "textBox21";
+			this.textBox21.Size = new System.Drawing.Size(100, 20);
+			this.textBox21.TabIndex = 6;
+			// 
+			// textBox20
+			// 
+			this.textBox20.Location = new System.Drawing.Point(60, 3);
+			this.textBox20.Name = "textBox20";
+			this.textBox20.Size = new System.Drawing.Size(100, 20);
+			this.textBox20.TabIndex = 5;
+			// 
+			// label23
+			// 
+			this.label23.AutoSize = true;
+			this.label23.Location = new System.Drawing.Point(13, 32);
+			this.label23.Name = "label23";
+			this.label23.Size = new System.Drawing.Size(45, 13);
+			this.label23.TabIndex = 4;
+			this.label23.Text = "Address";
+			// 
+			// label18
+			// 
+			this.label18.AutoSize = true;
+			this.label18.Location = new System.Drawing.Point(13, 10);
+			this.label18.Name = "label18";
+			this.label18.Size = new System.Drawing.Size(18, 13);
+			this.label18.TabIndex = 3;
+			this.label18.Text = "ID";
 			// 
 			// Category
 			// 
@@ -863,6 +954,7 @@
 			this.dataGridViewEstablishment.Name = "dataGridViewEstablishment";
 			this.dataGridViewEstablishment.Size = new System.Drawing.Size(445, 330);
 			this.dataGridViewEstablishment.TabIndex = 0;
+			this.dataGridViewEstablishment.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewEstablishment_CellContentClick);
 			// 
 			// flowLayoutPanel5
 			// 
@@ -977,6 +1069,7 @@
 			this.EstablishmentUpdateButton.TabIndex = 22;
 			this.EstablishmentUpdateButton.Text = "Update";
 			this.EstablishmentUpdateButton.UseVisualStyleBackColor = true;
+			this.EstablishmentUpdateButton.Click += new System.EventHandler(this.EstablishmentUpdateButton_Click);
 			// 
 			// label10
 			// 
@@ -1201,7 +1294,7 @@
 			this.AutoSize = true;
 			this.ClientSize = new System.Drawing.Size(917, 461);
 			this.Controls.Add(this.Tabs);
-			
+		
 			this.Text = "DesktopApp";
 			this.Tabs.ResumeLayout(false);
 			this.Warehouse.ResumeLayout(false);
@@ -1209,6 +1302,8 @@
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewWarehouse)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewWarehouseDetail)).EndInit();
 			this.flowLayoutPanel3.ResumeLayout(false);
+			this.panel6.ResumeLayout(false);
+			this.panel6.PerformLayout();
 			this.Category.ResumeLayout(false);
 			this.tableLayoutPanel3.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.dataGridViewCategory)).EndInit();
@@ -1266,7 +1361,6 @@
         private System.Windows.Forms.DataGridView dataGridViewWarehouseDetail;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
         private System.Windows.Forms.Button AddWarehouseButton;
-        private System.Windows.Forms.Button UpdateWarehouseButton;
         private System.Windows.Forms.Button DeleteWarehouseButton;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button UpdateProduct;
@@ -1343,6 +1437,16 @@
 		private System.Windows.Forms.Label label22;
 		private System.Windows.Forms.Label label21;
 		private System.Windows.Forms.Label WarehouseID;
+		private System.Windows.Forms.Panel panel6;
+		private System.Windows.Forms.Button UpdateButtonWare;
+		private System.Windows.Forms.TextBox textBox23;
+		private System.Windows.Forms.TextBox textBox22;
+		private System.Windows.Forms.Label label24;
+		private System.Windows.Forms.Label label25;
+		private System.Windows.Forms.TextBox textBox21;
+		private System.Windows.Forms.TextBox textBox20;
+		private System.Windows.Forms.Label label23;
+		private System.Windows.Forms.Label label18;
 	}
 }
 

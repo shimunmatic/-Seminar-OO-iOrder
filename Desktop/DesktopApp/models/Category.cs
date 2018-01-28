@@ -17,5 +17,12 @@ namespace DesktopApp
         {
             return Name;
         }
-    }
+
+		public async static Task<long> findItem(string name)
+		{
+			IEnumerable<Category> list = await MainController.GetAllItemsAsync<Category>("Category");
+			return list.First(c => c.Name == name).Id;
+
+		}
+	}
 }

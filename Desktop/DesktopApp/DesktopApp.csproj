@@ -142,7 +142,6 @@
     <Compile Include="models\Establishment.cs" />
     <Compile Include="models\Location.cs" />
     <Compile Include="models\Product.cs" />
-    <Compile Include="models\Role.cs" />
     <Compile Include="models\Supplier.cs" />
     <Compile Include="models\User.cs" />
     <Compile Include="models\UserCredentials.cs" />
