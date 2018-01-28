@@ -55,6 +55,7 @@ namespace Backend.Controllers
         [Authorize(Roles = "ADMIN")]
         public void CreateEmployee([FromBody]User user)
         {
+            user.OwnerId = User.Identity.Name;
             UserService.RegisterEmployee(user);
 
         }

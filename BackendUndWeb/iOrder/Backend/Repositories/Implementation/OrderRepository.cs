@@ -37,12 +37,22 @@ namespace Backend.Repositories.Implementation
 
         public IEnumerable<Order> GetAll()
         {
-            var orders = EntityModel.Convert(BaseRepository.GetAll());
-            foreach (var o in orders)
+            using (var db = NHibernateHelper.OpenSession())
             {
-                o.OrderedProducts = GetOrderPairs(o);
+                var entites = BaseRepository.GetAll();
+                var warehouseProducts = db.Query<WarehouseProductEntity>().ToList();
+                var est = db.Query<EstablishmentEntity>().ToList();
+                var orders = EntityModel.Convert(entites);
+                foreach (var o in orders)
+                {
+                    foreach (var op in o.OrderedProducts)
+                    {
+
+                        op.Product.SellingPrice = warehouseProducts.Where(w => w.WearhouseId == est.Where(e => e.Id == o.EstablishmentId).First().WarehouseId && w.ProductId == op.Product.Id).FirstOrDefault().SellingPrice;
+                    }
+                }
+                return orders;
             }
-            return orders;
         }
 
         private IEnumerable<OrderPair> GetOrderPairs(Order o)
@@ -51,11 +61,12 @@ namespace Backend.Repositories.Implementation
             {
                 var est = db.Query<EstablishmentEntity>().Where(e => e.Id == o.EstablishmentId).First();
                 var entityPairs = db.Query<OrderPairEntity>().Where(op => op.OrderId == o.Id).ToList();
+                var warehouseProducts = ProductRepository.GetProductsForWarehouse(est.WarehouseId);
                 var orderPairs = new List<OrderPair>();
                 foreach (var item in entityPairs)
                 {
                     var op = OrderPairEntityModel.Convert(item);
-                    op.Product = ProductRepository.GetProductsForWarehouse(est.WarehouseId).Where(p => p.Id == item.ProductId).First();
+                    op.Product = warehouseProducts.Where(w => w.Id == item.ProductId).First();
                     orderPairs.Add(op);
                 }
                 return orderPairs;
@@ -65,19 +76,42 @@ namespace Backend.Repositories.Implementation
 
         public Order GetById(object Id)
         {
-            var order = EntityModel.Convert(BaseRepository.GetById(Id));
-            order.OrderedProducts = GetOrderPairs(order);
+            var entites = BaseRepository.GetById(Id);
+            var warehouseProducts = new List<WarehouseProductEntity>();
+            var est = new List<EstablishmentEntity>();
+            using (var db = NHibernateHelper.OpenSession())
+            {
+                entites = BaseRepository.GetById(Id);
+                warehouseProducts = db.Query<WarehouseProductEntity>().ToList();
+                est = db.Query<EstablishmentEntity>().ToList();
+            }
+            var order = EntityModel.Convert(entites);
+
+            foreach (var op in order.OrderedProducts)
+            {
+
+                op.Product.SellingPrice = warehouseProducts.Where(w => w.WearhouseId == est.Where(e => e.Id == order.EstablishmentId).First().WarehouseId && w.ProductId == op.Product.Id).FirstOrDefault().SellingPrice;
+            }
+
             return order;
+
         }
 
         public IEnumerable<Order> GetOrdersForCustomer(string Username)
         {
             using (var db = NHibernateHelper.OpenSession())
             {
-                var orders = EntityModel.Convert(db.Query<OrderEntity>().Where(o => o.CustomerId.Equals(Username)).ToList());
+                var entites = db.Query<OrderEntity>().Where(o => o.CustomerId.Equals(Username)).ToList();
+                var warehouseProducts = db.Query<WarehouseProductEntity>().ToList();
+                var est = db.Query<EstablishmentEntity>().ToList();
+                var orders = EntityModel.Convert(entites);
                 foreach (var o in orders)
                 {
-                    o.OrderedProducts = GetOrderPairs(o);
+                    foreach (var op in o.OrderedProducts)
+                    {
+
+                        op.Product.SellingPrice = warehouseProducts.Where(w => w.WearhouseId == est.Where(e => e.Id == o.EstablishmentId).First().WarehouseId && w.ProductId == op.Product.Id).FirstOrDefault().SellingPrice;
+                    }
                 }
                 return orders;
             }
@@ -87,10 +121,17 @@ namespace Backend.Repositories.Implementation
         {
             using (var db = NHibernateHelper.OpenSession())
             {
-                var orders = EntityModel.Convert(db.Query<OrderEntity>().Where(o => o.EmployeeId.Equals(Username)).ToList());
+                var entites = db.Query<OrderEntity>().Where(o => o.EmployeeId.Equals(Username)).ToList();
+                var warehouseProducts = db.Query<WarehouseProductEntity>().ToList();
+                var est = db.Query<EstablishmentEntity>().ToList();
+                var orders = EntityModel.Convert(entites);
                 foreach (var o in orders)
                 {
-                    o.OrderedProducts = GetOrderPairs(o);
+                    foreach (var op in o.OrderedProducts)
+                    {
+
+                        op.Product.SellingPrice = warehouseProducts.Where(w => w.WearhouseId == est.Where(e => e.Id == o.EstablishmentId).First().WarehouseId && w.ProductId == op.Product.Id).FirstOrDefault().SellingPrice;
+                    }
                 }
                 return orders;
             }
@@ -100,10 +141,17 @@ namespace Backend.Repositories.Implementation
         {
             using (var db = NHibernateHelper.OpenSession())
             {
-                var orders = EntityModel.Convert(db.Query<OrderEntity>().Where(o => o.EstablishmentId == Id).ToList());
+                var entites = db.Query<OrderEntity>().Where(o => o.EstablishmentId == Id).ToList();
+                var warehouseProducts = db.Query<WarehouseProductEntity>().ToList();
+                var est = db.Query<EstablishmentEntity>().ToList();
+                var orders = EntityModel.Convert(entites);
                 foreach (var o in orders)
                 {
-                    o.OrderedProducts = GetOrderPairs(o);
+                    foreach (var op in o.OrderedProducts)
+                    {
+
+                        op.Product.SellingPrice = warehouseProducts.Where(w => w.WearhouseId == est.Where(e => e.Id == o.EstablishmentId).First().WarehouseId && w.ProductId == op.Product.Id).FirstOrDefault().SellingPrice;
+                    }
                 }
                 return orders;
             }
@@ -113,10 +161,17 @@ namespace Backend.Repositories.Implementation
         {
             using (var db = NHibernateHelper.OpenSession())
             {
-                var orders = EntityModel.Convert(db.Query<OrderEntity>().Where(o => o.LocationId == Id).ToList());
+                var entites = db.Query<OrderEntity>().Where(o => o.LocationId == Id).ToList();
+                var warehouseProducts = db.Query<WarehouseProductEntity>().ToList();
+                var est = db.Query<EstablishmentEntity>().ToList();
+                var orders = EntityModel.Convert(entites);
                 foreach (var o in orders)
                 {
-                    o.OrderedProducts = GetOrderPairs(o);
+                    foreach (var op in o.OrderedProducts)
+                    {
+
+                        op.Product.SellingPrice = warehouseProducts.Where(w => w.WearhouseId == est.Where(e => e.Id == o.EstablishmentId).First().WarehouseId && w.ProductId == op.Product.Id).FirstOrDefault().SellingPrice;
+                    }
                 }
                 return orders;
             }
@@ -124,12 +179,14 @@ namespace Backend.Repositories.Implementation
 
         public object Save(Order t)
         {
-            var orderId =(long)BaseRepository.Save(ModelEntity.Convert(t));
+            var orderpairs = new List<OrderPair>(t.OrderedProducts);
+            t.OrderedProducts = new List<OrderPair>();
+            var orderId = (long)BaseRepository.Save(ModelEntity.Convert(t));
             using (var db = NHibernateHelper.OpenSession())
             {
                 using (var transaction = db.BeginTransaction())
                 {
-                    foreach (var op in t.OrderedProducts)
+                    foreach (var op in orderpairs)
                     {
                         op.OrderId = orderId;
                         db.Save(OrderPairModelEntity.Convert(op));
@@ -146,6 +203,26 @@ namespace Backend.Repositories.Implementation
         {
             return (long)BaseRepository.Update(Id, ModelEntity.Convert(t));
 
+        }
+
+        public IEnumerable<Order> GetUnpaidOrdersForEstablishmentId(long id)
+        {
+            using (var db = NHibernateHelper.OpenSession())
+            {
+                var entites = db.Query<OrderEntity>().Where(o => o.EstablishmentId == id && o.Paid == 0).ToList();
+                var warehouseProducts = db.Query<WarehouseProductEntity>().ToList();
+                var est = db.Query<EstablishmentEntity>().ToList();
+                var orders = EntityModel.Convert(entites);
+                foreach (var o in orders)
+                {
+                    foreach (var op in o.OrderedProducts)
+                    {
+
+                        op.Product.SellingPrice = warehouseProducts.Where(w => w.WearhouseId == est.Where(e => e.Id == o.EstablishmentId).First().WarehouseId && w.ProductId == op.Product.Id).FirstOrDefault().SellingPrice;
+                    }
+                }
+                return orders;
+            }
         }
     }
 }

@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import javax.inject.Inject;
 
-import hr.fer.oobl.iorder.data.util.UserManager;
+import hr.fer.oobl.iorder.data.util.SharedPrefsManager;
 import hr.fer.oobl.iorder.domain.interactor.login.GetLoginTokenUseCase;
 import hr.fer.oobl.iorder.domain.model.UserCredentials;
 import hr.fer.oobl.iorder.iorder.base.BasePresenter;
@@ -18,7 +18,7 @@ public final class LoginPresenter extends BasePresenter<LoginContract.View> impl
     NetworkManager networkManager;
 
     @Inject
-    UserManager userManager;
+    SharedPrefsManager sharedPrefsManager;
 
     @Inject
     GetLoginTokenUseCase getLoginTokenUseCase;
@@ -72,9 +72,9 @@ public final class LoginPresenter extends BasePresenter<LoginContract.View> impl
     }
 
     private void onGetLoginTokenSuccess(final String loginToken, final String username, final String password) {
-        userManager.set("username", username);
-        userManager.set("password", password);
-        userManager.set("token", loginToken);
+        sharedPrefsManager.set("username", username);
+        sharedPrefsManager.set("password", password);
+        sharedPrefsManager.set("token", loginToken);
         doIfViewNotNull(LoginContract.View::startScanner);
         router.showScanner();
     }

@@ -18,10 +18,12 @@ namespace Backend.Repositories
 
         public virtual T GetById(object Id)
         {
+            var t = new Object();
             using (var db = NHibernateHelper.OpenSession())
             {
-                return db.Get<T>(Id);
+                t = db.Get<T>(Id);
             }
+            return (T) t;
         }
 
         public virtual object Save(T t)
@@ -41,11 +43,9 @@ namespace Backend.Repositories
         {
             using (var db = NHibernateHelper.OpenSession())
             {
-                var old = db.Get<T>(Id);
-                old = t;
                 using (var transaction = db.BeginTransaction())
                 {
-                    db.SaveOrUpdate(old);
+                    db.Update(t);
                     transaction.Commit();
                     return Id;
                 }

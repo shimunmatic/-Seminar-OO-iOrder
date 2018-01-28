@@ -20,9 +20,6 @@ import info.androidhive.barcode.BarcodeReader;
 public class ScannerActivity extends BaseActivity implements BarcodeReader.BarcodeReaderListener, ScannerContract.View {
 
     @Inject
-    Router router;
-
-    @Inject
     ScannerContract.Presenter presenter;
 
     BarcodeReader barcodeReader;
@@ -30,6 +27,11 @@ public class ScannerActivity extends BaseActivity implements BarcodeReader.Barco
     @Override
     public ScopedPresenter getPresenter() {
         return presenter;
+    }
+
+    @Override
+    public void showError(final String qrCodeError) {
+        Toast.makeText(this, qrCodeError, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -48,7 +50,7 @@ public class ScannerActivity extends BaseActivity implements BarcodeReader.Barco
     @Override
     public void onScanned(Barcode barcode) {
         barcodeReader.playBeep();
-        router.showMainScreen(barcode.displayValue);
+        presenter.saveBarcode(barcode.displayValue);
     }
 
     @Override

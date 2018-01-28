@@ -9,6 +9,13 @@ namespace Backend.Converters.EntityBusiness
 {
     public class OrderPairEntityToModelConverter : IConverter<OrderPairEntity, OrderPair>
     {
+        private IConverter<ProductEntity, Product> ProductConverter;
+
+        public OrderPairEntityToModelConverter(IConverter<ProductEntity, Product> productConverter)
+        {
+            ProductConverter = productConverter;
+        }
+
         public OrderPair Convert(OrderPairEntity Source)
         {
             if (null == Source) return null;
@@ -16,7 +23,8 @@ namespace Backend.Converters.EntityBusiness
             {
                 Id = Source.Id,
                 OrderId = Source.OrderId,
-                Quantity = Source.Quantity
+                Quantity = Source.Quantity,
+                Product = ProductConverter.Convert(Source.Product)
             };
         }
 
@@ -30,7 +38,9 @@ namespace Backend.Converters.EntityBusiness
                 {
                     Id = o.Id,
                     OrderId = o.OrderId,
-                    Quantity = o.Quantity
+                    Quantity = o.Quantity,
+                    Product = ProductConverter.Convert(o.Product)
+
                 });
             }
             return orderPairs;

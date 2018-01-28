@@ -72,7 +72,7 @@ public final class HistoryActivity extends BaseActivity implements HistoryContra
     @Override
     public void initializeRecyclerView(final List<Order> orderHistory) {
         changeVisibility();
-        historyAdapter = new HistoryAdapter(orderHistory, this, establishmentName);
+        historyAdapter = new HistoryAdapter(orderHistory, this, establishmentName, presenter);
         recyclerView.setAdapter(historyAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -82,7 +82,11 @@ public final class HistoryActivity extends BaseActivity implements HistoryContra
         changeVisibility();
         initializeRecyclerView(Collections.emptyList());
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
 
+    @Override
+    public void showMessage(final String orderSuccess) {
+        Toast.makeText(this, orderSuccess, Toast.LENGTH_SHORT).show();
     }
 
     private void changeVisibility() {

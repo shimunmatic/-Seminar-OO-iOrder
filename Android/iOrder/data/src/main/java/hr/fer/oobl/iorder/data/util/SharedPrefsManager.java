@@ -5,12 +5,12 @@ import android.content.SharedPreferences;
 
 import java.io.Serializable;
 
-public final class UserManager {
+public final class SharedPrefsManager {
 
     private final SharedPreferences sharedPreferences;
     private static final String USER_INFO = "user_info";
 
-    public UserManager(final Context context) {
+    public SharedPrefsManager(final Context context) {
         sharedPreferences = context.getSharedPreferences(USER_INFO, Context.MODE_PRIVATE);
     }
 

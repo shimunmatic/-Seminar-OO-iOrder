@@ -31,9 +31,8 @@ public final class RouterImpl implements Router {
     }
 
     @Override
-    public void showMainScreen(String displayValue) {
+    public void showMainScreen() {
         Intent intent = new Intent(activity, MainActivity.class);
-        intent.putExtra("code", displayValue);
         activity.startActivity(intent);
     }
 

@@ -2,9 +2,10 @@ package hr.fer.oobl.iorder.iorder.ui.signup;
 
 import javax.inject.Inject;
 
-import hr.fer.oobl.iorder.data.network.model.ApiUser;
-import hr.fer.oobl.iorder.data.util.UserManager;
+import hr.fer.oobl.iorder.data.util.SharedPrefsManager;
+import hr.fer.oobl.iorder.domain.interactor.login.GetLoginTokenUseCase;
 import hr.fer.oobl.iorder.domain.interactor.signup.SignUpRequestUseCase;
+import hr.fer.oobl.iorder.domain.model.UserCredentials;
 import hr.fer.oobl.iorder.domain.model.UserRegistration;
 import hr.fer.oobl.iorder.iorder.base.BasePresenter;
 import hr.fer.oobl.iorder.iorder.ui.router.Router;
@@ -16,7 +17,10 @@ public final class SignupPresenter extends BasePresenter<SignupContract.View> im
     Router router;
 
     @Inject
-    UserManager userManager;
+    SharedPrefsManager sharedPrefsManager;
+
+    @Inject
+    GetLoginTokenUseCase getLoginTokenUseCase;
 
     @Inject
     SignUpRequestUseCase signUpRequestUseCase;
@@ -72,20 +76,30 @@ public final class SignupPresenter extends BasePresenter<SignupContract.View> im
             if (inputValid) {
                 final UserRegistration userRegistration = new UserRegistration(username, name, surname, email, password);
                 addSubscription(signUpRequestUseCase.execute(userRegistration).subscribeOn(backgroundScheduler)
-                        .observeOn(mainThreadScheduler)
-                        .subscribe(this::onUserSuccessfullyRegistered,
-                                this::onUserFailedToLogin));
+                                                    .observeOn(mainThreadScheduler)
+                                                    .subscribe(aVoid -> onUserSuccessfullyRegistered(username, password),
+                                                               this::onUserFailedToRegister));
             } else {
                 view.showErrorMessage("Invalid input");
             }
         });
     }
 
-    private void onUserFailedToLogin(final Throwable throwable) {
+    private void onUserFailedToRegister(final Throwable throwable) {
         doIfViewNotNull(view -> view.showErrorMessage(throwable.getMessage()));
     }
 
-    private void onUserSuccessfullyRegistered(final Void none) {
+    private void onUserSuccessfullyRegistered(final String username, final String password) {
+        sharedPrefsManager.set("username", username);
+        sharedPrefsManager.set("password", password);
+        addSubscription(getLoginTokenUseCase.execute(new UserCredentials(username, password))
+                                            .subscribeOn(backgroundScheduler)
+                                            .observeOn(mainThreadScheduler)
+                                            .subscribe(this::onUserSuccessfullyLoggedIn, this::onUserFailedToRegister));
+    }
+
+    private void onUserSuccessfullyLoggedIn(final String token) {
+        sharedPrefsManager.set("token", token);
         doIfViewNotNull(SignupContract.View::navigateToContentScreen);
     }
 }

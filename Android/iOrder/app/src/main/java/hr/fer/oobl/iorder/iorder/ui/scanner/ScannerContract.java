@@ -7,9 +7,11 @@ public interface ScannerContract {
 
     interface View extends BaseView {
 
+        void showError(String qrCodeError);
     }
 
     interface Presenter extends ScopedPresenter {
 
+        void saveBarcode(String displayValue);
     }
 }

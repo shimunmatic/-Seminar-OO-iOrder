@@ -24,8 +24,7 @@ import hr.fer.oobl.iorder.iorder.ui.main.model.CartAdapter;
 
 public class HistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    @Inject
-    HistoryContract.Presenter presenter;
+    private HistoryContract.Presenter presenter;
 
     private static final int ITEMS = 1;
     private static final int EMPTY_STATE = 0;
@@ -34,10 +33,12 @@ public class HistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private Context context;
     private String establishmentName;
 
-    public HistoryAdapter(final List<Order> orderHistory, final Context context, String establishmentName) {
+    public HistoryAdapter(final List<Order> orderHistory, final Context context, String establishmentName, HistoryContract.Presenter
+            presenter) {
         this.orderHistory = orderHistory;
         this.context = context;
         this.establishmentName = establishmentName;
+        this.presenter = presenter;
     }
 
     @Override
@@ -116,10 +117,6 @@ public class HistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private void showDetails(final Order order) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context, AlertDialog.THEME_HOLO_LIGHT);
         final List<Product> products = order.getProducts();
-
-        for(final Product product : products) {
-            Log.d("product " + product.getId(), product.toString());
-        }
         View dialogView;
 
         if (products == null || products.isEmpty()) {
@@ -151,7 +148,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
             AlertDialog alertDialog = dialogBuilder.create();
             orderButton.setOnClickListener(view -> {
-                //TODO: send order again
+                presenter.orderAgain(order.getProducts());
                 alertDialog.cancel();
             });
             alertDialog.show();

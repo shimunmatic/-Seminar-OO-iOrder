@@ -7,7 +7,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-import hr.fer.oobl.iorder.data.util.UserManager;
+import hr.fer.oobl.iorder.data.util.SharedPrefsManager;
 import hr.fer.oobl.iorder.domain.interactor.category.GetCategoriesWithProductsUseCase;
 import hr.fer.oobl.iorder.domain.interactor.order.ProcessOrderUseCase;
 import hr.fer.oobl.iorder.domain.model.Category;
@@ -19,6 +19,9 @@ import hr.fer.oobl.iorder.iorder.ui.router.Router;
 
 public final class MainPresenter extends BasePresenter<MainContract.View> implements MainContract.Presenter {
 
+    private static final String ESTABLISHMENT_ERROR = "Establishment identification number invalid. Try to scan QR code again...";
+    private static final String USERNAME_ERROR = "Username is not set correctly. Try to log in again...";
+
     @Inject
     Router router;
 
@@ -29,7 +32,7 @@ public final class MainPresenter extends BasePresenter<MainContract.View> implem
     GetCategoriesWithProductsUseCase getCategoriesWithProductsUseCase;
 
     @Inject
-    UserManager userManager;
+    SharedPrefsManager sharedPrefsManager;
 
     private Establishment currentEstablishment;
     private List<Product> cartProducts;
@@ -84,14 +87,25 @@ public final class MainPresenter extends BasePresenter<MainContract.View> implem
     }
 
     @Override
-    public void sendOrder(long establishmentId, long locationId) {
-        final String username = userManager.get("username", "");
-        if (!username.isEmpty()) {
-            addSubscription(orderUseCase.execute(new OrderRequest(cartProducts, username, locationId, establishmentId))
-                    .subscribeOn(backgroundScheduler)
-                    .observeOn(mainThreadScheduler)
-                    .subscribe(this::onOrderSuccessfullyProcessed,
-                            this::onOrderFailed));
+    public void sendOrder() {
+        final String username = sharedPrefsManager.get("username", "");
+        try {
+            final long establishmentId = Long.parseLong(sharedPrefsManager.get("establishmentId", ""));
+            final long locationId = Long.parseLong(sharedPrefsManager.get("locationId", ""));
+            if (establishmentId == 0L || locationId == 0L) {
+                doIfViewNotNull(view -> view.showError(ESTABLISHMENT_ERROR));
+            }
+            if (!username.isEmpty()) {
+                addSubscription(orderUseCase.execute(new OrderRequest(cartProducts, username, locationId, establishmentId))
+                                            .subscribeOn(backgroundScheduler)
+                                            .observeOn(mainThreadScheduler)
+                                            .subscribe(this::onOrderSuccessfullyProcessed,
+                                                       this::onOrderFailed));
+            } else {
+                doIfViewNotNull(view -> view.showError(USERNAME_ERROR));
+            }
+        } catch (final NumberFormatException ne) {
+            doIfViewNotNull(view -> view.showError(ESTABLISHMENT_ERROR));
         }
     }
 
@@ -100,15 +114,26 @@ public final class MainPresenter extends BasePresenter<MainContract.View> implem
     }
 
     private void onOrderSuccessfullyProcessed(final Void aVoid) {
+        doIfViewNotNull(view -> view.updateCartView(0));
+        cartProducts.clear();
         doIfViewNotNull(MainContract.View::showOrderSuccess);
     }
 
     @Override
-    public void fetchCategories(long establishmentId) {
-        addSubscription(getCategoriesWithProductsUseCase.execute(establishmentId)
-                .subscribeOn(backgroundScheduler)
-                .observeOn(mainThreadScheduler)
-                .subscribe(this::onCategoriesFetchedSuccessfully, this::onCategoriesFetchedError));
+    public void fetchCategories() {
+        try {
+            final long establishmentId = Long.parseLong(sharedPrefsManager.get("establishmentId", ""));
+            if (establishmentId == 0L) {
+                doIfViewNotNull(view -> view.showError(ESTABLISHMENT_ERROR));
+            }
+
+            addSubscription(getCategoriesWithProductsUseCase.execute(establishmentId)
+                                                            .subscribeOn(backgroundScheduler)
+                                                            .observeOn(mainThreadScheduler)
+                                                            .subscribe(this::onCategoriesFetchedSuccessfully, this::onCategoriesFetchedError));
+        } catch (final NumberFormatException ne) {
+            doIfViewNotNull(view -> view.showError(ESTABLISHMENT_ERROR));
+        }
     }
 
     @Override
@@ -126,7 +151,6 @@ public final class MainPresenter extends BasePresenter<MainContract.View> implem
         return currentEstablishment.getName();
     }
 
-
     private void onCategoriesFetchedError(final Throwable throwable) {
         doIfViewNotNull(view -> view.showError(throwable.getMessage()));
     }
@@ -141,7 +165,6 @@ public final class MainPresenter extends BasePresenter<MainContract.View> implem
         }
         doIfViewNotNull(MainContract.View::fillViewState);
     }
-
 
     private int getCurrentQuantity() {
         int currentQuantity = 0;
