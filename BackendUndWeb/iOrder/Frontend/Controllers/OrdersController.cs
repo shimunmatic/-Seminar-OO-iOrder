@@ -11,6 +11,7 @@ using Backend.Services.Interface;
 using Backend.Models.Business;
 using Backend.Notifications.Observer;
 using Microsoft.Extensions.Caching.Memory;
+using Frontend.Observer;
 
 namespace Frontend.Controllers
 {
@@ -22,15 +23,18 @@ namespace Frontend.Controllers
         private IEstablishmentService establishmentService;
         private IUserService userService;
         private IMemoryCache cache;
+        private ObserverAbstract observer;
+        private OrdersHub hub;
 
-        public OrdersController(IMemoryCache cache, IOrderService orderService, IUserService userService, ILocationService locationService,IEstablishmentService establishmentService)
+        public OrdersController(OrdersHub hub, IMemoryCache cache, IObservable notificationsObservable, IOrderService orderService, IUserService userService, ILocationService locationService,IEstablishmentService establishmentService)
         {
             this.orderService = orderService;
             this.establishmentService = establishmentService;
             this.locationService = locationService;
             this.userService = userService;
             this.cache = cache;
-
+            this.hub = hub;
+            observer = new OrdersObserver(notificationsObservable, hub);
         }
 
         public IActionResult Index()
@@ -42,12 +46,26 @@ namespace Frontend.Controllers
                 // Cache current establishment.
                 var establishment = establishmentService.GetById(user.EstablishmentId);
                 // Fetch current unpaid orders.
-                var orders = orderService.GetUnpaidOrdersForEstablishmentId(establishment.Id).OrderByDescending(o => o.Date).ToList();
+                List<OrderModel> orders = orderService.GetUnpaidOrdersForEstablishmentId(establishment.Id)
+                    .OrderByDescending(o => o.Date)
+                    .Select(order => new OrderModel
+                    {
+                        Id = order.Id,
+                        Date = order.Date,
+                        Paid = order.Paid,
+                        Price = order.Price,
+                        OrderedProducts = order.OrderedProducts,
+                        Customer = order.CustomerId,
+                        Employee = HttpContext.Session.Get().Username,
+                        Location = establishment.Locations.First(l => l.Id == order.LocationId),
+                        Establishment = establishment
+                    })
+                    .ToList();
+
                 // Cache orders and establishment
                 cache.Set("orders",orders);
                 cache.Set("establishment", establishment);
-
-                return View(orders);
+                return View();
             }
             else
             {
@@ -97,20 +115,7 @@ namespace Frontend.Controllers
             var establishment = cache.Get<Establishment>("establishment");
             var order = GetOrderFromCache(id);
 
-            // Build corresponding order model for view.
-            var orderModel = new OrderModel
-            {
-                Id = order.Id,
-                Date = order.Date,
-                Paid = order.Paid,
-                Price = order.Price,
-                OrderedProducts = order.OrderedProducts,
-                Customer = order.CustomerId,
-                Employee = HttpContext.Session.Get().Username,
-                Location = establishment.Locations.First(l => l.Id == order.LocationId),
-                Establishment = establishment
-            };
-            return PartialView("OrderDetailsPartial", orderModel);
+            return PartialView("OrderDetailsPartial", order);
         }
 
         private Boolean CheckAuth()
@@ -122,36 +127,39 @@ namespace Frontend.Controllers
         public IActionResult Pay(long id)
         {
             var order = GetOrderFromCache(id);
-            orderService.SetPaid(id);
+            //orderService.SetPaid(id);
             RemoveOrderFromCache(id);
-
-            ViewBag.PaidSuccessfully = "Order was processed";
-            return StatusCode(200);
-        }
-
-        public IActionResult Bill(long id)
-        {
-            var order = GetOrderFromCache(id);
+            hub.Send("PAID", order.Location.Name);
             return StatusCode(200);
         }
 
         public IActionResult QRGenerator()
         {
-            return View();
+            var establishment = cache.Get<Establishment>("establishment");
+            var locations = establishment.Locations;
+            return View(locations);
         }
 
-        private Order GetOrderFromCache(long id)
+        private OrderModel GetOrderFromCache(long id)
         {
-            var orders = cache.Get<List<Order>>("orders");
+            var orders = cache.Get<List<OrderModel>>("orders");
             var order = orders.Find(o => o.Id == id);
             return order;
         }
 
         private void RemoveOrderFromCache(long id)
         {
-            var orders = cache.Get<List<Order>>("orders");
-            orders.RemoveAll(o => o.Id != id);
+            var orders = cache.Get<List<OrderModel>>("orders");
+            orders.RemoveAll(o => o.Id == id);
             cache.Set("orders", orders);
         }
+
+        [HttpGet]
+        public JsonResult Orders()
+        {
+            var orders = cache.Get<List<OrderModel>>("orders");
+            return Json(orders);
+        }
+
     }
 }

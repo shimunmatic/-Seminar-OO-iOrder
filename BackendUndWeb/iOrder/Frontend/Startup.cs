@@ -13,6 +13,7 @@ using Backend.Repositories.Implementation;
 using Backend.Repositories.Interface;
 using Backend.Services.Implementation;
 using Backend.Services.Interface;
+using Frontend.Observer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -96,11 +97,14 @@ namespace Frontend
 
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
+            // SignalR support
+            services.AddSignalR();
+            services.AddSingleton<OrdersHub>();
+
             services.AddMvc().AddSessionStateTempDataProvider();
 
-            // Adds a default in-memory implementation of IDistributedCache.
+            // session support
             services.AddDistributedMemoryCache();
-
             services.AddSession();
         }
 
@@ -116,6 +120,12 @@ namespace Frontend
             {
                 app.UseExceptionHandler("/Orders/Error");
             }
+
+            // SignalR hub route
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<OrdersHub>("ordershub");
+            });
 
             app.UseStaticFiles();
             app.UseSession();
