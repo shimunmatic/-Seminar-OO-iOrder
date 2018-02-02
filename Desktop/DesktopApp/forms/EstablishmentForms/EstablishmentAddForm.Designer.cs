@@ -46,7 +46,7 @@
 			// Warehouse
 			// 
 			Warehouse.AutoSize = true;
-			Warehouse.Location = new System.Drawing.Point(46, 61);
+			Warehouse.Location = new System.Drawing.Point(39, 61);
 			Warehouse.Name = "Warehouse";
 			Warehouse.Size = new System.Drawing.Size(62, 13);
 			Warehouse.TabIndex = 20;
@@ -84,7 +84,7 @@
 			// label2
 			// 
 			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(46, 141);
+			this.label2.Location = new System.Drawing.Point(39, 141);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(24, 13);
 			this.label2.TabIndex = 26;
@@ -113,7 +113,7 @@
 			// category
 			// 
 			this.category.AutoSize = true;
-			this.category.Location = new System.Drawing.Point(46, 88);
+			this.category.Location = new System.Drawing.Point(39, 88);
 			this.category.Name = "category";
 			this.category.Size = new System.Drawing.Size(45, 13);
 			this.category.TabIndex = 23;
@@ -122,7 +122,7 @@
 			// label1
 			// 
 			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(46, 115);
+			this.label1.Location = new System.Drawing.Point(39, 115);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(22, 13);
 			this.label1.TabIndex = 22;
@@ -138,7 +138,7 @@
 			// Name
 			// 
 			this.Name.AutoSize = true;
-			this.Name.Location = new System.Drawing.Point(46, 35);
+			this.Name.Location = new System.Drawing.Point(39, 35);
 			this.Name.Name = "Name";
 			this.Name.Size = new System.Drawing.Size(35, 13);
 			this.Name.TabIndex = 19;
@@ -181,5 +181,5 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label Name;
-    }
+	}
 }
