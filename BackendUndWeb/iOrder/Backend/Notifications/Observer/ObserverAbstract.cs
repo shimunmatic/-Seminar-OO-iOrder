@@ -11,8 +11,8 @@ namespace Backend.Notifications.Observer
         private IObservable Observable;
         public ObserverAbstract(IObservable observable) => Observable = observable;
 
-        protected void Register(long establishmentId) => Observable.Register(this, establishmentId);
-        protected void Unregister(long establishmentId) => Observable.Unregister(this, establishmentId);
+        public void Register(long establishmentId) => Observable.Register(this, establishmentId);
+        public void Unregister(long establishmentId) => Observable.Unregister(this, establishmentId);
         public abstract void Notify(long establishmentId);
     }
 }

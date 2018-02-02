@@ -66,9 +66,9 @@ namespace Backend.Services.Implementation
             return ProductRepository.GetProductsForWarehouse(id);
         }
 
-        public void ReduceProductQuantityFromWarehouse(long productId, long warehouseId, int quantity)
+        public int ReduceProductQuantityFromWarehouse(long productId, long warehouseId, int quantity)
         {
-            WarehouseRepository.ReduceProductQuantityFromWarehouse(productId, warehouseId, quantity);
+            return WarehouseRepository.ReduceProductQuantityFromWarehouse(productId, warehouseId, quantity);
         }
 
         public void Save(Product product)

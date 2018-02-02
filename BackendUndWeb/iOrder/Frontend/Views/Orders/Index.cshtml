@@ -1,38 +1,135 @@
-﻿@model IEnumerable<Backend.Models.Business.Order>
-
-@{
+﻿@{
     ViewData["Title"] = "Dashboard";
 }
 
+<link rel="stylesheet" href="~/css/OrdersPage.css" />
+<link rel="stylesheet" href="~/lib/toastr/toastr.min.css" />
+
 <div class="container">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-sm-4">
 
-            <div class="list-group" style="overflow-y: scroll;">
-                @foreach (var order in Model)
-                {
-                    <a class="list-group-item orderItem" href="@order.Id">
-                        @Html.DisplayFor(o => order.Date)
-                    </a>
-                }
+            <div id="ordersList" class="list-group">
+                
             </div>
 
         </div>
 
-        <div class="col-md-8">
+        <div class="col-sm-8">
             <div id="orderDetailsContainer"></div>
         </div>
     </div>
 </div>
 
+
+
+
 <script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/toastr/toastr.min.js"></script>
+<script src='@Url.Content("~/lib/signalr/signalr-client-1.0.0-alpha2-final.js")'></script>
 <script type="text/javascript">
 
     $(document).ready(function () {
-        $(".orderItem").click(function (e) {
-            e.preventDefault();
-            var orderId = $(this).attr("href");
-            $("#orderDetailsContainer").load('@Url.Action("Partial","Orders")'+"/"+orderId);
-        });
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": true,
+            "progressBar": false,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear"
+        }
+
+        // Fetch orders for the first time
+        fetchOrders();
+
+        function fetchOrders() {
+            $.get('@Url.Action("Orders", "Orders")', function (orders) {
+                var htmlItems = "";
+                for (var i = 0; i < orders.length; i++) {
+                    var date = new Date(orders[i].date);
+                    htmlItems += '<a class="list-group-item orderItem" href="'
+                        + orders[i].id
+                        + '"><span class="badge">'
+                        + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds()
+                        + ' '
+                        + orders[i].orderedProducts.length
+                        + '</span>'
+                        + orders[i].location.name
+                        + '</a>';
+                }
+                $("#ordersList").html("")
+                if (orders.length > 0) $("#ordersList").html(htmlItems);
+                else $("#ordersList").html('<a class="list-group-item orderItem" href="#">There are no orders.</a>')
+                refreshListeners();
+                if (orders.length > 0) selectFirstOrder();
+            });
+        }
+
+        function refreshListeners() {
+           $(".orderItem").click(function (e) {
+                e.preventDefault();
+                var orderId = $(this).attr("href");
+                $("#orderDetailsContainer").load('@Url.Action("Partial", "Orders")'+"/"+orderId);
+            });
+        }
+
+        function selectFirstOrder() {
+            var first = $(".orderItem").first()
+            
+            first.click();
+            first.css('active');
+        }
+
+        function HightlightFirst() {
+            var first = $(".orderItem").first();
+            first.css('background-color', 'red');
+            setTimeout(() => { 
+                first.css('background-color', 'white');
+            },5000);
+        }
+
+        function startConnection(url, configureConnection) {
+            return function start(transport) {
+                var connection = new signalR.HubConnection(url, { transport: transport });
+                if (configureConnection && typeof configureConnection === 'function') {
+                    configureConnection(connection);
+                }
+                return connection.start()
+                    .then(function () {
+                        return connection;
+                    })
+                    .catch(function (error) {
+                        if (transport !== signalR.TransportType.LongPolling) {
+                            return start(transport + 1);
+                        }
+                        return Promise.reject(error);
+                    });
+            }(signalR.TransportType.WebSockets);
+        }
+
+        startConnection('/ordershub', function (connection) {
+            connection.on('message', function (type, message) {
+                if (type == "ADDED") {
+                    toastr.success("Order","New order.");
+                } else if (type == "PAID") {
+                    toastr.success("Payment",'Order for "' + message + '" processed.')
+                }
+                fetchOrders();
+            });
+            })
+            .then(function (connection) {
+                console.log('Connected to hub');
+            })
+            .catch(error => {
+                console.error(error.message);
+            });
+
     });
 </script> 

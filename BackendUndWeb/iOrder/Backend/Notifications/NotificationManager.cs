@@ -14,10 +14,11 @@ namespace Backend.Notifications
         {
             if (Observers.ContainsKey(establishmentId))
             {
-                foreach (var o in Observers[establishmentId])
-                {
-                    o.Notify(establishmentId);
-                }
+                Observers[establishmentId].First().Notify(establishmentId);
+                //foreach (var o in Observers[establishmentId])
+                //{
+                //    o.Notify(establishmentId);
+                //}
             }
         }
 

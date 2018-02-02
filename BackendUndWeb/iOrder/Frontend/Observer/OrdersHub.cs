@@ -1,6 +1,7 @@
 ﻿using Backend.Models.Business;
 using Backend.Notifications.Observable;
 using Backend.Notifications.Observer;
+using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -9,16 +10,15 @@ using System.Threading.Tasks;
 
 namespace Frontend.Observer
 {
-    public class OrderObserver : ObserverAbstract
+    public class OrdersHub : Hub
     {
-        public OrderObserver(IObservable observable) : base(observable)
+
+        // Sends message to frontent that there was a change with orders.
+        public void Send(string type, string message)
         {
-            
+            Clients.All.InvokeAsync("message", type, message);
+
         }
 
-        public override void Notify(long establishmentId)
-        {
-            Debug.WriteLine("Notifajan sam: " + establishmentId);
-        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Backend.CommunicationServices;
 using Backend.CommunicationServices.Implementation;
@@ -13,12 +14,15 @@ using Backend.Repositories.Implementation;
 using Backend.Repositories.Interface;
 using Backend.Services.Implementation;
 using Backend.Services.Interface;
+using Frontend.Observer;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Frontend
 {
@@ -96,11 +100,39 @@ namespace Frontend
 
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
+            // SignalR support
+            services.AddSignalR();
+            services.AddSingleton<OrdersHub>();
+
+
+            // add auth
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }
+                )
+                .AddJwtBearer(jwtBearerOptions =>
+                {
+                    jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters()
+                    {
+                        ValidateActor = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = "iOrder.fer.hr",
+                        ValidAudience = "iOrder.fer.hr",
+                        IssuerSigningKey =
+                            new SymmetricSecurityKey(Encoding.UTF8.GetBytes("System.ArgumentOutOfRangeException"))
+                    };
+                });
+
+
             services.AddMvc().AddSessionStateTempDataProvider();
 
-            // Adds a default in-memory implementation of IDistributedCache.
+            // session support
             services.AddDistributedMemoryCache();
-
             services.AddSession();
         }
 
@@ -117,8 +149,15 @@ namespace Frontend
                 app.UseExceptionHandler("/Orders/Error");
             }
 
+            // SignalR hub route
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<OrdersHub>("ordershub");
+            });
+
             app.UseStaticFiles();
             app.UseSession();
+            app.UseAuthentication();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
