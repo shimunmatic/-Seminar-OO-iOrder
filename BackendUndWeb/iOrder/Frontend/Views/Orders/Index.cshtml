@@ -106,7 +106,8 @@
 
         startConnection('/ordershub', function (connection) {
             connection.on('message', function (type, message) {
-                if (type === "PAID") {
+                if (type) {
+                    console.log("Recieved: ", message);
                     showNotification(message);
                 }
                 fetchOrders();

@@ -22,7 +22,7 @@ namespace Frontend.Observer
         public override void Notify(long establishmentId)
         {
             Debug.WriteLine("Observer message received");
-            hub.Send("FROM", establishmentId.ToString());
+            hub.Send("REFRESH", establishmentId.ToString());
         }
     }
 }

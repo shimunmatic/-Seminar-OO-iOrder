@@ -46,6 +46,7 @@ namespace Frontend.Controllers
                 // Cache current establishment.
                 var establishment = establishmentService.GetById(user.EstablishmentId);
                 // Fetch current unpaid orders.
+                observer.Register(establishment.Id);
                 List<OrderModel> orders = orderService.GetUnpaidOrdersForEstablishmentId(establishment.Id)
                     .OrderByDescending(o => o.Date)
                     .Select(order => new OrderModel
