@@ -12,7 +12,7 @@ namespace Backend.Repositories.Interface
         IEnumerable<Warehouse> GetWearhousesForOwner(string Username);
         int GetQuantityForProductInWarehouse(long productId, long warehouseId);
         void AddProductToWarehouse(WarehouseProductEntity entity);
-        void ReduceProductQuantityFromWarehouse(long productId, long warehouseId, int quantity);
+        int ReduceProductQuantityFromWarehouse(long productId, long warehouseId, int quantity);
         void AddProductQuantityToWarehouse(long id, long warehouseId, int quantity);
     }
 }
