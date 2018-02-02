@@ -34,7 +34,7 @@ namespace Frontend.Controllers
             this.userService = userService;
             this.cache = cache;
             this.hub = hub;
-            observer = new OrdersObserver(notificationsObservable, hub);
+            observer = new OrdersObserver(notificationsObservable, hub, cache, orderService);
         }
 
         public IActionResult Index()
@@ -43,10 +43,13 @@ namespace Frontend.Controllers
             if (exists)
             {
                 var user = HttpContext.Session.Get();
+
                 // Cache current establishment.
                 var establishment = establishmentService.GetById(user.EstablishmentId);
+
                 // Fetch current unpaid orders.
                 observer.Register(establishment.Id);
+
                 List<OrderModel> orders = orderService.GetUnpaidOrdersForEstablishmentId(establishment.Id)
                     .OrderByDescending(o => o.Date)
                     .Select(order => new OrderModel
@@ -66,6 +69,7 @@ namespace Frontend.Controllers
                 // Cache orders and establishment
                 cache.Set("orders",orders);
                 cache.Set("establishment", establishment);
+                cache.Set("user", user);
                 return View();
             }
             else
@@ -128,7 +132,7 @@ namespace Frontend.Controllers
         public IActionResult Pay(long id)
         {
             var order = GetOrderFromCache(id);
-            //orderService.SetPaid(id);
+            orderService.SetPaid(id);
             RemoveOrderFromCache(id);
             hub.Send("PAID", order.Location.Name);
             return StatusCode(200);

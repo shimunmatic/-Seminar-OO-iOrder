@@ -57,10 +57,11 @@
                     htmlItems += '<a class="list-group-item orderItem" href="'
                         + orders[i].id
                         + '"><span class="badge">'
+                        + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds()
+                        + ' '
                         + orders[i].orderedProducts.length
                         + '</span>'
                         + orders[i].location.name
-                        + ' - ' + date.getHours()+':'+date.getMinutes()+':'+date.getSeconds()
                         + '</a>';
                 }
                 $("#ordersList").html("")
@@ -81,8 +82,17 @@
 
         function selectFirstOrder() {
             var first = $(".orderItem").first()
+            
             first.click();
             first.css('active');
+        }
+
+        function HightlightFirst() {
+            var first = $(".orderItem").first();
+            first.css('background-color', 'red');
+            setTimeout(() => { 
+                first.css('background-color', 'white');
+            },5000);
         }
 
         function startConnection(url, configureConnection) {
@@ -106,9 +116,10 @@
 
         startConnection('/ordershub', function (connection) {
             connection.on('message', function (type, message) {
-                if (type) {
-                    console.log("Recieved: ", message);
-                    showNotification(message);
+                if (type == "ADDED") {
+                    toastr.success("Order","New order.");
+                } else if (type == "PAID") {
+                    toastr.success("Payment",'Order for "' + message + '" processed.')
                 }
                 fetchOrders();
             });
@@ -119,12 +130,6 @@
             .catch(error => {
                 console.error(error.message);
             });
-
-        function showNotification(message) {
-            toastr.success('Payment', 'Order for "' + message + '" processed.');
-        }
-
-
 
     });
 </script> 
