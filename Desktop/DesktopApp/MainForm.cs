@@ -45,7 +45,9 @@ namespace DesktopApp
         {
             var warehouse = await MainController.GetAllItemsAsync<Warehouse>("Warehouse");
             dataGridViewWarehouse.DataSource = warehouse;
-        }
+			this.dataGridViewWarehouse.Columns[0].Visible = false;
+			this.dataGridViewWarehouse.Columns[1].Visible = false;
+		}
         //poziv get metode kad se pritisne na određeni tab
         private async void Tabs_SelectedIndexChanged(object sender, EventArgs e)
 
@@ -54,37 +56,44 @@ namespace DesktopApp
             {
 				var warehouse = await MainController.GetAllItemsAsync<Warehouse>("Warehouse");
 				dataGridViewWarehouse.DataSource = warehouse;
+				this.dataGridViewWarehouse.Columns[0].Visible = false;
+				this.dataGridViewWarehouse.Columns[1].Visible = false;
+				
 
 			}
             else if (Tabs.SelectedTab == Category)
             {
                 var category = await MainController.GetAllItemsAsync<Category>("Category");
                 dataGridViewCategory.DataSource = category;
+				this.dataGridViewCategory.Columns[0].Visible = false;
+				this.dataGridViewCategory.Columns[2].Visible = false;
 
-            }
+			}
             else if (Tabs.SelectedTab == Product)
             {
                 var product = await MainController.GetAllItemsAsync<Product>("Product");
                 dataGridViewProduct.DataSource = product;	
 				fillDataInProductView();
+				this.dataGridViewProduct.Columns[0].Visible = false;
 
-
-            }
+			}
             else if (Tabs.SelectedTab == Establishment)
             {
                 var establishment = await MainController.GetAllItemsAsync<Establishment>("Establishment");
                 dataGridViewEstablishment.DataSource = establishment;
-            }
+				this.dataGridViewEstablishment.Columns[0].Visible = false;
+			}
             else if (Tabs.SelectedTab == Location)
             {
                 var location = await MainController.GetAllItemsAsync<Location>("Location");
                 dataGridViewLocation.DataSource = location;
-
-            }
+				this.dataGridViewLocation.Columns[0].Visible = false;
+			}
 			else if (Tabs.SelectedTab == Employee)
 			{
 				var employee = await MainController.GetAllItemsAsync<User>("User/Employee");
 				dataGridViewEmployee.DataSource = employee;
+				this.dataGridViewEmployee.Columns[1].Visible = false;
 
 			}
 			
@@ -101,6 +110,7 @@ namespace DesktopApp
 
 			var product = await MainController.GetAllItemsAsync<Product>("Product");
 			dataGridViewProduct.DataSource = product;
+			this.dataGridViewProduct.Columns[0].Visible = false;
 		}
 
 		private async void AddCategoryButton_Click(object sender, EventArgs e)
@@ -112,6 +122,8 @@ namespace DesktopApp
 
 			var category = await MainController.GetAllItemsAsync<Category>("Category");
 			dataGridViewCategory.DataSource = category;
+			this.dataGridViewCategory.Columns[0].Visible = false;
+			this.dataGridViewCategory.Columns[2].Visible = false;
 		}
 
 		private async void AddWarehouseButton_Click(object sender, EventArgs e)
@@ -123,6 +135,9 @@ namespace DesktopApp
 
 			var warehouse = await MainController.GetAllItemsAsync<Warehouse>("Warehouse");
 			dataGridViewWarehouse.DataSource = warehouse;
+			this.dataGridViewWarehouse.Columns[0].Visible = false;
+			this.dataGridViewWarehouse.Columns[1].Visible = false;
+
 		}
 		private async void LocationAddbutton_Click(object sender, EventArgs e)
 		{
@@ -133,6 +148,8 @@ namespace DesktopApp
 
 			var location = await MainController.GetAllItemsAsync<Location>("Location");
 			dataGridViewLocation.DataSource = location;
+			this.dataGridViewLocation.Columns[0].Visible = false;
+
 		}
 
 		private async void EstablishmentAddbutton_Click(object sender, EventArgs e)
@@ -144,6 +161,7 @@ namespace DesktopApp
 
 			var establishment = await MainController.GetAllItemsAsync<Establishment>("Establishment");
 			dataGridViewEstablishment.DataSource = establishment;
+			this.dataGridViewEstablishment.Columns[0].Visible = false;
 		}
 		private async void AddEmployeeButton_Click(object sender, EventArgs e)
 		{
@@ -154,6 +172,7 @@ namespace DesktopApp
 
 			var employee = await MainController.GetAllItemsAsync<User>("User/Employee");
 			dataGridViewEmployee.DataSource = employee;
+			this.dataGridViewEmployee.Columns[1].Visible = false;
 		}
 
 		private async void AddToWerehouseButton_Click(object sender, EventArgs e)
@@ -190,6 +209,7 @@ namespace DesktopApp
 
 			var product = await MainController.GetAllItemsAsync<Product>("Product");
 			dataGridViewProduct.DataSource = product;
+			this.dataGridViewProduct.Columns[0].Visible = false;
 		}
 
       
@@ -201,6 +221,8 @@ namespace DesktopApp
 
 			var category = await MainController.GetAllItemsAsync<Category>("Category");
 			dataGridViewCategory.DataSource = category;
+			this.dataGridViewCategory.Columns[0].Visible = false;
+			this.dataGridViewCategory.Columns[2].Visible = false;
 
 		}
 
@@ -213,6 +235,8 @@ namespace DesktopApp
 
 			var warehouse = await MainController.GetAllItemsAsync<Warehouse>("Warehouse");
 			dataGridViewWarehouse.DataSource = warehouse;
+			this.dataGridViewWarehouse.Columns[0].Visible = false;
+			this.dataGridViewWarehouse.Columns[1].Visible = false;
 		}
 
        
@@ -223,6 +247,7 @@ namespace DesktopApp
 
 			var location = await MainController.GetAllItemsAsync<Location>("Location");
 			dataGridViewLocation.DataSource = location;
+			this.dataGridViewLocation.Columns[0].Visible = false;
 		}
 
 		private async void EstablishmentDeletebutton_Click(object sender, EventArgs e)
@@ -231,6 +256,7 @@ namespace DesktopApp
 
 			var establishment = await MainController.GetAllItemsAsync<Establishment>("Establishment");
 			dataGridViewEstablishment.DataSource = establishment;
+			this.dataGridViewEstablishment.Columns[0].Visible = false;
 		}
 
 
@@ -240,6 +266,7 @@ namespace DesktopApp
 
 			var employee = await MainController.GetAllItemsAsync<User>("User/Employee");
 			dataGridViewEmployee.DataSource = employee;
+			this.dataGridViewEmployee.Columns[1].Visible = false;
 		}
 
 
@@ -282,6 +309,7 @@ namespace DesktopApp
 
 				var products = await MainController.GetAllItemsAsync<Product>("Product");
 				dataGridViewProduct.DataSource = products;
+				this.dataGridViewProduct.Columns[0].Visible = false;
 
 			}
 			else {
@@ -306,6 +334,8 @@ namespace DesktopApp
 				MessageBox.Show("Kategorija je azurirana");
 				var categorys = await MainController.GetAllItemsAsync<Category>("Category");
 				dataGridViewCategory.DataSource = categorys;
+				this.dataGridViewCategory.Columns[0].Visible = false;
+				this.dataGridViewCategory.Columns[2].Visible = false;
 
 			}
 			else
@@ -331,6 +361,7 @@ namespace DesktopApp
 
 				var locations = await MainController.GetAllItemsAsync<Location>("Location");
 				dataGridViewLocation.DataSource = locations;
+				this.dataGridViewLocation.Columns[0].Visible = false;
 
 			}
 		}
@@ -347,6 +378,7 @@ namespace DesktopApp
 			employee.FirstName = textBox12.Text;
 			employee.LastName = textBox13.Text;
 			employee.Email = textBox14.Text;
+			employee.EstablishmentId = Convert.ToInt64(textBox15.Text);
 
 
 			HttpResponseMessage response = await MainController.UpdateItemAsync(employee, employee.Username, "User/Employee");
@@ -355,6 +387,7 @@ namespace DesktopApp
 				MessageBox.Show("Azuriranje uspjelo!");
 				var employees = await MainController.GetAllItemsAsync<User>("User/Employee");
 				dataGridViewEmployee.DataSource = employees;
+				this.dataGridViewEmployee.Columns[1].Visible = false;
 
 			}
 			else
@@ -373,14 +406,14 @@ namespace DesktopApp
 			warehouse.OwnerId = HttpBuilder.getOwner();
 
 
-
-
 			HttpResponseMessage response = await MainController.UpdateItemAsync(warehouse, warehouse.Id.ToString(), "Warehouse");
 			if (response.IsSuccessStatusCode)
 			{
 				MessageBox.Show("Azuriranje uspjelo!");
 				var warehouses = await MainController.GetAllItemsAsync<Warehouse>("Warehouse");
 				dataGridViewWarehouse.DataSource = warehouses;
+				this.dataGridViewWarehouse.Columns[0].Visible = false;
+				this.dataGridViewWarehouse.Columns[1].Visible = false;
 			}
 			else
 			{
@@ -406,7 +439,8 @@ namespace DesktopApp
 			{
 				MessageBox.Show("Azuriranje uspjelo!");
 				var establishments = await MainController.GetAllItemsAsync<Establishment>("Establishment");
-				dataGridViewWarehouse.DataSource = establishment;
+				dataGridViewEstablishment.DataSource = establishment;
+				
 			}
 			else
 			{
@@ -414,12 +448,6 @@ namespace DesktopApp
 			}
 		}
 		//--------END of UPDATE item section
-
-
-
-
-
-
 
 
 		private void dataGridViewProduct_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -436,7 +464,6 @@ namespace DesktopApp
 			}
 
 
-
 			private async void dataGridViewCategory_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
 			{
 				int index = e.RowIndex;
@@ -450,8 +477,10 @@ namespace DesktopApp
 
 				var details = product.Where(p => p.CategoryId == categoryID).ToList();
 				dataGridViewCategoryDetail.DataSource = details;
+				this.dataGridViewCategoryDetail.Columns[0].Visible = false;
+				this.dataGridViewCategoryDetail.Columns[1].Visible = false;
 
-			}
+		}
 
 
 			private void dataGridViewLocation_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -481,11 +510,9 @@ namespace DesktopApp
 				string warehouseID = selectedRow.Cells[0].Value.ToString();
 				var WProduct = await MainController.GetAllItemsAsync<Product>("Product/Storage/" + warehouseID);
 				dataGridViewWarehouseDetail.DataSource = WProduct;
+				this.dataGridViewWarehouseDetail.Columns[0].Visible = false;
 
-			}
-
-
-
+		}
 
 
 			private void dataGridViewEmployee_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -494,12 +521,12 @@ namespace DesktopApp
 				DataGridViewRow selectedRow = dataGridViewEmployee.Rows[index];
 
 				textBox10.Text = selectedRow.Cells[0].Value.ToString();
-				textBox11.Text = selectedRow.Cells[1].Value.ToString();
-				textBox12.Text = selectedRow.Cells[2].Value.ToString();
-				textBox13.Text = selectedRow.Cells[3].Value.ToString();
-				textBox14.Text = selectedRow.Cells[4].Value.ToString();
-			}
-
+				textBox11.Text = selectedRow.Cells[2].Value.ToString();
+				textBox12.Text = selectedRow.Cells[3].Value.ToString();
+				textBox13.Text = selectedRow.Cells[4].Value.ToString();
+				textBox14.Text = selectedRow.Cells[5].Value.ToString();
+				textBox15.Text = selectedRow.Cells[1].Value.ToString();
+		}
 
 
 			private async void fillDataInProductView()
@@ -527,6 +554,5 @@ namespace DesktopApp
 			
 		}
 
-		
 	}
 }
