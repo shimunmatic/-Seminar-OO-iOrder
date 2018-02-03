@@ -5,6 +5,7 @@ using Backend.Services.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Backend.Services.Implementation
@@ -56,20 +57,26 @@ namespace Backend.Services.Implementation
 
         public void Save(Order order)
         {
-            var warehouseId = EstablishmentService.GetById(order.EstablishmentId).WarehouseId;
-
-            foreach (var product in order.OrderedProducts)
+            // to speed up ordering process
+            new Thread(() =>
             {
-                ProductService.ReduceProductQuantityFromWarehouse(product.Product.Id, warehouseId, product.Quantity);
-                var quantity = WarehouseService.GetQuantityForProductInWarehouse(product.Product.Id, warehouseId);
-                if (quantity < DEFAULT_MINIMUM_STORRAGE)
+                var warehouseId = EstablishmentService.GetById(order.EstablishmentId).WarehouseId;
+
+                foreach (var product in order.OrderedProducts)
                 {
-                    var p = ProductService.GetById(product.Product.Id);
-                    SupplierService.NotifySupplier(p.SupplierId, GetMessage(p));
-                    ProductService.AddProductQuantityToWarehouse(p.Id, warehouseId, DEFAULT_BUYING_QUANTITY);
-                    // todo send email to supplier
+                    var quantity = ProductService.ReduceProductQuantityFromWarehouse(product.Product.Id, warehouseId, product.Quantity);
+
+                    if (quantity < DEFAULT_MINIMUM_STORRAGE)
+                    {
+                        var p = ProductService.GetById(product.Product.Id);
+                        SupplierService.NotifySupplier(p.SupplierId, GetMessage(p));
+                        ProductService.AddProductQuantityToWarehouse(p.Id, warehouseId, DEFAULT_BUYING_QUANTITY);
+                        // todo send email to supplier
+                    }
                 }
-            }
+            }).Start();
+
+
             OrderRepository.Save(order);
             NotificationManager.NotifyAll(order.EstablishmentId);
         }

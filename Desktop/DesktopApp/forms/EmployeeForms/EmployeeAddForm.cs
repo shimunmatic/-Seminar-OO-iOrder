@@ -14,9 +14,23 @@ namespace DesktopApp.forms.EmployeeForms
 {
 	public partial class EmployeeAddForm : Form
 	{
+		IEnumerable<Establishment> establishmentList;
+
 		public EmployeeAddForm()
 		{
 			InitializeComponent();
+			addDataToForm();
+		}
+
+		private async void addDataToForm()
+		{
+			establishmentList = await MainController.GetAllItemsAsync<Establishment>("Establishment");
+
+			establishmentList.ToList().ForEach(item =>
+			{
+				comboBox1.Items.Add(item);
+			});
+			
 		}
 
 		private async void confirmButton_Click(object sender, EventArgs e)
@@ -28,7 +42,11 @@ namespace DesktopApp.forms.EmployeeForms
 			employee.FirstName = textBox13.Text;
 			employee.LastName = textBox14.Text;
 			employee.Email = textBox15.Text;
-			
+
+
+			string EstablishmentName = comboBox1.SelectedItem.ToString();
+			long establishmentId = await Establishment.findItem(EstablishmentName);
+			employee.EstablishmentId = establishmentId;
 
 			HttpResponseMessage response = await MainController.CreateItemAsync(employee, "User/Employee");
 			if (response.IsSuccessStatusCode)

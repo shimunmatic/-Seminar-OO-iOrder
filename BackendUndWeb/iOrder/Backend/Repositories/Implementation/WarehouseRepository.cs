@@ -82,7 +82,7 @@ namespace Backend.Repositories.Implementation
             }
         }
 
-        public void ReduceProductQuantityFromWarehouse(long productId, long warehouseId, int quantity)
+        public int ReduceProductQuantityFromWarehouse(long productId, long warehouseId, int quantity)
         {
             using (var db = NHibernateHelper.OpenSession())
             {
@@ -94,7 +94,9 @@ namespace Backend.Repositories.Implementation
                         wp.Quantity -= quantity;
                         db.SaveOrUpdate(wp);
                         transaction.Commit();
+                        return wp.Quantity;
                     }
+                    return 0;
                 }
             }
         }
