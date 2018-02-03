@@ -179,29 +179,52 @@ namespace Backend.Repositories.Implementation
 
         public object Save(Order t)
         {
-            var orderpairs = new List<OrderPair>(t.OrderedProducts);
-            t.OrderedProducts = new List<OrderPair>();
-            var orderId = (long)BaseRepository.Save(ModelEntity.Convert(t));
-            using (var db = NHibernateHelper.OpenSession())
-            {
-                using (var transaction = db.BeginTransaction())
-                {
-                    foreach (var op in orderpairs)
-                    {
-                        op.OrderId = orderId;
-                        db.Save(OrderPairModelEntity.Convert(op));
-                    }
-                    transaction.Commit();
-                    return orderId;
-                }
-            }
+            //var orderpairs = new List<OrderPair>(t.OrderedProducts);
+            //  t.OrderedProducts = new List<OrderPair>();
 
+            var orderentity = ModelEntity.Convert(t);
+            foreach (var item in orderentity.OrderPairs)
+            {
+                item.OrderId = orderentity.Id;
+                item.Order = orderentity;
+            }
+            //using (var db = NHibernateHelper.OpenSession())
+            //{
+            //    using (var ts = db.BeginTransaction())
+            //    {
+            //        db.Save(orderentity);
+            //        ts.Commit();
+            //    }
+            //}
+            var orderId = (long)BaseRepository.Save(orderentity);
+            //using (var db = NHibernateHelper.OpenSession())
+            //{
+            //    using (var transaction = db.BeginTransaction())
+            //    {
+            //        foreach (var op in orderpairs)
+            //        {
+            //            op.OrderId = orderId;
+            //            db.Save(OrderPairModelEntity.Convert(op));
+            //        }
+            //        transaction.Commit();
+            //        return orderId;
+            //    }
+            //}
+            return orderId;
 
         }
 
         public object Update(object Id, Order t)
         {
-            return (long)BaseRepository.Update(Id, ModelEntity.Convert(t));
+            var orderentity = ModelEntity.Convert(t);
+            foreach (var item in orderentity.OrderPairs)
+            {
+                item.OrderId = orderentity.Id;
+                item.Order = orderentity;
+            }
+
+            var orderId = (long)BaseRepository.Update(Id, orderentity);
+            return orderId;
 
         }
 
