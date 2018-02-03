@@ -94,21 +94,6 @@ namespace Frontend.Controllers
 
         }
 
-        public IActionResult Contact()
-        {
-            var exists = CheckAuth();
-            if (!exists)
-            {
-                return RedirectToAction("Index", "Login");
-            }
-            else
-            {
-                ViewData["Message"] = "Your contact page.";
-                return View();
-            }
-
-        }
-
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
@@ -117,9 +102,7 @@ namespace Frontend.Controllers
         public IActionResult Partial(long id)
         {
             // Find requested order
-            var establishment = cache.Get<Establishment>("establishment");
             var order = GetOrderFromCache(id);
-
             return PartialView("OrderDetailsPartial", order);
         }
 
