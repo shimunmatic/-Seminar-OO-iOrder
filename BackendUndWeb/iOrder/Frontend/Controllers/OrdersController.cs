@@ -88,7 +88,6 @@ namespace Frontend.Controllers
             }
             else
             {
-                ViewData["Message"] = "Your application description page.";
                 return View();
             }
 
