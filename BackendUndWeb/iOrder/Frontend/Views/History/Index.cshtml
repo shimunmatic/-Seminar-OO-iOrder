@@ -28,17 +28,40 @@
         </div>
 
         <div class="col-sm-8">
-            <div id="orderDetailsContainer">
-                Select an order
+            <div class="row text-center">
+                    <button type="button" class="btn btn-secondary" id="historyAbbrevButton">Export</button>
+            </div>
+            <div class="row">
+                <div id="orderDetailsContainer">
+                    Select an order
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" id="historyAbbrevModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+            </div>
+            <div class="modal-body forPrintingHistory">
+                <div id="historyAbbrev">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="print" type="button" class="btn btn-primary">Print</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
 </div>
 
-
-
-
-<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/printthis/printThis.js"></script>
 <script type="text/javascript">
 
     $(document).ready(function () {
@@ -64,6 +87,20 @@
             height = $(window).height();
             var newheight = height - 100;
             ordersList.css('max-height', newheight + 'px');
+        });
+
+        $("#historyAbbrevButton").click(function (e) {
+            e.preventDefault();
+            $("#historyAbbrev").load('@Url.Action("HistoryPartial", "History")');
+            $("#historyAbbrevModal").modal('toggle');
+        });
+
+        $("#print").click(function (e) { 
+            e.preventDefault();
+            $('.forPrintingHistory').printThis({
+                header: "History"
+            });
+            $("#forPrintingHistory").modal('toggle');
         });
 
     });
