@@ -89,9 +89,10 @@ namespace Backend.Services.Implementation
 
         }
 
-        public void SetPaid(long id)
+        public void SetPaid(long id, string employeeId)
         {
             var order = OrderRepository.GetById(id);
+            order.EmployeeId = employeeId;
             order.Paid = true;
             Update(id, order);
         }

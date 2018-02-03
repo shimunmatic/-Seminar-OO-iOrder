@@ -26,7 +26,7 @@ namespace Frontend.Controllers
         private ObserverAbstract observer;
         private OrdersHub hub;
 
-        public OrdersController(OrdersHub hub, IMemoryCache cache, IObservable notificationsObservable, IOrderService orderService, IUserService userService, ILocationService locationService,IEstablishmentService establishmentService)
+        public OrdersController(OrdersHub hub, IMemoryCache cache, IObservable notificationsObservable, IOrderService orderService, IUserService userService, ILocationService locationService, IEstablishmentService establishmentService)
         {
             this.orderService = orderService;
             this.establishmentService = establishmentService;
@@ -67,7 +67,7 @@ namespace Frontend.Controllers
                     .ToList();
 
                 // Cache orders and establishment
-                cache.Set("orders",orders);
+                cache.Set("orders", orders);
                 cache.Set("establishment", establishment);
                 cache.Set("user", user);
                 return View();
@@ -114,8 +114,9 @@ namespace Frontend.Controllers
 
         public IActionResult Pay(long id)
         {
+            var user = HttpContext.Session.Get();
             var order = GetOrderFromCache(id);
-            orderService.SetPaid(id);
+            orderService.SetPaid(id, user.Username);
             RemoveOrderFromCache(id);
             hub.Send("PAID", order.Location.Name);
             return StatusCode(200);
