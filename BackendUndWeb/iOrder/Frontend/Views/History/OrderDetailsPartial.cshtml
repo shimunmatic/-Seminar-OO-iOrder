@@ -127,7 +127,7 @@
             <div class="modal-header">
                 <h5 class="modal-title">Bill information</h5>
             </div>
-            <div class="modal-body">
+            <div class="modal-body forPrintingContent">
                 <table class="table table-hover">
                     <thead>
                         <tr>
@@ -181,6 +181,7 @@
     </div>
 </div>
 
+<script src="~/lib/printthis/printThis.js"></script>
 <script type="text/javascript">
 
     $(document).ready(function () {
@@ -193,7 +194,9 @@
 
         $("#printBill").click(function (e) {
             e.preventDefault();
-
+            $('.forPrintingContent').printThis({
+                header: ""
+            });
             $("#billModal").modal('toggle');
         });
     });

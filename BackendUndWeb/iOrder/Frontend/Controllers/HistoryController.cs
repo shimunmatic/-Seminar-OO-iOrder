@@ -70,5 +70,51 @@ namespace Frontend.Views
             var order = orders.Find(o => o.Id == id);
             return PartialView("OrderDetailsPartial", order);
         }
+
+        public IActionResult HistoryPartial()
+        {
+            var orders = cache.Get<List<OrderModel>>("ordershistory");
+
+            var dict = new Dictionary<long, HistoryTripleModel>();
+            orders.ForEach(o => {
+                o.OrderedProducts.ToList().ForEach(p => {
+                    if (dict.ContainsKey(p.Product.Id))
+                    {
+                        // update triple
+                        try
+                        {
+                            HistoryTripleModel temp;
+                            dict.TryGetValue(p.Product.Id, out temp);
+                            temp.count = temp.count + p.Quantity;
+                            temp.totalPrice = temp.totalPrice + temp.price*p.Quantity;
+                            dict[p.Product.Id] = temp;
+                        }
+                        catch (ArgumentNullException)
+                        {
+                            // stupid catch, YAGNI
+                        }
+
+                    }
+                    else
+                    {
+                        var triple = new HistoryTripleModel()
+                        {
+                            name = p.Product.Name,
+                            count = p.Quantity,
+                            price = p.Product.SellingPrice,
+                            totalPrice = p.Product.SellingPrice * p.Quantity
+                        };
+                        dict[p.Product.Id] = triple;
+                    }
+                });
+            });
+
+            var history = new HistoryModel()
+            {
+                triples = dict.Values.ToList(),
+                totalExpense = dict.Values.Select(p => p.totalPrice).Sum()
+            };
+            return PartialView("HistoryPartial", history);
+        }
     }
 }
