@@ -68,7 +68,7 @@ namespace Frontend.Views
             // Find requested order
             var orders = cache.Get<List<OrderModel>>("ordershistory");
             var order = orders.Find(o => o.Id == id);
-            return PartialView("~/Views/Orders/OrderDetailsPartial", order);
+            return PartialView("OrderDetailsPartial", order);
         }
     }
 }

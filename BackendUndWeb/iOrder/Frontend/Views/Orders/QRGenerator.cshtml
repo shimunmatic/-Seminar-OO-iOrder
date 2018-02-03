@@ -43,6 +43,7 @@
             var locationId = $(this).attr("data-id");
             var locationName = $(this).attr("data-name");
             var text = 'establishmentId=' + establishmentId + '&locationId=' + locationId;
+            console.log(text);
             var qr = kjua({
                 text: text,
                 crisp: true,
@@ -50,7 +51,7 @@
                 mode: 'label',
                 label: locationName,
                 fontcolor: '#ea9809',
-                mSize: '20'
+                mSize: '10'
             });
             $(".qrPlaceholder").html(qr);
         });
