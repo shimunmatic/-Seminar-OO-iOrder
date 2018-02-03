@@ -12,7 +12,7 @@ namespace Backend.Services.Interface
         IEnumerable<Order> GetCustomerHistoryForEstablishmentId(string username, long id);
         IEnumerable<Order> GetHistoryEstablishmentId(long id);
         IEnumerable<Order> GetUnpaidOrdersForEstablishmentId(long id);
-        void SetPaid(long id);
+        void SetPaid(long id, string employeeId);
 
     }
 }
