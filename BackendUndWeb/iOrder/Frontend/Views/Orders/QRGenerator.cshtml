@@ -42,7 +42,7 @@
             e.preventDefault();
             var locationId = $(this).attr("data-id");
             var locationName = $(this).attr("data-name");
-            var text = 'establishmentId=' + establishmentId + 'locationId=' + locationId;
+            var text = 'establishmentId=' + establishmentId + '&locationId=' + locationId;
             var qr = kjua({
                 text: text,
                 crisp: true,
