@@ -47,7 +47,7 @@ namespace Frontend.Views
                         OrderedProducts = order.OrderedProducts,
                         Customer = order.CustomerId,
                         // get real employee, not currently logged in
-                        Employee = user.Username,
+                        Employee = order.EmployeeId != null ? userService.GetById(order.EmployeeId).Username : user.Username,
                         Location = establishment.Locations.First(l => l.Id == order.LocationId),
                         Establishment = establishment
                     })
