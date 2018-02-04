@@ -19,7 +19,7 @@ namespace Backend
         private static ISessionFactory _sessionFactory;
 
         private static string ConnectionString =
-                "Server=tcp:shimun.database.windows.net,1433;Initial Catalog=iOrderDB;Persist Security Info=False;User ID=server;Password=Password123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+                "Server=tcp:iorder.database.windows.net,1433;Initial Catalog=iorderDB;Persist Security Info=False;User ID=shimun;Password=Password123;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
             ;
 
         private static ISessionFactory SessionFactory
