@@ -15,21 +15,21 @@
 
             <div id="ordersList" class="list-group">
                 @foreach (var order in Model)
-{
-            <a class="list-group-item orderItem" href="@order.Id">
-                <span class="badge">
-                    @order.Date
-                </span>
-                @order.Location.Name
-            </a>
-}
+                {
+                    <a class="list-group-item orderItem" href="@order.Id">
+                        <span class="badge">
+                            @order.Date
+                        </span>
+                        @order.Location.Name
+                    </a>
+                }
             </div>
 
         </div>
 
         <div class="col-sm-8">
             <div class="row text-center">
-                    <button type="button" class="btn btn-secondary" id="historyAbbrevButton">Export</button>
+                <button type="button" class="btn btn-secondary" id="historyAbbrevButton">Export</button>
             </div>
             <div class="row">
                 <div id="orderDetailsContainer">
@@ -60,7 +60,7 @@
     </div>
 </div>
 
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
 <script src="~/lib/printthis/printThis.js"></script>
 <script type="text/javascript">
 
@@ -95,7 +95,7 @@
             $("#historyAbbrevModal").modal('toggle');
         });
 
-        $("#print").click(function (e) { 
+        $("#print").click(function (e) {
             e.preventDefault();
             $('.forPrintingHistory').printThis({
                 header: "History"
