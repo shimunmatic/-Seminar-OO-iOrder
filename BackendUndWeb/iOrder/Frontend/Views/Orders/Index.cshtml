@@ -74,23 +74,14 @@
            $(".orderItem").click(function (e) {
                 e.preventDefault();
                 var orderId = $(this).attr("href");
-                $("#orderDetailsContainer").load('@Url.Action("Partial", "Orders")'+"/"+orderId);
+                $("#orderDetailsContainer").load('@Url.Action("Partial", "Orders")' + "/" + orderId);
             });
         }
 
         function selectFirstOrder() {
             var first = $(".orderItem").first()
-            HightlightFirst();
             first.click();
             first.css('active');
-        }
-
-        function HightlightFirst() {
-            var first = $(".orderItem").first();
-            first.css('background-color', '#62ef26');
-            setTimeout(() => { 
-                first.css('background-color', 'white');
-            },5000);
         }
 
         function startConnection(url, configureConnection) {
@@ -115,7 +106,11 @@
         startConnection('/ordershub', function (connection) {
             connection.on('message', function (type, message) {
                 if (type == "ADDED") {
-                    toastr.success("Order","New order.");
+                    // show infinite notification
+                    toastr.success("Order", "New order.", {
+                        "timeOut": "0",
+                        "extendedTimeOut": "0"
+                    });
                 } else if (type == "PAID") {
                     toastr.success("Payment",'Order for "' + message + '" processed.')
                 }
