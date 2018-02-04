@@ -19,6 +19,9 @@ namespace Backend.Models.Entity.Mappings
             Map(u => u.FirstName).Column("first_name");
             Map(u => u.LastName).Column("last_name");
             Map(u => u.RoleId).Column("roleID");
+            Map(u => u.OwnerId).Column("owner_id");
+            Map(u => u.EstablishmentId).Column("establishment_id");
+
         }
     }
 }

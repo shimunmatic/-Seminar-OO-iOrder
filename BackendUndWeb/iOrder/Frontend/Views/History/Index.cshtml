@@ -1,0 +1,107 @@
+﻿@model IEnumerable<OrderModel>
+@{
+    ViewData["Title"] = "History";
+}
+
+<style>
+    #ordersList {
+        overflow-y: auto;
+    }
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4">
+
+            <div id="ordersList" class="list-group">
+                @foreach (var order in Model)
+                {
+                    <a class="list-group-item orderItem" href="@order.Id">
+                        <span class="badge">
+                            @order.Date
+                        </span>
+                        @order.Location.Name
+                    </a>
+                }
+            </div>
+
+        </div>
+
+        <div class="col-sm-8">
+            <div class="row text-center">
+                <button type="button" class="btn btn-secondary" id="historyAbbrevButton">Export</button>
+            </div>
+            <div class="row">
+                <div id="orderDetailsContainer">
+                    Select an order
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" id="historyAbbrevModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"></h5>
+            </div>
+            <div class="modal-body forPrintingHistory">
+                <div id="historyAbbrev">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="print" type="button" class="btn btn-primary">Print</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/printthis/printThis.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        // Fetch orders for the first time
+        refreshListeners();
+
+        function refreshListeners() {
+           $(".orderItem").click(function (e) {
+                e.preventDefault();
+                var orderId = $(this).attr("href");
+                $("#orderDetailsContainer").load('@Url.Action("Partial", "History")'+"/"+orderId);
+            });
+        }
+
+        // track width, set to window width
+        var height = $(window).height();
+        var ordersList = $("#ordersList");
+        ordersList.css('max-height', (height - 100) + 'px');
+
+        $(window).resize(function () {
+            if ($(window).height() == height) return;
+            height = $(window).height();
+            var newheight = height - 100;
+            ordersList.css('max-height', newheight + 'px');
+        });
+
+        $("#historyAbbrevButton").click(function (e) {
+            e.preventDefault();
+            $("#historyAbbrev").load('@Url.Action("HistoryPartial", "History")');
+            $("#historyAbbrevModal").modal('toggle');
+        });
+
+        $("#print").click(function (e) {
+            e.preventDefault();
+            $('.forPrintingHistory').printThis({
+                header: "History"
+            });
+            $("#forPrintingHistory").modal('toggle');
+        });
+
+    });
+</script>

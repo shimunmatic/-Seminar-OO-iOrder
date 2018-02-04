@@ -1,0 +1,79 @@
+﻿@model IEnumerable<Backend.Models.Business.Location>
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor httpContext
+
+@{
+    ViewData["Title"] = "QR";
+}
+
+<link rel="stylesheet" href="~/css/QRPage.css" />
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4">
+
+            <div id="locationsList" class="list-group">
+                @foreach (var location in Model)
+                {
+                    <a class="list-group-item locationItem" href="#" data-id="@location.Id" data-name="@location.Name">
+                        @Html.DisplayFor(o => location.Name)
+                        <span class="pull-right">
+                            <span class="btn btn-xs btn-default printingButton">
+                                <span class="glyphicon glyphicon-print" aria-hidden="true"></span>
+                            </span>
+                        </span>
+                    </a>
+                }
+            </div>
+
+        </div>
+
+        <div id="qrPlaceholderWrapper" class="col-sm-8">
+            <div class="qrPlaceholder">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/js/QRPage.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        var establishmentId = @httpContext.HttpContext.Session.Get().EstablishmentId
+
+        $(".locationItem").click(function (e) {
+            e.preventDefault();
+            var locationId = $(this).attr("data-id");
+            var locationName = $(this).attr("data-name");
+            generate(locationId, locationName);
+        });
+
+        function generate(loc, name) {
+            var text = 'establishmentId=' + establishmentId + '&locationId=' + loc;
+            var qr = kjua({
+                text: text,
+                crisp: true,
+                size: 400,
+                mode: 'label',
+                label: name,
+                fontcolor: '#ea9809',
+                mSize: '10'
+            });
+            $(".qrPlaceholder").html(qr);
+        }
+
+        $(".printingButton").click(function (e) {
+            e.preventDefault();
+            var parent = $(this).closest("a");
+            var locationId = $(parent).attr("data-id");
+            var locationName = $(parent).attr("data-name");
+            generate(locationId, locationName);
+            $('.qrPlaceholder').printThis({
+                header: locationName
+            });
+        });
+
+    });
+</script>
+
+

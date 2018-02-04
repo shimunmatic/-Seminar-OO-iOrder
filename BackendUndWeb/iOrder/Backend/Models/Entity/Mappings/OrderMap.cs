@@ -10,15 +10,18 @@ namespace Backend.Models.Entity.Mappings
     {
         public OrderMap()
         {
-            Table("order");
+            Table("[order]");
             Schema("dbo");
-            Id(o => o.Id).Column("id").GeneratedBy.Increment();
+            Id(o => o.Id).Column("id").GeneratedBy.Native();
             Map(o => o.Date).Column("date");
             Map(o => o.Paid).Column("paid");
             Map(o => o.EstablishmentId).Column("establishment_id");
             Map(o => o.CustomerId).Column("customer_id");
             Map(o => o.EmployeeId).Column("employee_id");
             Map(o => o.LocationId).Column("location_id");
+            HasMany(x => x.OrderPairs).Not.LazyLoad()
+             .Inverse()
+            .Cascade.SaveUpdate();
         }
     }
 }

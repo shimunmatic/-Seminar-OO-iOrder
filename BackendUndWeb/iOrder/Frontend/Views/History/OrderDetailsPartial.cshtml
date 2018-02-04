@@ -1,0 +1,202 @@
+﻿@model Frontend.Models.OrderModel
+
+<link rel="stylesheet" href='@Url.Content("~/css/OrderPartial.css")' />
+
+<div>
+    <div class="page-header">
+        <h1>Customer: '@Model.Customer' <small> Location: @Model.Location.Name</small></h1>
+    </div>
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="pull-right">
+                <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#billModal">Bill</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="card">
+                <h5 class="card-header">
+                    <a class="d-block" data-toggle="collapse" href="#details-collapse" aria-expanded="false" aria-controls="details-collapse" id="details-collapsed">
+                        <i class="fa fa-chevron-down pull-right"></i>
+                        Details
+                    </a>
+                </h5>
+                <div id="details-collapse" class="collapse" aria-labelledby="details-collapsed">
+                    <div class="card-body">
+                        <dl class="dl-horizontal">
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Customer)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.Customer)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Date)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.Date)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Employee)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.Employee)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Paid)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.Paid)
+                            </dd>
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Price)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.Price) kn
+                            </dd>
+                            <dt>
+                                Location
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.Location.Name)
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="card">
+                <h5 class="card-header">
+                    <a class="d-block collapsed" data-toggle="collapse" href="#products-collapsed" aria-expanded="true" aria-controls="products-collapsed" id="heading-collapsed">
+                        <i class="fa fa-chevron-down pull-right"></i>
+                        Products
+                    </a>
+                </h5>
+                <div id="products-collapsed" class="collapse in" aria-labelledby="heading-collapsed">
+                    <div class="card-body">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var pair in Model.OrderedProducts)
+                                {
+                                    <tr>
+                                        <td>@pair.Product.Name</td>
+                                        <td>@pair.Quantity</td>
+                                        <td>@pair.Price</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" id="payModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirmation</h5>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure order from <b>@Model.Customer</b> at <b>@Model.Location.Name</b> set as Paid?</p>
+            </div>
+            <div class="modal-footer">
+                <button id="setAsPaid" type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" id="billModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Bill information</h5>
+            </div>
+            <div class="modal-body forPrintingContent">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var pair in Model.OrderedProducts)
+            {
+                <tr>
+                    <td>@pair.Product.Name</td>
+                    <td>@pair.Quantity</td>
+                    <td>@pair.Price</td>
+                </tr>
+}
+                    </tbody>
+                </table>
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Customer)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Customer)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Date)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Date)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Employee)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Employee)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Price)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Price) kn
+                    </dd>
+                </dl>
+            </div>
+            <div class="modal-footer">
+                <button id="printBill" type="button" class="btn btn-primary">Print</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#setAsPaid").click(function (e) {
+            e.preventDefault();
+            $.get('@Url.Action("Pay","Orders")' + "/" + '@Model.Id');
+            $("#payModal").modal('toggle');
+        });
+
+        $("#printBill").click(function (e) {
+            e.preventDefault();
+            $('.forPrintingContent').printThis({
+                header: ""
+            });
+            $("#billModal").modal('toggle');
+        });
+    });
+</script> 

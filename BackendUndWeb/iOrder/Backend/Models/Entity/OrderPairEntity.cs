@@ -9,7 +9,9 @@ namespace Backend.Models.Entity
     {
         public virtual long Id { get; set; }
         public virtual long OrderId { get; set; }
+        public virtual OrderEntity Order { get; set; }
         public virtual int Quantity { get; set; }
         public virtual long ProductId { get; set; }
+        public virtual ProductEntity Product { get; set; }
     }
 }

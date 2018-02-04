@@ -7,8 +7,8 @@ using Backend.Models.Entity;
 
 namespace Backend.Repositories.Interface
 {
-    public interface IRoleRepository
+    public interface IRoleRepository : IBaseRepository<Role>
     {
-        IEnumerable<Role> GetAll();
+        Role GetByName(string name);
     }
 }

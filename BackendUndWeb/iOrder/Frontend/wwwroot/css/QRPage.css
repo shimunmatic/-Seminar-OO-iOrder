@@ -1,0 +1,13 @@
+﻿#locationsList {
+    overflow-y: auto;
+}
+
+#qrPlaceholderWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.qrPlaceholder{
+    max-width: 50%;
+}

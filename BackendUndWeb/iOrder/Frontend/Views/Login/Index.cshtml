@@ -1,0 +1,61 @@
+﻿@model Frontend.Models.LoginModel
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = null;
+}
+
+<html>
+<head>
+    <link href="@Url.Content("~/lib/bootstrap/dist/css/bootstrap.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/css/LoginPage.css")" rel="stylesheet" />
+</head>
+<body>
+
+    <script src="@Url.Content("~/lib/jquery/dist/jquery.js")"></script>
+    <script src="@Url.Content("~/lib/bootstrap/dist/js/bootstrap.js")"></script>
+
+
+
+        <div class="Aligner">
+
+            <div class="Aligner-item">
+                @using (Html.BeginForm("Login", "Login", FormMethod.Post, new { @class = "form-horizontal" }))
+    {
+            @Html.ValidationSummary(true)
+
+                <div>
+                    <h2>iOrder login</h2>
+                </div>
+
+            <div class="form-group">
+                <div>
+                    @Html.TextBoxFor(m => m.Username, new { @class = "form-control", placeholder = "Username", tabindex = 1 })
+                    <span class="text-danger">@Html.ValidationMessageFor(m => m.Username)</span> 
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div>
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Password", tabindex = 0 })
+                    <span class="text-danger">@Html.ValidationMessageFor(m => m.Password)</span>
+                </div>
+            </div>
+
+            <div>
+                <span class="text-danger">@ViewBag.NoUser</span>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-primary btn-lg">Log in</button>
+                </div>
+            </div>
+}
+            </div>
+
+        </div>
+
+
+</body>
+</html>

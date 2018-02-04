@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Backend.Converters.EntityBusiness.Interface;
+using Backend.Converters;
 using Backend.Models.Business;
 using Backend.Models.Entity;
 using Backend.Repositories.Interface;
@@ -12,26 +12,56 @@ namespace Backend.Repositories.Implementation
 {
     public class RoleRepository : IRoleRepository
     {
-        private readonly IRoleConverter RoleConverter;
+        private IConverter<RoleEntity, Role> EntityModelConverter;
+        private IConverter<Role, RoleEntity> ModelEntityConverter;
+        private BaseRepository<RoleEntity> BaseRepository;
 
-        public RoleRepository(IRoleConverter converter)
+        public RoleRepository(IConverter<RoleEntity, Role> entityModelConverter, IConverter<Role, RoleEntity> modelEntityConverter)
         {
-            RoleConverter = converter;
+            EntityModelConverter = entityModelConverter;
+            ModelEntityConverter = modelEntityConverter;
+            BaseRepository = new BaseRepository<RoleEntity>();
         }
+
+        public bool Delete(Role role)
+        {
+            return BaseRepository.Delete(ModelEntityConverter.Convert(role));
+        }
+
         public IEnumerable<Role> GetAll()
+        {
+            var roles = EntityModelConverter.Convert(BaseRepository.GetAll());
+                return roles;
+            
+        }
+
+        public Role GetById(object Id)
+        {
+            if (null == Id)
+                return null;
+            var roleId = (long)Id;
+            var role = EntityModelConverter.Convert(BaseRepository.GetById(Id));
+
+            return role;
+        }
+
+        public Role GetByName(string name)
         {
             using (var db = NHibernateHelper.OpenSession())
             {
-                var roles = RoleConverter.convert(db.Query<RoleEntity>().ToList());
-                var users = db.Query<UserEntity>().ToList();
-                foreach (var role in roles)
-                {
-                    role.Users = (from user in users
-                        where user.RoleId == role.Id
-                        select user).ToList();
-                }
-                return roles;
+                var role = db.Query<RoleEntity>().Where(r => r.RoleName.Equals(name)).First();
+                return EntityModelConverter.Convert(role);
             }
+        }
+
+        public object Save(Role role)
+        {
+            return (long)BaseRepository.Save(ModelEntityConverter.Convert(role));
+        }
+
+        public object Update(object Id, Role role)
+        {
+            return (long)BaseRepository.Update(Id, ModelEntityConverter.Convert(role));
         }
     }
 }

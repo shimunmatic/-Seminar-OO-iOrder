@@ -1,0 +1,35 @@
+﻿@model Frontend.Models.HistoryModel
+
+<div>
+    <h4>History</h4>
+    <hr />
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Price</th>
+                <th scope="col">Total Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var triple in Model.triples)
+            {
+            <tr>
+                <td>@triple.name</td>
+                <td>@triple.count</td>
+                <td>@triple.price kn</td>
+                <td>@triple.totalPrice kn</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+    <dl class="dl-horizontal">
+        <dt>
+            Total Earnings
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.totalExpense) kn
+        </dd>
+    </dl>
+</div>
